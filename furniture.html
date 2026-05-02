@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Furniture Collection | BuildPro UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --primary-blue: #0047AB; --light-blue: #3B7DD6; --accent-blue: #1E90FF; --dark-blue: #003380;
+  --white: #FFFFFF; --off-white: #F8FAFB; --text-dark: #1A2332; --text-gray: #5A6C7D;
+  --border-gray: #E1E8ED; --brand-brown: #8B4513; --brand-wood: #A0522D;
+}
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; animation: slideDown 0.5s ease-out; }
+@keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; min-height: 44px; display: flex; align-items: center; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary-blue); }
+.auth-area { display: flex; gap: 0.5rem; align-items: center; }
+.btn-signup { background: var(--primary-blue); color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; min-height: 44px; display: flex; align-items: center; }
+.btn-login { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.7rem 1rem; min-height: 44px; display: flex; align-items: center; }
+.btn-logout { background: #D32F2F; color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; min-height: 44px; display: none; }
+.username-display { color: var(--text-gray); font-size: 0.9rem; font-weight: 500; display: none; }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.75rem; color: var(--primary-blue); cursor: pointer; min-width: 44px; min-height: 44px; padding: 0.5rem; }
+
+.mobile-nav-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; }
+.mobile-nav-overlay.active { display: block; }
+.mobile-nav { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--white); z-index: 1000; transition: right 0.3s; overflow-y: auto; box-shadow: -5px 0 20px rgba(0,0,0,0.2); }
+.mobile-nav.active { right: 0; }
+.mobile-nav-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 2px solid var(--border-gray); }
+.mobile-nav-header h3 { color: var(--primary-blue); }
+.close-mobile-nav { background: none; border: none; font-size: 2rem; color: var(--text-gray); cursor: pointer; min-width: 44px; min-height: 44px; }
+.mobile-nav-links { list-style: none; padding: 1rem 1.25rem; }
+.mobile-nav-links li { margin-bottom: 0.5rem; }
+.mobile-nav-links a { display: flex; padding: 1rem 1.25rem; text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 1.1rem; border-radius: 8px; min-height: 50px; align-items: center; gap: 0.75rem; }
+.mobile-nav-links a.active { background: rgba(0,71,171,0.1); color: var(--primary-blue); }
+.mobile-auth-buttons { padding: 1rem 1.25rem; border-top: 2px solid var(--border-gray); display: flex; flex-direction: column; gap: 0.75rem; }
+.mobile-auth-buttons .btn-signup, .mobile-auth-buttons .btn-login { width: 100%; justify-content: center; }
+.mobile-auth-buttons .btn-logout { width: 100%; justify-content: center; border-radius: 6px; }
+
+/* Price login banner */
+.price-login-banner { background: #FFF8E1; border: 2px solid var(--brand-brown); color: var(--text-dark); padding: 1rem 1.5rem; text-align: center; display: none; }
+.price-login-banner.show { display: block; }
+.price-login-banner a { color: var(--brand-brown); font-weight: 700; text-decoration: none; }
+
+.page-hero { background: linear-gradient(135deg, var(--brand-brown) 0%, var(--brand-wood) 50%, var(--primary-blue) 100%); color: var(--white); padding: 5rem 1.25rem 4rem; position: relative; overflow: hidden; }
+.page-hero::before { content: '🛋️'; position: absolute; font-size: 20rem; opacity: 0.05; right: -5rem; bottom: -5rem; animation: float 20s ease-in-out infinite; }
+@keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(5deg); } }
+.page-hero-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; animation: fadeInUp 0.8s ease-out 0.2s backwards; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.page-hero h1 { font-size: 2.25rem; margin-bottom: 1rem; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.page-hero p { font-size: 1.15rem; opacity: 0.95; max-width: 700px; }
+
+.inquiry-banner-box { background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue)); color: white; padding: 2rem 1.5rem; border-radius: 12px; margin: 2rem auto; max-width: 1400px; text-align: center; }
+.inquiry-banner-box h3 { font-size: 1.4rem; margin-bottom: 0.75rem; }
+.inquiry-banner-box p { opacity: 0.95; margin-bottom: 1.25rem; font-size: 0.95rem; }
+.inquiry-btn-link { display: inline-block; background: var(--white); color: var(--primary-blue); padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; }
+
+.page-content { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem; }
+.back-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; color: var(--primary-blue); text-decoration: none; font-weight: 600; min-height: 44px; }
+
+.service-details { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; margin-bottom: 3rem; animation: fadeInUp 0.8s ease-out 0.3s backwards; }
+.service-image { width: 100%; height: 300px; background: linear-gradient(135deg, var(--brand-brown), var(--brand-wood)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 6rem; box-shadow: 0 8px 30px rgba(139,69,19,0.3); }
+.service-info h2 { font-size: 1.75rem; color: var(--primary-blue); margin-bottom: 1rem; }
+.service-info p { font-size: 1rem; color: var(--text-gray); margin-bottom: 1rem; }
+.service-features { list-style: none; margin: 1.5rem 0; }
+.service-features li { padding: 0.65rem 0; padding-left: 2rem; position: relative; font-size: 0.95rem; }
+.service-features li::before { content: '✓'; position: absolute; left: 0; color: var(--brand-brown); font-weight: bold; }
+
+.filter-section { margin-bottom: 2.5rem; }
+.filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-gray); flex-wrap: wrap; gap: 1rem; }
+.filter-header h2 { font-size: 1.5rem; color: var(--primary-blue); }
+.filter-results-count { color: var(--text-gray); font-weight: 500; font-size: 0.95rem; }
+.mobile-filter-btn { display: flex; background: var(--brand-brown); color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 44px; align-items: center; gap: 0.5rem; }
+.filter-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+
+.filter-sidebar { background: var(--off-white); padding: 1.5rem; border-radius: 12px; height: fit-content; position: sticky; top: 80px; }
+.filter-sidebar h3 { font-size: 1.15rem; color: var(--primary-blue); margin-bottom: 1.25rem; padding-bottom: 0.65rem; border-bottom: 2px solid var(--border-gray); }
+.filter-group { margin-bottom: 1.5rem; }
+.filter-group-title { font-weight: 600; color: var(--text-dark); margin-bottom: 0.75rem; font-size: 0.95rem; }
+.filter-options { display: flex; flex-direction: column; gap: 0.65rem; }
+.filter-option { display: flex; align-items: center; gap: 0.65rem; cursor: pointer; padding: 0.5rem; border-radius: 6px; }
+.filter-option input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--brand-brown); cursor: pointer; }
+.filter-option label { cursor: pointer; color: var(--text-gray); flex: 1; font-size: 0.95rem; }
+.filter-option.active label { color: var(--brand-brown); font-weight: 600; }
+.filter-count { background: var(--border-gray); padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem; }
+.clear-filters { width: 100%; background: var(--white); color: var(--brand-brown); border: 2px solid var(--brand-brown); padding: 0.75rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 1rem; min-height: 44px; }
+
+.mobile-filter-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; }
+.mobile-filter-modal.active { display: flex; justify-content: flex-end; }
+.mobile-filter-content { background: var(--white); width: 100%; max-width: 320px; height: 100%; overflow-y: auto; padding: 2rem 1.25rem; }
+.mobile-filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-gray); }
+.mobile-filter-header h3 { font-size: 1.25rem; color: var(--primary-blue); }
+.close-filter { background: none; border: none; font-size: 2rem; color: var(--text-gray); cursor: pointer; min-width: 44px; min-height: 44px; }
+.mobile-filter-footer { position: sticky; bottom: 0; background: var(--white); padding-top: 1rem; border-top: 2px solid var(--border-gray); margin-top: 1.5rem; }
+.apply-filters-btn { width: 100%; background: var(--brand-brown); color: white; border: none; padding: 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 50px; }
+
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.product-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,71,171,0.08); transition: all 0.4s; border: 1px solid var(--border-gray); display: flex; flex-direction: column; }
+.product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(139,69,19,0.25); border-color: var(--brand-wood); }
+.product-card.hidden { display: none; }
+.product-image { width: 100%; height: 200px; background: linear-gradient(135deg, var(--off-white), var(--border-gray)); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+.product-info { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+.product-code { font-family: monospace; background: #e9ecef; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #d63384; display: inline-block; margin-bottom: 0.65rem; width: fit-content; }
+.product-category { color: var(--brand-brown); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
+.product-title { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.65rem; font-weight: 600; line-height: 1.3; }
+.product-description { color: var(--text-gray); font-size: 0.85rem; margin-bottom: 0.75rem; line-height: 1.5; flex-grow: 1; }
+
+/* Price element */
+.price { font-size: 1.25rem; font-weight: 700; color: var(--brand-brown); margin-bottom: 0.75rem; }
+.price.price-hidden { font-size: 0.85rem; font-weight: 600; color: var(--text-gray); background: var(--off-white); padding: 0.4rem 0.75rem; border-radius: 20px; display: inline-block; }
+
+.product-footer { display: flex; flex-direction: column; gap: 0.65rem; padding-top: 1rem; border-top: 1px solid var(--border-gray); margin-top: auto; }
+.inquire-btn { background: var(--brand-brown); color: white; border: none; padding: 0.75rem; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.3s; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+.inquire-btn:hover { background: var(--brand-wood); }
+.no-results { text-align: center; padding: 3rem 1.5rem; color: var(--text-gray); display: none; }
+
+.distribution-section { background: var(--off-white); padding: 3rem 1.25rem; margin: 3rem 0; border-radius: 12px; }
+.distribution-header { text-align: center; margin-bottom: 2rem; }
+.distribution-header h2 { font-size: 1.75rem; color: var(--primary-blue); margin-bottom: 0.75rem; }
+.distribution-header p { color: var(--text-gray); font-size: 1rem; max-width: 700px; margin: 0 auto; }
+.uk-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.region-card { background: var(--white); padding: 1.25rem; border-radius: 8px; text-align: center; border: 1px solid var(--border-gray); transition: transform 0.3s; }
+.region-card:hover { transform: translateY(-3px); border-color: var(--brand-brown); }
+.region-card h4 { color: var(--primary-blue); margin-bottom: 0.5rem; font-size: 1rem; }
+.region-card p { color: var(--text-gray); font-size: 0.85rem; }
+.region-card .coverage { color: #00C853; font-weight: 600; font-size: 0.8rem; margin-top: 0.5rem; display: block; }
+.delivery-info { background: var(--white); padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; }
+.delivery-info h4 { color: var(--primary-blue); margin-bottom: 0.75rem; }
+.delivery-info ul { list-style: none; }
+.delivery-info li { padding: 0.5rem 0; color: var(--text-gray); display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.9rem; }
+.delivery-info li::before { content: '✓'; color: var(--brand-brown); font-weight: bold; flex-shrink: 0; margin-top: 2px; }
+
+.cta-box { background: linear-gradient(135deg, var(--brand-brown), var(--brand-wood)); color: white; padding: 2.5rem 1.5rem; border-radius: 12px; margin-top: 3rem; text-align: center; }
+.cta-box h3 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.cta-box p { font-size: 1rem; opacity: 0.95; margin-bottom: 1.25rem; }
+.cta-btn { display: inline-flex; background: var(--white); color: var(--brand-brown); padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 1rem; min-height: 50px; align-items: center; justify-content: center; }
+
+.partner-section { background: var(--off-white); padding: 2.5rem 1.5rem; text-align: center; margin-top: 3rem; border-radius: 12px; }
+.partner-section h3 { font-size: 1.5rem; color: var(--primary-blue); margin-bottom: 0.75rem; }
+.partner-section p { color: var(--text-gray); margin-bottom: 1.25rem; font-size: 0.95rem; }
+.partner-link { display: inline-flex; align-items: center; gap: 0.75rem; background: var(--white); color: var(--brand-brown); padding: 1rem 1.75rem; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 1rem; min-height: 50px; }
+
+footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25rem 1.5rem; margin-top: 3rem; }
+.footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+.footer-section h3 { font-size: 1.15rem; margin-bottom: 1rem; }
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 0.65rem; }
+.footer-section a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; min-height: 44px; display: flex; align-items: center; }
+.footer-section a:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; text-align: center; color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+
+@media (min-width: 969px) {
+  .mobile-menu-btn { display: none; }
+  .service-details { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .service-image { height: 450px; font-size: 8rem; }
+  .service-info h2 { font-size: 2.5rem; }
+  .filter-layout { grid-template-columns: 280px 1fr; }
+  .mobile-filter-btn { display: none; }
+}
+@media (max-width: 968px) {
+  .nav-links, .auth-area { display: none; }
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+}
+@media (max-width: 640px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .filter-header { flex-direction: column; align-items: flex-start; }
+  .uk-map { grid-template-columns: 1fr; }
+}
+.price { visibility: hidden; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    <ul class="nav-links">
+      <li><a href="builder.html">Home</a></li>
+      <li><a href="electrical.html">Electrical</a></li>
+      <li><a href="steel.html">Steel</a></li>
+      <li><a href="flooring.html">Flooring</a></li>
+      <li><a href="furniture.html" class="active">Furniture</a></li>
+    </ul>
+    <div class="auth-area">
+      <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
+      <a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
+      <span class="username-display" data-username></span>
+      <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+  </nav>
+</header>
+
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header"><h3>Menu</h3><button class="close-mobile-nav" onclick="toggleMobileNav()">×</button></div>
+  <ul class="mobile-nav-links">
+    <li><a href="builder.html">🏠 Home</a></li>
+    <li><a href="electrical.html">⚡ Electrical</a></li>
+    <li><a href="steel.html">🏗️ Steel</a></li>
+    <li><a href="flooring.html">📐 Flooring</a></li>
+    <li><a href="furniture.html" class="active">🛋️ Furniture</a></li>
+  </ul>
+  <div class="mobile-auth-buttons">
+    <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
+    <a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
+    <button class="btn-logout" data-logout onclick="signOut()" style="display:none;">Log Out</button>
+  </div>
+</div>
+
+<div class="price-login-banner" id="priceLoginBanner">
+  🔒 <strong>Prices are hidden.</strong> You must <a href="login.html">log in</a> and verify your email to view all product prices.
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <h1>🛋️ Furniture Collection</h1>
+    <p>Handcrafted furniture for homes and businesses across the UK — Made to Order</p>
+  </div>
+</section>
+
+<div style="padding: 0 1.25rem;">
+  <div class="inquiry-banner-box">
+    <h3>📋 Inquiry Only – No Direct Purchase</h3>
+    <p>All furniture items are made to order. Submit an inquiry for pricing, lead times, and customisation options. Our team will respond within 24 hours.</p>
+    <a href="builder.html#contact" class="inquiry-btn-link">Submit Furniture Inquiry →</a>
+  </div>
+</div>
+
+<section class="page-content">
+  <a href="builder.html" class="back-btn">← Back to Home</a>
+
+  <div class="service-details">
+    <div class="service-image">🛋️</div>
+    <div class="service-info">
+      <h2>Bespoke Furniture Solutions</h2>
+      <p>Our skilled craftsmen create custom furniture pieces tailored to your space and style. From solid wood dining tables to modular office systems, we deliver quality and craftsmanship on every order.</p>
+      <ul class="service-features">
+        <li>Custom Made-to-Order Furniture</li>
+        <li>Solid Wood &amp; Premium Materials</li>
+        <li>Home &amp; Commercial Solutions</li>
+        <li>Professional Assembly Service</li>
+        <li>UK-Wide Delivery Network</li>
+        <li>Sustainable Sourcing Practices</li>
+        <li>10-Year Craftsmanship Guarantee</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="filter-section">
+    <div class="filter-header">
+      <h2>Furniture Collection</h2>
+      <span class="filter-results-count" id="resultsCount">Showing 12 products</span>
+      <button class="mobile-filter-btn" onclick="openMobileFilter()">☰ Filter Products</button>
+    </div>
+    <div class="filter-layout">
+      <aside class="filter-sidebar">
+        <h3>Filter Products</h3>
+        <div class="filter-group">
+          <div class="filter-group-title">Product Categories</div>
+          <div class="filter-options">
+            <div class="filter-option active"><input type="checkbox" id="cat-all" checked onchange="filterProducts()"><label for="cat-all">All Products</label><span class="filter-count">12</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-living" onchange="filterProducts()"><label for="cat-living">Living Room</label><span class="filter-count">4</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-dining" onchange="filterProducts()"><label for="cat-dining">Dining</label><span class="filter-count">3</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-bedroom" onchange="filterProducts()"><label for="cat-bedroom">Bedroom</label><span class="filter-count">3</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-office" onchange="filterProducts()"><label for="cat-office">Office</label><span class="filter-count">2</span></div>
+          </div>
+        </div>
+        <button class="clear-filters" onclick="clearFilters()">Clear All Filters</button>
+      </aside>
+
+      <div class="mobile-filter-modal" id="mobileFilterModal">
+        <div class="mobile-filter-content">
+          <div class="mobile-filter-header"><h3>Filter Products</h3><button class="close-filter" onclick="closeMobileFilter()">×</button></div>
+          <div class="filter-group">
+            <div class="filter-group-title">Product Categories</div>
+            <div class="filter-options">
+              <div class="filter-option active"><input type="checkbox" id="m-cat-all" checked onchange="filterProductsMobile()"><label for="m-cat-all">All Products</label><span class="filter-count">12</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-living" onchange="filterProductsMobile()"><label for="m-cat-living">Living Room</label><span class="filter-count">4</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-dining" onchange="filterProductsMobile()"><label for="m-cat-dining">Dining</label><span class="filter-count">3</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-bedroom" onchange="filterProductsMobile()"><label for="m-cat-bedroom">Bedroom</label><span class="filter-count">3</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-office" onchange="filterProductsMobile()"><label for="m-cat-office">Office</label><span class="filter-count">2</span></div>
+            </div>
+          </div>
+          <div class="mobile-filter-footer"><button class="apply-filters-btn" onclick="applyMobileFilters()">Apply Filters</button></div>
+        </div>
+      </div>
+
+      <section class="products-grid" id="productsGrid">
+        <div class="product-card" data-category="dining"><div class="product-image">🪑</div><div class="product-info"><div class="product-code">FUR-DT-OAK-180</div><div class="product-category">Dining</div><h3 class="product-title">Solid Oak Dining Table 180cm</h3><p class="product-description">Handcrafted solid oak dining table with natural finish. Seats 6-8 people. Custom sizes available.</p><p class="price">£1,249.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="living"><div class="product-image">🛋️</div><div class="product-info"><div class="product-code">FUR-SF-CHE-3S</div><div class="product-category">Living Room</div><h3 class="product-title">Classic Chesterfield 3-Seater</h3><p class="product-description">Traditional button-tufted Chesterfield sofa in premium leather or fabric. Handmade in the UK.</p><p class="price">£1,899.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="bedroom"><div class="product-image">🚪</div><div class="product-info"><div class="product-code">FUR-WD-WAL-2D</div><div class="product-category">Bedroom</div><h3 class="product-title">Walnut Double Wardrobe</h3><p class="product-description">Solid walnut wardrobe with mirrored doors, internal shelving, and hanging rail. Made to your dimensions.</p><p class="price">£2,100.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="office"><div class="product-image">🖥️</div><div class="product-info"><div class="product-code">FUR-DS-EXE-OAK</div><div class="product-category">Office</div><h3 class="product-title">Executive Oak Desk with Drawers</h3><p class="product-description">Professional solid oak executive desk with 3 drawers, cable management, and leather inlay option.</p><p class="price">£975.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="living"><div class="product-image">🪑</div><div class="product-info"><div class="product-code">FUR-AC-FAB-GRY</div><div class="product-category">Living Room</div><h3 class="product-title">Upholstered Accent Armchair</h3><p class="product-description">Comfortable accent armchair in premium fabric. Multiple colour options. Solid wood frame.</p><p class="price">£549.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="dining"><div class="product-image">🗄️</div><div class="product-info"><div class="product-code">FUR-SB-OAK-150</div><div class="product-category">Dining</div><h3 class="product-title">Oak Sideboard with Storage</h3><p class="product-description">Solid oak sideboard with 2 doors and 2 drawers. Perfect for dining room storage. Hand-finished.</p><p class="price">£799.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="bedroom"><div class="product-image">🛏️</div><div class="product-info"><div class="product-code">FUR-BD-PLT-OAK-K</div><div class="product-category">Bedroom</div><h3 class="product-title">Solid Oak Platform Bed King</h3><p class="product-description">Minimalist solid oak platform bed with low-profile design. King size. Includes slatted base.</p><p class="price">£1,350.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="office"><div class="product-image">🗂️</div><div class="product-info"><div class="product-code">FUR-OS-MOD-OAK</div><div class="product-category">Office</div><h3 class="product-title">Modular Office Storage System</h3><p class="product-description">Configurable oak office storage with shelves, drawers, and filing options. Custom layouts available.</p><p class="price">£1,100.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="living"><div class="product-image">✨</div><div class="product-info"><div class="product-code">FUR-SF-VEL-2S-BLU</div><div class="product-category">Living Room</div><h3 class="product-title">Velvet 2-Seater Sofa</h3><p class="product-description">Luxurious velvet sofa with gold-finish legs. Available in navy, emerald, or blush. Made to order.</p><p class="price">£1,149.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="living"><div class="product-image">☕</div><div class="product-info"><div class="product-code">FUR-CT-WAL-120</div><div class="product-category">Living Room</div><h3 class="product-title">Walnut Coffee Table with Shelf</h3><p class="product-description">Elegant solid walnut coffee table with lower shelf. Hand-rubbed oil finish. Custom sizes available.</p><p class="price">£485.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="office"><div class="product-image">📚</div><div class="product-info"><div class="product-code">FUR-BC-OAK-180</div><div class="product-category">Office</div><h3 class="product-title">Solid Oak Freestanding Bookcase</h3><p class="product-description">Tall solid oak bookcase with 5 adjustable shelves. Wall-fixing kit included. Custom heights available.</p><p class="price">£620.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+        <div class="product-card" data-category="bedroom"><div class="product-image">🛏️</div><div class="product-info"><div class="product-code">FUR-BD-UPH-GRY-K</div><div class="product-category">Bedroom</div><h3 class="product-title">Upholstered Bed with Storage</h3><p class="product-description">King size upholstered bed with hydraulic storage base. Premium fabric options. Made in the UK.</p><p class="price">£1,450.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
+      </section>
+      <div class="no-results" id="noResults"><h3>No Products Found</h3><p>Try adjusting your filters.</p></div>
+    </div>
+  </section>
+
+  <section class="distribution-section">
+    <div class="distribution-header">
+      <h2>🇬🇧 UK-Wide Distribution Network</h2>
+      <p>We deliver and install furniture across the entire United Kingdom through our trusted partner network.</p>
+    </div>
+    <div class="uk-map">
+      <div class="region-card"><h4>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</h4><p>London, Manchester, Birmingham, Leeds, Liverpool, Bristol</p><span class="coverage">✓ Next-Day Available</span></div>
+      <div class="region-card"><h4>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</h4><p>Edinburgh, Glasgow, Aberdeen, Inverness</p><span class="coverage">✓ 2-3 Day Delivery</span></div>
+      <div class="region-card"><h4>🏴󠁧󠁢󠁷󠁬󠁳󠁿 Wales</h4><p>Cardiff, Swansea, Newport, Bangor</p><span class="coverage">✓ Next-Day Available</span></div>
+      <div class="region-card"><h4>🇬🇧 N. Ireland</h4><p>Belfast, Derry, Lisburn, Newry</p><span class="coverage">✓ 3-5 Day Delivery</span></div>
+    </div>
+    <div class="delivery-info">
+      <h4>📦 Delivery &amp; Installation Options</h4>
+      <ul>
+        <li><strong>Standard Delivery:</strong> Curbside delivery (2-5 working days)</li>
+        <li><strong>Premium Delivery:</strong> Room of choice + unpacking + packaging removal</li>
+        <li><strong>White Glove Service:</strong> Full assembly, placement, and quality check</li>
+        <li><strong>Commercial Delivery:</strong> Scheduled deliveries for offices, hotels, and developments</li>
+        <li><strong>Scotland &amp; NI:</strong> Slightly extended lead times</li>
+        <li><strong>Remote Areas:</strong> Please inquire for Highlands, Islands, and rural locations</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cta-box">
+    <h3>Ready to Furnish Your Space?</h3>
+    <p>Submit an inquiry today and our furniture specialists will contact you within 24 hours to discuss your requirements and arrange a consultation.</p>
+    <a href="builder.html#contact" class="cta-btn">Submit Furniture Inquiry</a>
+  </div>
+
+  <div class="partner-section">
+    <h3>🤝 Crafted in the UK</h3>
+    <p>Proudly working with British craftsmen and sustainable suppliers to deliver quality furniture across the United Kingdom.</p>
+    <a href="builder.html#contact" class="partner-link"><span>🛋️</span><span>Start Your Furniture Project</span><span>→</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>BuildPro UK</h3>
+      <p style="color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:1rem;">Your trusted partner for professional building and furniture services across the United Kingdom.</p>
+    </div>
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="builder.html">Home</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="steel.html">Steel</a></li>
+        <li><a href="flooring.html">Flooring</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Account</h3>
+      <ul>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="login.html">Log In</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="tel:08001234567">0800 123 4567</a></li>
+        <li><a href="mailto:info@buildprouk.co.uk">info@buildprouk.co.uk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 BuildPro UK. All rights reserved.</p></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+  async function initPage() {
+    const loggedIn = await requireAuth();
+    document.getElementById('priceLoginBanner').classList.toggle('show', !loggedIn);
+  }
+  initPage();
+
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('active');
+    document.getElementById('mobileNavOverlay').classList.toggle('active');
+  }
+  document.querySelectorAll('.mobile-nav-links a').forEach(l => l.addEventListener('click', toggleMobileNav));
+
+  function filterProducts() {
+    const checked = Array.from(document.querySelectorAll('.filter-sidebar input[type="checkbox"]:checked')).map(c => c.id.replace('cat-', ''));
+    let count = 0;
+    document.querySelectorAll('.product-card').forEach(card => {
+      const show = checked.includes('all') || checked.includes(card.dataset.category);
+      card.classList.toggle('hidden', !show);
+      if (show) count++;
+    });
+    document.getElementById('resultsCount').textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
+    document.getElementById('noResults').style.display = count === 0 ? 'block' : 'none';
+  }
+  function clearFilters() {
+    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(cb => cb.checked = cb.id === 'cat-all');
+    filterProducts();
+  }
+  function openMobileFilter()  { document.getElementById('mobileFilterModal').classList.add('active'); }
+  function closeMobileFilter() { document.getElementById('mobileFilterModal').classList.remove('active'); }
+  function filterProductsMobile() {
+    document.querySelectorAll('#mobileFilterModal input[type="checkbox"]:checked').forEach(mcb => {
+      const dcb = document.getElementById('cat-' + mcb.id.replace('m-cat-', ''));
+      if (dcb) dcb.checked = true;
+    });
+    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(dcb => {
+      const mcb = document.getElementById('m-cat-' + dcb.id.replace('cat-', ''));
+      if (mcb && !mcb.checked) dcb.checked = false;
+    });
+  }
+  function applyMobileFilters() { filterProducts(); closeMobileFilter(); }
+  document.getElementById('mobileFilterModal').addEventListener('click', e => { if (e.target === document.getElementById('mobileFilterModal')) closeMobileFilter(); });
+  document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
+</script>
+</body>
+</html>

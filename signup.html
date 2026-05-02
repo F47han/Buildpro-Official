@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Create Account | BuildPro UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --primary-blue: #0047AB;
+  --light-blue: #3B7DD6;
+  --dark-blue: #003380;
+  --white: #FFFFFF;
+  --off-white: #F8FAFB;
+  --text-dark: #1A2332;
+  --text-gray: #5A6C7D;
+  --border-gray: #E1E8ED;
+  --success-green: #00C853;
+  --error-red: #D32F2F;
+}
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--off-white); min-height: 100vh; display: flex; flex-direction: column; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; }
+nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.back-link { color: var(--primary-blue); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.5rem; }
+
+.page-hero { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%); color: var(--white); padding: 3rem 1.25rem; text-align: center; }
+.page-hero h1 { font-size: 2.25rem; margin-bottom: 0.5rem; }
+.page-hero p { font-size: 1.05rem; opacity: 0.95; }
+
+.signup-container { max-width: 1200px; margin: 0 auto; padding: 4rem 1.25rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+.signup-benefits h2 { font-size: 1.75rem; color: var(--primary-blue); margin-bottom: 1rem; }
+.signup-benefits p { color: var(--text-gray); font-size: 1rem; margin-bottom: 2rem; line-height: 1.8; }
+.benefits-list { list-style: none; margin-bottom: 2rem; }
+.benefits-list li { padding: 1rem 0; display: flex; align-items: start; gap: 1rem; border-bottom: 1px solid var(--border-gray); }
+.benefits-list li:last-child { border-bottom: none; }
+.benefit-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--light-blue), var(--primary-blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.25rem; flex-shrink: 0; }
+.benefit-text h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+.benefit-text p { font-size: 0.9rem; color: var(--text-gray); margin: 0; }
+.trust-badges { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+.trust-badge { background: var(--white); padding: 1rem 1.25rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,71,171,0.1); text-align: center; }
+.trust-badge-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+.trust-badge-text { font-size: 0.8rem; color: var(--text-gray); font-weight: 600; }
+
+.signup-form-container { background: var(--white); padding: 2.5rem; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,71,171,0.12); }
+.signup-form-container h2 { font-size: 1.6rem; margin-bottom: 0.4rem; }
+.signup-form-container > p { color: var(--text-gray); margin-bottom: 2rem; font-size: 0.95rem; }
+
+.form-section { margin-bottom: 1.75rem; }
+.form-section-title { font-size: 1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-gray); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark); font-size: 0.9rem; }
+.form-group .required { color: var(--error-red); }
+.form-group input, .form-group select {
+  width: 100%; padding: 0.9rem 1rem; border: 2px solid var(--border-gray); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 1rem; transition: all 0.3s ease; min-height: 50px; background: var(--white);
+}
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(0,71,171,0.1); }
+.form-group input.error { border-color: var(--error-red); }
+.form-group input.valid { border-color: var(--success-green); }
+.error-message { color: var(--error-red); font-size: 0.82rem; margin-top: 0.35rem; display: none; }
+.error-message.show { display: block; }
+.hint-text { color: var(--text-gray); font-size: 0.82rem; margin-top: 0.35rem; }
+
+.password-strength { margin-top: 0.5rem; }
+.strength-bar { height: 4px; background: var(--border-gray); border-radius: 2px; overflow: hidden; margin-bottom: 0.35rem; }
+.strength-fill { height: 100%; width: 0%; transition: all 0.3s ease; border-radius: 2px; }
+.strength-fill.weak   { width: 25%; background: var(--error-red); }
+.strength-fill.fair   { width: 50%; background: #FF9800; }
+.strength-fill.good   { width: 75%; background: #2196F3; }
+.strength-fill.strong { width: 100%; background: var(--success-green); }
+.strength-text { font-size: 0.82rem; color: var(--text-gray); }
+
+.input-wrapper { position: relative; }
+.input-wrapper input { padding-right: 3rem; }
+.toggle-password { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.2rem; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; color: var(--text-gray); }
+
+.checkbox-group { display: flex; align-items: start; gap: 0.75rem; margin-bottom: 1rem; }
+.checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-blue); cursor: pointer; margin-top: 0.2rem; flex-shrink: 0; }
+.checkbox-group label { font-size: 0.9rem; color: var(--text-gray); cursor: pointer; }
+.checkbox-group a { color: var(--primary-blue); text-decoration: none; font-weight: 600; }
+
+.submit-btn { width: 100%; background: var(--primary-blue); color: var(--white); padding: 1rem; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; min-height: 52px; margin-top: 0.5rem; }
+.submit-btn:hover { background: var(--dark-blue); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,71,171,0.3); }
+.submit-btn:disabled { background: var(--border-gray); cursor: not-allowed; transform: none; box-shadow: none; }
+.submit-btn .loading-text { display: none; }
+.submit-btn.loading .btn-text { display: none; }
+.submit-btn.loading .loading-text { display: inline; }
+
+.login-link { text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--border-gray); color: var(--text-gray); font-size: 0.95rem; }
+.login-link a { color: var(--primary-blue); text-decoration: none; font-weight: 600; }
+
+.global-error { background: #FFEBEE; border: 1px solid var(--error-red); color: var(--error-red); padding: 1rem; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.9rem; display: none; }
+.global-error.show { display: block; }
+.global-success { background: #E8F5E9; border: 1px solid var(--success-green); color: #1B5E20; padding: 1rem; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.9rem; display: none; }
+.global-success.show { display: block; }
+
+.success-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3000; justify-content: center; align-items: center; padding: 1rem; }
+.success-modal.active { display: flex; }
+.success-content { background: var(--white); padding: 3rem 2rem; border-radius: 16px; max-width: 460px; width: 100%; text-align: center; animation: slideUp 0.3s ease; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.success-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--success-green), #00E676); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem; }
+.success-content h2 { color: var(--success-green); margin-bottom: 1rem; }
+.success-content p { color: var(--text-gray); margin-bottom: 2rem; line-height: 1.7; }
+.success-btn { background: var(--primary-blue); color: var(--white); padding: 0.95rem 2.5rem; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; }
+.success-btn:hover { background: var(--dark-blue); }
+
+footer { background: var(--dark-blue); color: var(--white); padding: 2rem 1.25rem; text-align: center; margin-top: auto; }
+footer p { font-size: 0.9rem; opacity: 0.8; }
+footer a { color: var(--white); text-decoration: none; }
+
+@media (max-width: 968px) {
+  .signup-container { grid-template-columns: 1fr; gap: 2rem; }
+  .signup-benefits { order: 2; }
+  .signup-form-container { order: 1; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .page-hero h1 { font-size: 1.75rem; }
+  .signup-container { padding: 2rem 1rem; }
+  .signup-form-container { padding: 1.75rem 1.25rem; }
+  .trust-badges { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    <a href="builder.html" class="back-link">← Back to Home</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <h1>Create Your Account</h1>
+  <p>Join BuildPro UK to view prices and manage your orders</p>
+</section>
+
+<section class="signup-container">
+
+  <!-- Left — Benefits -->
+  <div class="signup-benefits">
+    <h2>Why Create an Account?</h2>
+    <p>Register today to unlock exclusive features and manage all your projects in one place. Free and takes under 2 minutes.</p>
+    <ul class="benefits-list">
+      <li>
+        <div class="benefit-icon">💷</div>
+        <div class="benefit-text"><h4>View Product Prices</h4><p>Prices are only visible to registered members</p></div>
+      </li>
+      <li>
+        <div class="benefit-icon">📋</div>
+        <div class="benefit-text"><h4>Track Your Orders</h4><p>Monitor quotes and project progress in real-time</p></div>
+      </li>
+      <li>
+        <div class="benefit-icon">📁</div>
+        <div class="benefit-text"><h4>Save Your Details</h4><p>Faster checkout and quote requests every time</p></div>
+      </li>
+      <li>
+        <div class="benefit-icon">🔔</div>
+        <div class="benefit-text"><h4>Priority Support</h4><p>Faster responses from our customer service team</p></div>
+      </li>
+    </ul>
+    <div class="trust-badges">
+      <div class="trust-badge"><div class="trust-badge-icon">🔒</div><div class="trust-badge-text">Secure & Encrypted</div></div>
+      <div class="trust-badge"><div class="trust-badge-icon">✓</div><div class="trust-badge-text">GDPR Compliant</div></div>
+      <div class="trust-badge"><div class="trust-badge-icon">📧</div><div class="trust-badge-text">No Spam Promise</div></div>
+    </div>
+  </div>
+
+  <!-- Right — Form -->
+  <div class="signup-form-container">
+    <h2>Register Now</h2>
+    <p>Already have an account? <a href="login.html" style="color:var(--primary-blue);font-weight:600;text-decoration:none;">Log in here</a></p>
+
+    <div class="global-error" id="globalError"></div>
+    <div class="global-success" id="globalSuccess"></div>
+
+    <form id="signupForm" novalidate>
+
+      <!-- Personal Info -->
+      <div class="form-section">
+        <h3 class="form-section-title">Personal Information</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name <span class="required">*</span></label>
+            <input type="text" id="fname" name="fname" placeholder="John" autocomplete="given-name">
+            <div class="error-message" id="fnameError">Please enter your first name</div>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name <span class="required">*</span></label>
+            <input type="text" id="lname" name="lname" placeholder="Smith" autocomplete="family-name">
+            <div class="error-message" id="lnameError">Please enter your last name</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="john@example.com" autocomplete="email">
+          <div class="error-message" id="emailError">Please enter a valid email address</div>
+        </div>
+        <div class="form-group">
+          <label for="pnumber">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="pnumber" name="pnumber" placeholder="07123 456789" autocomplete="tel">
+          <div class="hint-text">UK mobile or landline</div>
+          <div class="error-message" id="pnumberError">Please enter a valid UK phone number</div>
+        </div>
+      </div>
+
+      <!-- Account Setup -->
+      <div class="form-section">
+        <h3 class="form-section-title">Account Setup</h3>
+        <div class="form-group">
+          <label for="user_id">Username <span class="required">*</span></label>
+          <input type="text" id="user_id" name="user_id" placeholder="e.g. john_smith or BP12345" autocomplete="username">
+          <div class="hint-text">This is what you'll use to log in — choose something memorable</div>
+          <div class="error-message" id="userIdError">Username must be at least 4 characters, no spaces</div>
+        </div>
+        <div class="form-group">
+          <label for="acc_type">Account Type <span class="required">*</span></label>
+          <select id="acc_type" name="acc_type">
+            <option value="">Select account type</option>
+            <option value="customer">Customer</option>
+            <option value="trade">Trade</option>
+          </select>
+          <div class="error-message" id="accTypeError">Please select an account type</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-section">
+        <h3 class="form-section-title">Account Security</h3>
+        <div class="form-group">
+          <label for="password">Password <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <input type="password" id="password" name="password" placeholder="Minimum 8 characters" autocomplete="new-password">
+            <button type="button" class="toggle-password" onclick="togglePwd('password', this)">👁️</button>
+          </div>
+          <div class="password-strength">
+            <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+            <div class="strength-text" id="strengthText">Password strength</div>
+          </div>
+          <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" autocomplete="new-password">
+            <button type="button" class="toggle-password" onclick="togglePwd('confirmPassword', this)">👁️</button>
+          </div>
+          <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+        </div>
+      </div>
+
+      <!-- Terms -->
+      <div class="checkbox-group">
+        <input type="checkbox" id="terms" name="terms">
+        <label for="terms">I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a> <span class="required">*</span></label>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="newsletter" name="newsletter">
+        <label for="newsletter">Send me exclusive offers and updates (optional)</label>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Create Account</span>
+        <span class="loading-text">Creating Account...</span>
+      </button>
+    </form>
+
+    <div class="login-link">Already have an account? <a href="login.html">Log In</a></div>
+  </div>
+
+</section>
+
+<!-- Success Modal -->
+<div class="success-modal" id="successModal">
+  <div class="success-content">
+    <div class="success-icon">✓</div>
+    <h2>Account Created!</h2>
+    <p>Welcome to BuildPro UK!<br><br>We've sent a verification email to your inbox. Please click the link in the email to activate your account — you only need to do this once.</p>
+    <button class="success-btn" onclick="window.location.href='login.html'">Go to Login</button>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 BuildPro UK. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+  // Password toggle
+  function togglePwd(fieldId, btn) {
+    const input = document.getElementById(fieldId);
+    input.type = input.type === 'password' ? 'text' : 'password';
+    btn.textContent = input.type === 'password' ? '👁️' : '🙈';
+  }
+
+  // Password strength meter
+  document.getElementById('password').addEventListener('input', function () {
+    const val = this.value;
+    let strength = 0;
+    if (val.length >= 8) strength++;
+    if (val.match(/[a-z]/) && val.match(/[A-Z]/)) strength++;
+    if (val.match(/[0-9]/)) strength++;
+    if (val.match(/[^a-zA-Z0-9]/)) strength++;
+    const fill = document.getElementById('strengthFill');
+    const text = document.getElementById('strengthText');
+    fill.className = 'strength-fill';
+    const levels  = ['', 'weak', 'fair', 'good', 'strong'];
+    const labels  = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+    const colours = ['', '#D32F2F', '#FF9800', '#2196F3', '#00C853'];
+    if (strength > 0) fill.classList.add(levels[strength]);
+    text.textContent = labels[strength] ? labels[strength] + ' password' : 'Password strength';
+    text.style.color = colours[strength] || '#5A6C7D';
+  });
+
+  // Field error helpers
+  function showError(fieldId, errorId, show) {
+    const field = document.getElementById(fieldId);
+    const err   = document.getElementById(errorId);
+    if (show) { field.classList.add('error'); err.classList.add('show'); }
+    else       { field.classList.remove('error'); err.classList.remove('show'); }
+  }
+  function showGlobalError(msg) {
+    const el = document.getElementById('globalError');
+    el.textContent = msg;
+    el.classList.add('show');
+    document.getElementById('globalSuccess').classList.remove('show');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function hideGlobalError() {
+    document.getElementById('globalError').classList.remove('show');
+  }
+
+  // Real-time field feedback
+  document.querySelectorAll('input, select').forEach(input => {
+    input.addEventListener('input', function () {
+      if (this.value.trim()) {
+        this.classList.remove('error');
+        this.classList.add('valid');
+      }
+    });
+  });
+
+  // Form submission
+  document.getElementById('signupForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    hideGlobalError();
+
+    const fname    = document.getElementById('fname').value.trim();
+    const lname    = document.getElementById('lname').value.trim();
+    const email    = document.getElementById('email').value.trim();
+    const pnumber  = document.getElementById('pnumber').value.trim().replace(/\s/g, '');
+    const user_id  = document.getElementById('user_id').value.trim();
+    const acc_type = document.getElementById('acc_type').value;
+    const password = document.getElementById('password').value;
+    const confirm  = document.getElementById('confirmPassword').value;
+    const terms    = document.getElementById('terms').checked;
+
+    // Validate
+    showError('fname',           'fnameError',           !fname);
+    showError('lname',           'lnameError',           !lname);
+    showError('email',           'emailError',           !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+    showError('pnumber',         'pnumberError',         !/^(\+44|0)[0-9]{9,10}$/.test(pnumber));
+    showError('user_id',         'userIdError',          user_id.length < 4 || /\s/.test(user_id));
+    showError('acc_type',        'accTypeError',         !acc_type);
+    showError('password',        'passwordError',        password.length < 8);
+    showError('confirmPassword', 'confirmPasswordError', password !== confirm);
+
+    const valid =
+      fname && lname &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+      /^(\+44|0)[0-9]{9,10}$/.test(pnumber) &&
+      user_id.length >= 4 && !/\s/.test(user_id) &&
+      acc_type &&
+      password.length >= 8 &&
+      password === confirm;
+
+    if (!terms) { showGlobalError('Please agree to the Terms & Conditions to continue.'); return; }
+    if (!valid)  return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    // Check username uniqueness in profiles table
+    const { data: existingUser } = await sb
+      .from('profiles')
+      .select('user_id')
+      .eq('user_id', user_id)
+      .maybeSingle();
+
+    if (existingUser) {
+      showGlobalError('That username is already taken — please choose another.');
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      return;
+    }
+
+    try {
+      await signUp(email, password, { fname, lname, pnumber, user_id, acc_type });
+      document.getElementById('successModal').classList.add('active');
+    } catch (err) {
+      if (err.message.includes('already registered')) {
+        showGlobalError('An account with this email already exists. Please log in instead.');
+      } else {
+        showGlobalError('Something went wrong: ' + err.message);
+      }
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  });
+
+  // Prevent double-tap zoom on iOS
+  document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BuildPro UK | Professional Building & Electrical Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --primary-blue: #0047AB;
+  --light-blue: #3B7DD6;
+  --dark-blue: #003380;
+  --white: #FFFFFF;
+  --off-white: #F8FAFB;
+  --text-dark: #1A2332;
+  --text-gray: #5A6C7D;
+  --border-gray: #E1E8ED;
+  --electrical-orange: #FF6B35;
+}
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+/* ── Header ── */
+header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; }
+nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; flex-wrap: wrap; }
+.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; min-height: 44px; display: flex; align-items: center; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary-blue); }
+
+.auth-area { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.btn-signup { background: var(--primary-blue); color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; min-height: 44px; display: flex; align-items: center; transition: background 0.3s; }
+.btn-signup:hover { background: var(--dark-blue); }
+.btn-login { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.7rem 1rem; min-height: 44px; display: flex; align-items: center; }
+.btn-logout { background: #D32F2F; color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; min-height: 44px; display: none; transition: background 0.3s; }
+.btn-logout:hover { background: #B71C1C; }
+.username-display { color: var(--text-gray); font-size: 0.9rem; font-weight: 500; display: none; }
+
+/* ── Hero ── */
+.hero { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 60%, #001a4d 100%); color: var(--white); padding: 6rem 1.25rem 5rem; position: relative; overflow: hidden; text-align: center; }
+.hero::before { content: '🏗️'; position: absolute; font-size: 20rem; opacity: 0.04; right: -4rem; top: -4rem; animation: float 20s ease-in-out infinite; }
+@keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-25px) rotate(4deg); } }
+.hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+.hero h1 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.2; }
+.hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2.5rem; }
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-btn-primary { background: var(--white); color: var(--primary-blue); padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; min-height: 52px; display: flex; align-items: center; transition: all 0.3s; }
+.hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,255,255,0.3); }
+.hero-btn-secondary { background: transparent; color: var(--white); padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; border: 2px solid rgba(255,255,255,0.6); min-height: 52px; display: flex; align-items: center; transition: all 0.3s; }
+.hero-btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+
+/* ── Services grid ── */
+.services-section { padding: 5rem 1.25rem; max-width: 1400px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header h2 { font-size: 2.25rem; color: var(--primary-blue); margin-bottom: 0.75rem; }
+.section-header p { color: var(--text-gray); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+.service-card { background: var(--white); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,71,171,0.08); border: 2px solid transparent; transition: all 0.4s; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 1rem; }
+.service-card:hover { border-color: var(--primary-blue); transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,71,171,0.15); }
+.service-icon { font-size: 3rem; }
+.service-card h3 { font-size: 1.3rem; color: var(--primary-blue); }
+.service-card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; }
+.service-link { color: var(--primary-blue); font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem; }
+
+/* ── CTA Banner ── */
+.cta-banner { background: linear-gradient(135deg, var(--electrical-orange), #FFB800); color: var(--white); padding: 4rem 1.25rem; text-align: center; }
+.cta-banner h2 { font-size: 2rem; margin-bottom: 0.75rem; }
+.cta-banner p { font-size: 1.05rem; opacity: 0.95; margin-bottom: 2rem; }
+.cta-banner-btn { display: inline-flex; background: var(--white); color: var(--electrical-orange); padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; min-height: 52px; align-items: center; transition: all 0.3s; }
+.cta-banner-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+/* ── Footer ── */
+footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25rem 1.5rem; }
+.footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+.footer-section h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 0.65rem; }
+.footer-section a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; min-height: 44px; display: flex; align-items: center; }
+.footer-section a:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; text-align: center; color: rgba(255,255,255,0.7); font-size: 0.9rem; max-width: 1400px; margin: 0 auto; }
+
+@media (max-width: 768px) { .hero h1 { font-size: 2rem; } .hero p { font-size: 1rem; } }
+@media (max-width: 640px) { .hero { padding: 4rem 1rem 3rem; } .services-section { padding: 3rem 1rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    <ul class="nav-links">
+      <li><a href="builder.html" class="active">Home</a></li>
+      <li><a href="electrical.html">Electrical</a></li>
+      <li><a href="steel.html">Steel</a></li>
+      <li><a href="flooring.html">Flooring</a></li>
+      <li><a href="furniture.html">Furniture</a></li>
+    </ul>
+    <div class="auth-area">
+      <!-- Shown when NOT logged in -->
+      <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
+      <a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
+      <!-- Shown when logged in -->
+      <span class="username-display" data-username></span>
+      <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Professional Building &amp; Electrical Services</h1>
+    <p>Quality materials, expert services, and reliable delivery across the United Kingdom.</p>
+    <div class="hero-buttons">
+      <a href="electrical.html" class="hero-btn-primary">⚡ Electrical Products</a>
+      <a href="signup.html" class="hero-btn-secondary" data-auth-hide>Create Free Account</a>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services-section">
+  <div class="section-header">
+    <h2>Our Services &amp; Products</h2>
+    <p>Everything you need for your building project, from foundations to finishing touches.</p>
+  </div>
+  <div class="services-grid">
+    <a href="electrical.html" class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3>Electrical Services</h3>
+      <p>Professional electrical installations, consumer units, EV charging, circuit protection, and quality supplies from LiveElectrical.co.uk.</p>
+      <span class="service-link">Browse Electrical →</span>
+    </a>
+    <a href="steel.html" class="service-card">
+      <div class="service-icon">🏗️</div>
+      <h3>Steel &amp; Structural</h3>
+      <p>Structural steel, RSJs, hollow sections, angles, and channels for residential and commercial construction projects.</p>
+      <span class="service-link">Browse Steel →</span>
+    </a>
+    <a href="flooring.html" class="service-card">
+      <div class="service-icon">📐</div>
+      <h3>Flooring Solutions</h3>
+      <p>Hardwood, laminate, vinyl, and specialist flooring options for every room and budget.</p>
+      <span class="service-link">Browse Flooring →</span>
+    </a>
+    <a href="furniture.html" class="service-card">
+      <div class="service-icon">🛋️</div>
+      <h3>Furniture &amp; Fittings</h3>
+      <p>Commercial and residential furniture, fixtures, and fittings to complete your project.</p>
+      <span class="service-link">Browse Furniture →</span>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner" id="contact">
+  <h2>Need a Quote?</h2>
+  <p>Our team is ready to help with your next project. Get in touch for a free, no-obligation quote.</p>
+  <a href="mailto:info@buildprouk.co.uk" class="cta-banner-btn">📧 Contact Us Today</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>BuildPro UK</h3>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.9rem;line-height:1.7;">Your trusted partner for professional building and electrical services across the United Kingdom.</p>
+    </div>
+    <div class="footer-section">
+      <h3>Products</h3>
+      <ul>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="steel.html">Steel</a></li>
+        <li><a href="flooring.html">Flooring</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Account</h3>
+      <ul>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="login.html">Log In</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="tel:08001234567">0800 123 4567</a></li>
+        <li><a href="mailto:info@buildprouk.co.uk">info@buildprouk.co.uk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+  document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
+</script>
+</body>
+</html>

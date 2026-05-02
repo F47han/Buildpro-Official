@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Flooring Solutions & Supplies | BuildPro UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --primary-blue: #0047AB; --light-blue: #3B7DD6; --accent-blue: #1E90FF; --dark-blue: #003380;
+  --white: #FFFFFF; --off-white: #F8FAFB; --text-dark: #1A2332; --text-gray: #5A6C7D;
+  --border-gray: #E1E8ED; --brand-gold: #b2945e; --brand-dark: #222;
+}
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; }
+nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; min-height: 44px; display: flex; align-items: center; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary-blue); }
+.auth-area { display: flex; gap: 0.5rem; align-items: center; }
+.btn-signup { background: var(--primary-blue); color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; min-height: 44px; display: flex; align-items: center; }
+.btn-login { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.7rem 1rem; min-height: 44px; display: flex; align-items: center; }
+.btn-logout { background: #D32F2F; color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; min-height: 44px; display: none; }
+.username-display { color: var(--text-gray); font-size: 0.9rem; font-weight: 500; display: none; }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.75rem; color: var(--primary-blue); cursor: pointer; min-width: 44px; min-height: 44px; padding: 0.5rem; }
+
+.mobile-nav-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; }
+.mobile-nav-overlay.active { display: block; }
+.mobile-nav { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--white); z-index: 1000; transition: right 0.3s; overflow-y: auto; box-shadow: -5px 0 20px rgba(0,0,0,0.2); }
+.mobile-nav.active { right: 0; }
+.mobile-nav-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 2px solid var(--border-gray); }
+.mobile-nav-header h3 { color: var(--primary-blue); }
+.close-mobile-nav { background: none; border: none; font-size: 2rem; color: var(--text-gray); cursor: pointer; min-width: 44px; min-height: 44px; }
+.mobile-nav-links { list-style: none; padding: 1rem 1.25rem; }
+.mobile-nav-links li { margin-bottom: 0.5rem; }
+.mobile-nav-links a { display: flex; padding: 1rem 1.25rem; text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 1.1rem; border-radius: 8px; min-height: 50px; align-items: center; gap: 0.75rem; }
+.mobile-nav-links a.active { background: rgba(0,71,171,0.1); color: var(--primary-blue); }
+.mobile-auth-buttons { padding: 1rem 1.25rem; border-top: 2px solid var(--border-gray); display: flex; flex-direction: column; gap: 0.75rem; }
+.mobile-auth-buttons .btn-signup, .mobile-auth-buttons .btn-login { width: 100%; justify-content: center; }
+.mobile-auth-buttons .btn-logout { width: 100%; justify-content: center; border-radius: 6px; }
+
+/* Price login banner */
+.price-login-banner { background: #FFF8E1; border: 2px solid var(--brand-gold); color: var(--text-dark); padding: 1rem 1.5rem; text-align: center; display: none; }
+.price-login-banner.show { display: block; }
+.price-login-banner a { color: var(--brand-gold); font-weight: 700; text-decoration: none; }
+
+.page-hero { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%); color: var(--white); padding: 5rem 1.25rem 4rem; text-align: center; }
+.page-hero h1 { font-size: 2.25rem; margin-bottom: 1rem; }
+.page-hero p { font-size: 1.15rem; opacity: 0.95; }
+
+.page-content { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem; }
+.back-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; color: var(--primary-blue); text-decoration: none; font-weight: 600; min-height: 44px; }
+
+.service-details { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; margin-bottom: 3rem; }
+.service-image { width: 100%; height: 300px; background: linear-gradient(135deg, var(--light-blue), var(--primary-blue)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 6rem; }
+.service-info h2 { font-size: 1.75rem; color: var(--primary-blue); margin-bottom: 1rem; }
+.service-info p { font-size: 1rem; color: var(--text-gray); margin-bottom: 1rem; }
+.service-features { list-style: none; margin: 1.5rem 0; }
+.service-features li { padding: 0.65rem 0; padding-left: 2rem; position: relative; font-size: 0.95rem; }
+.service-features li::before { content: '✓'; position: absolute; left: 0; color: var(--primary-blue); font-weight: bold; }
+
+.tech-comparison { background: var(--off-white); padding: 3rem 1.25rem; margin: 3rem 0; border-radius: 12px; }
+.tech-comparison-header { text-align: center; margin-bottom: 2rem; }
+.tech-comparison-header h2 { font-size: 1.75rem; color: var(--primary-blue); margin-bottom: 0.75rem; }
+.tech-comparison-header p { color: var(--text-gray); font-size: 1rem; max-width: 700px; margin: 0 auto; }
+.comparison-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.tech-box { background: var(--white); border: 1px solid var(--border-gray); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,71,171,0.08); }
+.tech-box h3 { color: var(--brand-dark); font-size: 1.25rem; margin-bottom: 0.75rem; padding-bottom: 0.65rem; border-bottom: 2px solid var(--brand-gold); }
+.tech-box p { color: var(--text-gray); margin-bottom: 1.25rem; font-size: 0.9rem; }
+.spec-list { list-style: none; }
+.spec-list li { padding: 0.65rem 0; border-bottom: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-label { font-weight: 600; color: var(--text-dark); font-size: 0.9rem; }
+.spec-value { color: var(--text-gray); font-size: 0.9rem; text-align: right; }
+.tech-summary { background: var(--brand-dark); color: white; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; }
+.tech-summary h4 { color: var(--brand-gold); margin-bottom: 0.75rem; font-size: 1.15rem; }
+.tech-summary p { margin-bottom: 0.75rem; opacity: 0.95; font-size: 0.95rem; }
+.tech-summary strong { color: var(--brand-gold); }
+.tech-cta { text-align: center; margin-top: 1.5rem; }
+.tech-cta a { display: inline-block; background: var(--brand-gold); color: white; padding: 0.75rem 1.75rem; border-radius: 6px; text-decoration: none; font-weight: 600; }
+
+.filter-section { margin-bottom: 2.5rem; }
+.filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-gray); flex-wrap: wrap; gap: 1rem; }
+.filter-header h2 { font-size: 1.5rem; color: var(--primary-blue); }
+.filter-results-count { color: var(--text-gray); font-weight: 500; font-size: 0.95rem; }
+.mobile-filter-btn { display: flex; background: var(--primary-blue); color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 44px; align-items: center; gap: 0.5rem; }
+.filter-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+
+.filter-sidebar { background: var(--off-white); padding: 1.5rem; border-radius: 12px; height: fit-content; position: sticky; top: 80px; }
+.filter-sidebar h3 { font-size: 1.15rem; color: var(--primary-blue); margin-bottom: 1.25rem; padding-bottom: 0.65rem; border-bottom: 2px solid var(--border-gray); }
+.filter-group { margin-bottom: 1.5rem; }
+.filter-group-title { font-weight: 600; color: var(--text-dark); margin-bottom: 0.75rem; font-size: 0.95rem; }
+.filter-options { display: flex; flex-direction: column; gap: 0.65rem; }
+.filter-option { display: flex; align-items: center; gap: 0.65rem; cursor: pointer; padding: 0.5rem; border-radius: 6px; }
+.filter-option input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-blue); cursor: pointer; }
+.filter-option label { cursor: pointer; color: var(--text-gray); flex: 1; font-size: 0.95rem; }
+.filter-option.active label { color: var(--primary-blue); font-weight: 600; }
+.filter-count { background: var(--border-gray); padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem; }
+.clear-filters { width: 100%; background: var(--white); color: var(--primary-blue); border: 2px solid var(--primary-blue); padding: 0.75rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 1rem; min-height: 44px; }
+
+.mobile-filter-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; }
+.mobile-filter-modal.active { display: flex; justify-content: flex-end; }
+.mobile-filter-content { background: var(--white); width: 100%; max-width: 320px; height: 100%; overflow-y: auto; padding: 2rem 1.25rem; }
+.mobile-filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-gray); }
+.mobile-filter-header h3 { font-size: 1.25rem; color: var(--primary-blue); }
+.close-filter { background: none; border: none; font-size: 2rem; color: var(--text-gray); cursor: pointer; min-width: 44px; min-height: 44px; }
+.mobile-filter-footer { position: sticky; bottom: 0; background: var(--white); padding-top: 1rem; border-top: 2px solid var(--border-gray); margin-top: 1.5rem; }
+.apply-filters-btn { width: 100%; background: var(--primary-blue); color: white; border: none; padding: 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 50px; }
+
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.product-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,71,171,0.08); transition: all 0.4s; border: 1px solid var(--border-gray); display: flex; flex-direction: column; }
+.product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(0,71,171,0.18); border-color: var(--light-blue); }
+.product-card.hidden { display: none; }
+.product-image { width: 100%; height: 180px; background: linear-gradient(135deg, var(--off-white), var(--border-gray)); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; }
+.product-info { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+.product-category { color: var(--brand-gold); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+.product-title { font-size: 1.2rem; color: var(--text-dark); margin: 0 0 0.5rem 0; font-weight: 600; }
+.product-sku { font-size: 0.85rem; color: #888; margin-bottom: 0.75rem; }
+.product-description { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 0.75rem; line-height: 1.6; flex-grow: 1; }
+
+/* Price element */
+.price { font-size: 1.2rem; font-weight: 700; color: var(--brand-gold); margin-bottom: 0.75rem; }
+.price.price-hidden { font-size: 0.85rem; font-weight: 600; color: var(--text-gray); background: var(--off-white); padding: 0.4rem 0.75rem; border-radius: 20px; display: inline-block; }
+
+.product-footer { border-top: 1px solid #eee; }
+.datasheet-btn { background: var(--dark-blue); color: white; border: none; padding: 12px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; font-size: 0.9rem; transition: background 0.2s; display: block; width: 100%; }
+.datasheet-btn:hover { background: var(--brand-gold); }
+.no-results { text-align: center; padding: 3rem 1.5rem; color: var(--text-gray); display: none; }
+
+.cta-box { background: linear-gradient(135deg, var(--primary-blue), var(--light-blue)); color: white; padding: 2.5rem 1.5rem; border-radius: 12px; margin-top: 3rem; text-align: center; }
+.cta-box h3 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.cta-box p { font-size: 1rem; opacity: 0.95; margin-bottom: 1.25rem; }
+.cta-btn { display: inline-flex; background: var(--white); color: var(--primary-blue); padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 1rem; min-height: 50px; align-items: center; justify-content: center; }
+
+.partner-section { background: var(--off-white); padding: 2.5rem 1.5rem; text-align: center; margin-top: 3rem; border-radius: 12px; }
+.partner-section h3 { font-size: 1.5rem; color: var(--primary-blue); margin-bottom: 0.75rem; }
+.partner-section p { color: var(--text-gray); margin-bottom: 1.25rem; font-size: 0.95rem; }
+.partner-link { display: inline-flex; align-items: center; gap: 0.75rem; background: var(--white); color: var(--primary-blue); padding: 1rem 1.75rem; border-radius: 6px; text-decoration: none; font-weight: 700; margin-top: 1rem; min-height: 50px; }
+
+footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25rem 1.5rem; margin-top: 3rem; }
+.footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+.footer-section h3 { font-size: 1.15rem; margin-bottom: 1rem; }
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 0.65rem; }
+.footer-section a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; min-height: 44px; display: flex; align-items: center; }
+.footer-section a:hover { color: var(--white); }
+.partner-site { background: rgba(255,255,255,0.1); padding: 1.25rem; border-radius: 8px; margin-top: 1rem; }
+.partner-site h4 { color: #00E676; margin-bottom: 0.65rem; font-size: 1rem; }
+.partner-site a { color: #00E676; font-weight: 600; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; text-align: center; color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+
+@media (min-width: 969px) {
+  .mobile-menu-btn { display: none; }
+  .service-details { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .service-image { height: 450px; font-size: 8rem; }
+  .service-info h2 { font-size: 2.5rem; }
+  .comparison-grid { grid-template-columns: 1fr 1fr; }
+  .filter-layout { grid-template-columns: 280px 1fr; }
+  .mobile-filter-btn { display: none; }
+}
+@media (max-width: 968px) {
+  .nav-links, .auth-area { display: none; }
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+}
+@media (max-width: 640px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .filter-header { flex-direction: column; align-items: flex-start; }
+  .page-hero h1 { font-size: 1.75rem; }
+}
+.price { visibility: hidden; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    <ul class="nav-links">
+      <li><a href="builder.html">Home</a></li>
+      <li><a href="electrical.html">Electrical</a></li>
+      <li><a href="steel.html">Steel</a></li>
+      <li><a href="flooring.html" class="active">Flooring</a></li>
+      <li><a href="furniture.html">Furniture</a></li>
+    </ul>
+    <div class="auth-area">
+      <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
+      <a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
+      <span class="username-display" data-username></span>
+      <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+  </nav>
+</header>
+
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header"><h3>Menu</h3><button class="close-mobile-nav" onclick="toggleMobileNav()">×</button></div>
+  <ul class="mobile-nav-links">
+    <li><a href="builder.html">🏠 Home</a></li>
+    <li><a href="electrical.html">⚡ Electrical</a></li>
+    <li><a href="steel.html">🏗️ Steel</a></li>
+    <li><a href="flooring.html" class="active">📐 Flooring</a></li>
+    <li><a href="furniture.html">🛋️ Furniture</a></li>
+  </ul>
+  <div class="mobile-auth-buttons">
+    <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
+    <a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
+    <button class="btn-logout" data-logout onclick="signOut()" style="display:none;">Log Out</button>
+  </div>
+</div>
+
+<div class="price-login-banner" id="priceLoginBanner">
+  🔒 <strong>Prices are hidden.</strong> You must <a href="login.html">log in</a> and verify your email to view all product prices.
+</div>
+
+<section class="page-hero">
+  <h1>📐 Flooring Solutions &amp; Supplies</h1>
+  <p>Premium flooring from The Merrinton Collection and Stone Collection</p>
+</section>
+
+<section class="page-content">
+  <a href="builder.html" class="back-btn">← Back to Home</a>
+
+  <div class="service-details">
+    <div class="service-image">📐</div>
+    <div class="service-info">
+      <h2>Expert Flooring Solutions</h2>
+      <p>Our certified flooring specialists provide comprehensive installation services for all types of flooring. From hardwood to luxury vinyl, carpet to stone-effect tiles, we deliver precision craftsmanship on every project.</p>
+      <ul class="service-features">
+        <li>SPC Rigid Core &amp; Luxury Vinyl Installation</li>
+        <li>Hardwood &amp; Engineered Wood Flooring</li>
+        <li>Stone-Effect Tiles &amp; Marble Finishes</li>
+        <li>Floor Preparation &amp; Leveling</li>
+        <li>Underfloor Heating Compatible Solutions</li>
+        <li>Commercial &amp; Residential Projects</li>
+        <li>Premium Merrinton Collection Products</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Technical Comparison -->
+  <section class="tech-comparison">
+    <div class="tech-comparison-header">
+      <h2>SPC vs LVT: Technical Breakdown</h2>
+      <p>Understanding the core differences between Merrinton's SPC Rigid Core and LVT ranges to help you choose the right flooring for your project.</p>
+    </div>
+    <div class="comparison-grid">
+      <div class="tech-box">
+        <h3>🪨 SPC (Stone Plastic Composite) – The "Rigid Core"</h3>
+        <p>The modern powerhouse. Designed to be almost indestructible and is the preferred choice for kitchens, bathrooms, and commercial spaces.</p>
+        <ul class="spec-list">
+          <li><span class="spec-label">Core Material</span><span class="spec-value">70% Limestone / Virgin PVC</span></li>
+          <li><span class="spec-label">Thickness</span><span class="spec-value">6.0mm (incl. underlay)</span></li>
+          <li><span class="spec-label">Wear Layer</span><span class="spec-value">0.55mm Commercial Grade</span></li>
+          <li><span class="spec-label">Installation</span><span class="spec-value">Unipush™ Click System</span></li>
+          <li><span class="spec-label">Waterproof</span><span class="spec-value">100% Fully Waterproof</span></li>
+          <li><span class="spec-label">Stability</span><span class="spec-value">High - Temperature Resistant</span></li>
+          <li><span class="spec-label">Impact Resistance</span><span class="spec-value">Excellent - Dent Resistant</span></li>
+          <li><span class="spec-label">Subfloor Tolerance</span><span class="spec-value">Bridges minor imperfections</span></li>
+        </ul>
+      </div>
+      <div class="tech-box">
+        <h3>🧱 LVT (Luxury Vinyl Tile) – The "Flexible Choice"</h3>
+        <p>The classic version of luxury vinyl. Known for its comfort, warmth, and wide variety of aesthetic patterns.</p>
+        <ul class="spec-list">
+          <li><span class="spec-label">Core Material</span><span class="spec-value">Flexible Multi-layer PVC</span></li>
+          <li><span class="spec-label">Thickness</span><span class="spec-value">2.5mm - 3.0mm</span></li>
+          <li><span class="spec-label">Wear Layer</span><span class="spec-value">0.30mm - 0.55mm</span></li>
+          <li><span class="spec-label">Installation</span><span class="spec-value">Glue Down / Stick Down</span></li>
+          <li><span class="spec-label">Waterproof</span><span class="spec-value">Water Resistant</span></li>
+          <li><span class="spec-label">Stability</span><span class="spec-value">Moderate - Requires Flat Subfloor</span></li>
+          <li><span class="spec-label">Comfort</span><span class="spec-value">Softer, Warmer Underfoot</span></li>
+          <li><span class="spec-label">Sound Absorption</span><span class="spec-value">Excellent - Quieter Walk</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tech-summary">
+      <h4>✅ Which Should You Choose?</h4>
+      <p><strong>Choose SPC Rigid Core</strong> if you are installing in areas with temperature fluctuations (like conservatories), high moisture (bathrooms, kitchens), or over subfloors that aren't perfectly smooth. Its rigid stone core prevents "telegraphing" of imperfections and won't warp in direct sunlight or extreme temperature shifts.</p>
+      <p><strong>Choose LVT</strong> for a softer, quieter feel underfoot in bedrooms and living rooms. It is ideal for large projects where a low-profile, permanent bond to the subfloor is required, and where you want maximum texture depth and realistic embossing.</p>
+    </div>
+    <div class="tech-cta">
+      <a href="https://www.merrinton.com/pages/accreditations" target="_blank">View Full Technical Sheets →</a>
+    </div>
+  </section>
+
+  <!-- Filter Section -->
+  <section class="filter-section">
+    <div class="filter-header">
+      <h2>Flooring Products</h2>
+      <span class="filter-results-count" id="resultsCount">Showing 7 products</span>
+      <button class="mobile-filter-btn" onclick="openMobileFilter()">☰ Filter Products</button>
+    </div>
+
+    <div class="filter-layout">
+      <aside class="filter-sidebar">
+        <h3>Filter Products</h3>
+        <div class="filter-group">
+          <div class="filter-group-title">Collections</div>
+          <div class="filter-options">
+            <div class="filter-option active"><input type="checkbox" id="cat-all" checked onchange="filterProducts()"><label for="cat-all">All Products</label><span class="filter-count">7</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-merrinton" onchange="filterProducts()"><label for="cat-merrinton">The Merrinton Collection</label><span class="filter-count">4</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-stone" onchange="filterProducts()"><label for="cat-stone">Stone Collection</label><span class="filter-count">3</span></div>
+          </div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-group-title">Finish Type</div>
+          <div class="filter-options">
+            <div class="filter-option"><input type="checkbox" id="cat-wood" onchange="filterProducts()"><label for="cat-wood">Wood Effect</label><span class="filter-count">4</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-marble" onchange="filterProducts()"><label for="cat-marble">Marble Effect</label><span class="filter-count">2</span></div>
+            <div class="filter-option"><input type="checkbox" id="cat-stone-fx" onchange="filterProducts()"><label for="cat-stone-fx">Stone Effect</label><span class="filter-count">1</span></div>
+          </div>
+        </div>
+        <button class="clear-filters" onclick="clearFilters()">Clear All Filters</button>
+      </aside>
+
+      <div class="mobile-filter-modal" id="mobileFilterModal">
+        <div class="mobile-filter-content">
+          <div class="mobile-filter-header"><h3>Filter Products</h3><button class="close-filter" onclick="closeMobileFilter()">×</button></div>
+          <div class="filter-group">
+            <div class="filter-group-title">Collections</div>
+            <div class="filter-options">
+              <div class="filter-option active"><input type="checkbox" id="m-cat-all" checked onchange="filterProductsMobile()"><label for="m-cat-all">All Products</label><span class="filter-count">7</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-merrinton" onchange="filterProductsMobile()"><label for="m-cat-merrinton">The Merrinton Collection</label><span class="filter-count">4</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-stone" onchange="filterProductsMobile()"><label for="m-cat-stone">Stone Collection</label><span class="filter-count">3</span></div>
+            </div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-group-title">Finish Type</div>
+            <div class="filter-options">
+              <div class="filter-option"><input type="checkbox" id="m-cat-wood" onchange="filterProductsMobile()"><label for="m-cat-wood">Wood Effect</label><span class="filter-count">4</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-marble" onchange="filterProductsMobile()"><label for="m-cat-marble">Marble Effect</label><span class="filter-count">2</span></div>
+              <div class="filter-option"><input type="checkbox" id="m-cat-stone-fx" onchange="filterProductsMobile()"><label for="m-cat-stone-fx">Stone Effect</label><span class="filter-count">1</span></div>
+            </div>
+          </div>
+          <div class="mobile-filter-footer"><button class="apply-filters-btn" onclick="applyMobileFilters()">Apply Filters</button></div>
+        </div>
+      </div>
+
+      <section class="products-grid" id="productsGrid">
+
+        <div class="product-card" data-category="merrinton wood">
+          <div class="product-image">🪵</div>
+          <div class="product-info">
+            <div class="product-category">The Merrinton Collection</div>
+            <h3 class="product-title">Kingsley Oak</h3>
+            <div class="product-sku">SKU: 5984</div>
+            <p class="product-description">A timeless, natural oak finish with warm honey tones and realistic wood grain texture. Part of our premium SPC Rigid Core range.</p>
+            <p class="price">£34.99 / m²</p>
+            <div class="product-footer"><a href="https://www.merrinton.com/pages/accreditations" class="datasheet-btn" target="_blank">View Technical Sheet</a></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="merrinton wood">
+          <div class="product-image">🏠</div>
+          <div class="product-info">
+            <div class="product-category">The Merrinton Collection</div>
+            <h3 class="product-title">Light Chestnut</h3>
+            <div class="product-sku">SKU: 5982</div>
+            <p class="product-description">Subtle, pale wood tones providing a bright and airy feel to any modern interior. Engineered for strength and heat resistance.</p>
+            <p class="price">£32.99 / m²</p>
+            <div class="product-footer"><a href="https://www.merrinton.com/pages/accreditations" class="datasheet-btn" target="_blank">View Technical Sheet</a></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="merrinton wood">
+          <div class="product-image">⬜</div>
+          <div class="product-info">
+            <div class="product-category">The Merrinton Collection</div>
+            <h3 class="product-title">Stone Grey</h3>
+            <div class="product-sku">SKU: 5983</div>
+            <p class="product-description">A contemporary grey wood-effect plank with cool undertones. Features built-in IXPE underlay for noise reduction.</p>
+            <p class="price">£33.99 / m²</p>
+            <div class="product-footer"><a href="https://www.merrinton.com/pages/accreditations" class="datasheet-btn" target="_blank">View Technical Sheet</a></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="merrinton wood">
+          <div class="product-image">🟤</div>
+          <div class="product-info">
+            <div class="product-category">The Merrinton Collection</div>
+            <h3 class="product-title">Walnut</h3>
+            <div class="product-sku">SKU: 5985</div>
+            <p class="product-description">Deep, rich chocolate tones for a luxurious and classic aesthetic. 100% waterproof SPC construction.</p>
+            <p class="price">£35.99 / m²</p>
+            <div class="product-footer"><a href="https://www.merrinton.com/pages/accreditations" class="datasheet-btn" target="_blank">View Technical Sheet</a></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="stone stone-fx">
+          <div class="product-image">🪨</div>
+          <div class="product-info">
+            <div class="product-category">Stone Collection</div>
+            <h3 class="product-title">Norfolk Flint</h3>
+            <div class="product-sku">SKU: 5987</div>
+            <p class="product-description">Inspired by natural stone, this finish offers a rugged yet refined grey texture suitable for heavy-traffic areas.</p>
+            <p class="price">£36.99 / m²</p>
+            <div class="product-footer"><a href="https://www.merrinton.com/pages/accreditations" class="datasheet-btn" target="_blank">View Technical Sheet</a></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="stone marble">
+          <div class="product-image">⚪</div>
+          <div class="product-info">
+            <div class="product-category">Stone Collection</div>
+            <h3 class="product-title">Tuscan Marble</h3>
+            <div class="product-sku">SKU: 5986</div>
+            <p class="product-description">A bright marble with soft veining and crisp white tones, bringing a clean, elegant Mediterranean feel. 6mm Thickness.</p>
+            <p class="price">£38.99 / m²</p>
+            <div class="product-footer"><a href="https://www.merrinton.com/pages/accreditations" class="datasheet-btn" target="_blank">View Technical Sheet</a></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="stone marble">
+          <div class="product-image">⚫</div>
+          <div class="product-info">
+            <div class="product-category">Stone Collection</div>
+            <h3 class="product-title">Biscay Marble</h3>
+            <div class="product-sku">SKU: 5988</div>
+            <p class="product-description">Deep grey marble effect with dramatic white veining. High-density core with Unipush click system for easy installation.</p>
+            <p class="price">£38.99 / m²</p>
+            <div class="product-footer"><a href="https://www.merrinton.com/pages/accreditations" class="datasheet-btn" target="_blank">View Technical Sheet</a></div>
+          </div>
+        </div>
+
+      </section>
+      <div class="no-results" id="noResults"><h3>No Products Found</h3><p>Try adjusting your filters.</p></div>
+    </div>
+  </section>
+
+  <div class="cta-box">
+    <h3>Need Professional Installation?</h3>
+    <p>Our certified flooring specialists are available for installations, consultations, and free quotes. Get started today!</p>
+    <a href="builder.html#contact" class="cta-btn">Request a Free Quote</a>
+  </div>
+
+  <div class="partner-section">
+    <h3>🤝 Premium Flooring Partner</h3>
+    <p>Proud supplier of The Merrinton Collection and Stone Collection flooring products.</p>
+    <a href="https://www.merrinton.com" target="_blank" class="partner-link"><span>📐</span><span>Visit Merrinton</span><span>→</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>BuildPro UK</h3>
+      <p style="color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:1rem;">Your trusted partner for professional building and flooring services across the United Kingdom.</p>
+      <div class="partner-site">
+        <h4>Partner Site</h4>
+        <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;margin-bottom:0.5rem;">Premium flooring supplier:</p>
+        <a href="https://www.merrinton.com" target="_blank">merrinton.com</a>
+      </div>
+    </div>
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="builder.html">Home</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="steel.html">Steel</a></li>
+        <li><a href="flooring.html">Flooring</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Services</h3>
+      <ul>
+        <li><a href="#">SPC Rigid Core Installation</a></li>
+        <li><a href="#">Luxury Vinyl Fitting</a></li>
+        <li><a href="#">Stone-Effect Tiles</a></li>
+        <li><a href="#">Marble Finish Installation</a></li>
+        <li><a href="#">Floor Preparation</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="tel:08001234567">0800 123 4567</a></li>
+        <li><a href="mailto:info@buildprouk.co.uk">info@buildprouk.co.uk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 BuildPro UK. All rights reserved. | Partner: <a href="https://www.merrinton.com" style="color:var(--brand-gold);">Merrinton Flooring</a></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+  async function initPage() {
+    const loggedIn = await requireAuth();
+    document.getElementById('priceLoginBanner').classList.toggle('show', !loggedIn);
+  }
+  initPage();
+
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('active');
+    document.getElementById('mobileNavOverlay').classList.toggle('active');
+  }
+  document.querySelectorAll('.mobile-nav-links a').forEach(l => l.addEventListener('click', toggleMobileNav));
+
+  function filterProducts() {
+    const checked = Array.from(document.querySelectorAll('.filter-sidebar input[type="checkbox"]:checked')).map(c => c.id.replace('cat-', ''));
+    let count = 0;
+    document.querySelectorAll('.product-card').forEach(card => {
+      const cat = card.dataset.category;
+      const show = checked.includes('all') || checked.some(c => cat.includes(c));
+      card.classList.toggle('hidden', !show);
+      if (show) count++;
+    });
+    document.getElementById('resultsCount').textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
+    document.getElementById('noResults').style.display = count === 0 ? 'block' : 'none';
+  }
+  function clearFilters() {
+    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(cb => cb.checked = cb.id === 'cat-all');
+    filterProducts();
+  }
+  function openMobileFilter()  { document.getElementById('mobileFilterModal').classList.add('active'); }
+  function closeMobileFilter() { document.getElementById('mobileFilterModal').classList.remove('active'); }
+  function filterProductsMobile() {
+    document.querySelectorAll('#mobileFilterModal input[type="checkbox"]:checked').forEach(mcb => {
+      const dcb = document.getElementById('cat-' + mcb.id.replace('m-cat-', ''));
+      if (dcb) dcb.checked = true;
+    });
+    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(dcb => {
+      const mcb = document.getElementById('m-cat-' + dcb.id.replace('cat-', ''));
+      if (mcb && !mcb.checked) dcb.checked = false;
+    });
+  }
+  function applyMobileFilters() { filterProducts(); closeMobileFilter(); }
+  document.getElementById('mobileFilterModal').addEventListener('click', e => { if (e.target === document.getElementById('mobileFilterModal')) closeMobileFilter(); });
+  document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
+</script>
+</body>
+</html>
