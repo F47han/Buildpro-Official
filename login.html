@@ -138,11 +138,7 @@ footer a { color: var(--white); text-decoration: none; }
 <script src="supabase.js"></script>
 <script src="auth.js"></script>
 <script>
-  // Redirect if already logged in
-  (async () => {
-    const user = await getCurrentUser();
-    if (user) window.location.href = 'builder.html';
-  })();
+  // THE AUTO-REDIRECT HAS BEEN REMOVED FROM THIS SECTION
 
   function togglePwd() {
     const input = document.getElementById('password');
@@ -189,6 +185,7 @@ footer a { color: var(--white); text-decoration: none; }
 
     try {
       await signIn(email, password);
+      // Successful login will still take you to builder.html
       window.location.href = 'builder.html';
     } catch (err) {
       if (err.message.includes('Invalid login credentials')) {
