@@ -13,3 +13,11 @@ node_modules/
 # Environment
 .env
 .env.local
+
+# Test / debug scripts (may contain service_role key)
+test.js
+test_*.js
+
+# Agent config
+.agents/
+skills-lock.json

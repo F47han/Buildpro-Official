@@ -1099,8 +1099,10 @@ align-items: flex-start;
 <li><a href="furniture.html">Furniture</a></li>
 </ul>
 <div class="auth-buttons">
-<a href="loginpage.html" class="btn-login">Log In</a>
-<a href="signuppage.html" class="btn-signup">Sign Up</a>
+<a href="login.html" class="btn-login" data-auth-hide>Log In</a>
+<a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
+<span class="username-display" data-username></span>
+<button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
 </div>
 <button class="mobile-menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">☰</button>
 </div>
@@ -1122,8 +1124,9 @@ align-items: flex-start;
 <li><a href="furniture.html">🛋️ Furniture</a></li>
 </ul>
 <div class="mobile-auth-buttons">
-<a href="loginpage.html" class="btn-login">Log In</a>
-<a href="signuppage.html" class="btn-signup">Sign Up</a>
+<a href="login.html" class="btn-login" data-auth-hide>Log In</a>
+<a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
+<button class="btn-logout" data-logout onclick="signOut()" style="display:none;">Log Out</button>
 </div>
 </div>
 
@@ -1211,16 +1214,16 @@ align-items: flex-start;
 </div>
 
 <section class="products-grid" id="productsGrid">
-<div class="product-card" data-category="ev-charging"><div class="product-image">🔌</div><div class="product-info"><div class="product-code">LEVCT2132O-A</div><div class="product-category">EV Charging</div><h3 class="product-title">EV Charging Station (Cable Version)</h3><p class="product-description">7.3KW AC electric vehicle charging station, IP55 protection, with Type 2 cable and RFID function.</p><p class="price">£1</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/storage/documents/datasheets/1720633211__EV%20Charging%20Station%20Instruction.pdf" class="datasheet-btn" target="_blank">View Datasheet</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">KR106B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">Single Module RCBO 6A B Curve</h3><p class="product-description">6A 6KA Single Module Type AC RCBO, 30mA residual current, B Curve tripping characteristic.</p><p class="price">£1</p><div class="product-footer"><a href="https://liveelectrical.co.uk/beta/product-detail/kr106b-030_521" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">RA120B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">High Immunity RCBO 20A Type A</h3><p class="product-description">20A 10kA Single Module Type A High Immunity RCBO, 30mA, B Curve.</p><p class="price">£1</p><div class="product-footer"><a href="https://liveelectrical.co.uk/product-detail/ra120b-030_415" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="consumer-units"><div class="product-image">📦</div><div class="product-info"><div class="product-code">LHMC22/100</div><div class="product-category">Consumer Units</div><h3 class="product-title">22 Way Metal Clad Consumer Unit</h3><p class="product-description">Surface mounted metal clad consumer unit complete with 100A Isolator switch.</p><p class="price">£1</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/product-detail/lhmc22-100_278" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">☀️</div><div class="product-info"><div class="product-code">DCM420C</div><div class="product-category">Circuit Protection</div><h3 class="product-title">4 Pole DC MCB 20A</h3><p class="product-description">20A C Curve 6kA 1000V DC Miniature Circuit Breaker for Solar PV installations.</p><p class="price">£1</p><div class="product-footer"><a href="https://liveelectrical.co.uk/server.php/product-detail/dcm420c_1117" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="controls"><div class="product-image">⏱️</div><div class="product-info"><div class="product-code">TIME162D</div><div class="product-category">Controls & Timers</div><h3 class="product-title">Digital 2-Channel Timer Switch</h3><p class="product-description">Programmable digital time switch with pulse program and sleep mode for energy saving.</p><p class="price">£1</p><div class="product-footer"><a href="http://liveelectrical.co.uk/storage/Files/1715734360_TIME162D%20Instruction.pdf" class="datasheet-btn" target="_blank">View Manual</a></div></div></div>
-<div class="product-card" data-category="ev-charging"><div class="product-image">🔌</div><div class="product-info"><div class="product-code">LEVST2132O-A</div><div class="product-category">EV Charging</div><h3 class="product-title">EV Charging Station (Socket Version)</h3><p class="product-description">7.3KW AC EV charging station, IP54, Socket version with Ethernet/Wifi/4G options.</p><p class="price">£1</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/storage/documents/datasheets/1720633211__EV%20Charging%20Station%20Instruction.pdf" class="datasheet-btn" target="_blank">View Datasheet</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">KR132B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">Single Module RCBO 32A</h3><p class="product-description">32A 6KA Type AC RCBO, 30mA, B Curve, compact single module design.</p><p class="price">£1</p><div class="product-footer"><a href="https://liveelectrical.co.uk/circuit-protection-devices/rcbo" class="datasheet-btn" target="_blank">View Category</a></div></div></div>
-<div class="product-card" data-category="consumer-units"><div class="product-image">🔘</div><div class="product-info"><div class="product-code">LMS2100</div><div class="product-category">Consumer Units</div><h3 class="product-title">Main Switch Isolator 100A</h3><p class="product-description">Double Pole 100A Main Switch Isolator for use in Consumer Units and Enclosures.</p><p class="price">£1</p><div class="product-footer"><a href="https://liveelectrical.co.uk/switch-and-fuses/switch-isolator" class="datasheet-btn" target="_blank">View Category</a></div></div></div>
-<div class="product-card" data-category="distribution"><div class="product-image">🔧</div><div class="product-info"><div class="product-code">LTPN4</div><div class="product-category">Distribution Boards</div><h3 class="product-title">TPN Distribution Board 4 Way</h3><p class="product-description">4 Way Triple Pole and Neutral (TPN) distribution board for industrial applications.</p><p class="price">£1</p><div class="product-footer"><a href="https://liveelectrical.co.uk/tpn-distribution-board" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
+<div class="product-card" data-category="ev-charging"><div class="product-image">🔌</div><div class="product-info"><div class="product-code">LEVCT2132O-A</div><div class="product-category">EV Charging</div><h3 class="product-title">EV Charging Station (Cable Version)</h3><p class="product-description">7.3KW AC electric vehicle charging station, IP55 protection, with Type 2 cable and RFID function.</p><p class="price">£449.99</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/storage/documents/datasheets/1720633211__EV%20Charging%20Station%20Instruction.pdf" class="datasheet-btn" target="_blank">View Datasheet</a></div></div></div>
+<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">KR106B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">Single Module RCBO 6A B Curve</h3><p class="product-description">6A 6KA Single Module Type AC RCBO, 30mA residual current, B Curve tripping characteristic.</p><p class="price">£12.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/beta/product-detail/kr106b-030_521" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
+<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">RA120B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">High Immunity RCBO 20A Type A</h3><p class="product-description">20A 10kA Single Module Type A High Immunity RCBO, 30mA, B Curve.</p><p class="price">£18.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/product-detail/ra120b-030_415" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
+<div class="product-card" data-category="consumer-units"><div class="product-image">📦</div><div class="product-info"><div class="product-code">LHMC22/100</div><div class="product-category">Consumer Units</div><h3 class="product-title">22 Way Metal Clad Consumer Unit</h3><p class="product-description">Surface mounted metal clad consumer unit complete with 100A Isolator switch.</p><p class="price">£89.99</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/product-detail/lhmc22-100_278" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
+<div class="product-card" data-category="protection"><div class="product-image">☀️</div><div class="product-info"><div class="product-code">DCM420C</div><div class="product-category">Circuit Protection</div><h3 class="product-title">4 Pole DC MCB 20A</h3><p class="product-description">20A C Curve 6kA 1000V DC Miniature Circuit Breaker for Solar PV installations.</p><p class="price">£24.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/server.php/product-detail/dcm420c_1117" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
+<div class="product-card" data-category="controls"><div class="product-image">⏱️</div><div class="product-info"><div class="product-code">TIME162D</div><div class="product-category">Controls & Timers</div><h3 class="product-title">Digital 2-Channel Timer Switch</h3><p class="product-description">Programmable digital time switch with pulse program and sleep mode for energy saving.</p><p class="price">£29.99</p><div class="product-footer"><a href="http://liveelectrical.co.uk/storage/Files/1715734360_TIME162D%20Instruction.pdf" class="datasheet-btn" target="_blank">View Manual</a></div></div></div>
+<div class="product-card" data-category="ev-charging"><div class="product-image">🔌</div><div class="product-info"><div class="product-code">LEVST2132O-A</div><div class="product-category">EV Charging</div><h3 class="product-title">EV Charging Station (Socket Version)</h3><p class="product-description">7.3KW AC EV charging station, IP54, Socket version with Ethernet/Wifi/4G options.</p><p class="price">£399.99</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/storage/documents/datasheets/1720633211__EV%20Charging%20Station%20Instruction.pdf" class="datasheet-btn" target="_blank">View Datasheet</a></div></div></div>
+<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">KR132B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">Single Module RCBO 32A</h3><p class="product-description">32A 6KA Type AC RCBO, 30mA, B Curve, compact single module design.</p><p class="price">£13.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/circuit-protection-devices/rcbo" class="datasheet-btn" target="_blank">View Category</a></div></div></div>
+<div class="product-card" data-category="consumer-units"><div class="product-image">🔘</div><div class="product-info"><div class="product-code">LMS2100</div><div class="product-category">Consumer Units</div><h3 class="product-title">Main Switch Isolator 100A</h3><p class="product-description">Double Pole 100A Main Switch Isolator for use in Consumer Units and Enclosures.</p><p class="price">£19.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/switch-and-fuses/switch-isolator" class="datasheet-btn" target="_blank">View Category</a></div></div></div>
+<div class="product-card" data-category="distribution"><div class="product-image">🔧</div><div class="product-info"><div class="product-code">LTPN4</div><div class="product-category">Distribution Boards</div><h3 class="product-title">TPN Distribution Board 4 Way</h3><p class="product-description">4 Way Triple Pole and Neutral (TPN) distribution board for industrial applications.</p><p class="price">£149.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/tpn-distribution-board" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
 </section>
 <div class="no-results" id="noResults"><h3>No Products Found</h3><p>Try adjusting your filters to see more results.</p></div>
 </div>
@@ -1265,8 +1268,8 @@ align-items: flex-start;
 <div class="footer-section">
 <h3>Account</h3>
 <ul>
-<li><a href="signuppage.html">Sign Up</a></li>
-<li><a href="loginpage.html">Log In</a></li>
+<li><a href="signup.html">Sign Up</a></li>
+<li><a href="login.html">Log In</a></li>
 <li><a href="#">My Orders</a></li>
 <li><a href="#">Track Delivery</a></li>
 </ul>
@@ -1295,7 +1298,45 @@ align-items: flex-start;
 </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
 <script>
+async function initPage() {
+  // 1. Fetch live prices from Supabase (HTML values are fallback)
+  try {
+    const { data: products, error } = await sb
+      .from('products')
+      .select('product_code, price')
+      .eq('category', 'electrical');
+
+    if (!error && products && products.length > 0) {
+      // Build lookup: product_code → price
+      const priceMap = {};
+      products.forEach(p => { priceMap[p.product_code] = p.price; });
+
+      // Overlay DB prices onto each card
+      document.querySelectorAll('.product-card').forEach(card => {
+        const codeEl  = card.querySelector('.product-code');
+        const priceEl = card.querySelector('.price');
+        if (codeEl && priceEl) {
+          const code = codeEl.textContent.trim();
+          if (priceMap[code] !== undefined) {
+            priceEl.textContent = '£' + parseFloat(priceMap[code]).toFixed(2);
+          }
+        }
+      });
+      console.log(`[BuildPro] Loaded ${products.length} live prices from database`);
+    }
+  } catch (e) {
+    console.warn('[BuildPro] DB price fetch failed, using HTML fallback:', e.message);
+  }
+
+  // 2. Apply auth-based price visibility (hide/show/verify)
+  await requireAuth();
+}
+initPage();
+
 // Mobile Navigation Toggle
 function toggleMobileNav() {
 const mobileNav = document.getElementById('mobileNav');

@@ -31,13 +31,15 @@ nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex
 .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; min-height: 44px; display: flex; align-items: center; }
 .nav-links a:hover, .nav-links a.active { color: var(--primary-blue); }
 
-.auth-area { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.auth-area { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
 .btn-signup { background: var(--primary-blue); color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; min-height: 44px; display: flex; align-items: center; transition: background 0.3s; }
 .btn-signup:hover { background: var(--dark-blue); }
 .btn-login { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.7rem 1rem; min-height: 44px; display: flex; align-items: center; }
+
+/* Red Logout Button */
 .btn-logout { background: #D32F2F; color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; min-height: 44px; display: none; transition: background 0.3s; }
 .btn-logout:hover { background: #B71C1C; }
-.username-display { color: var(--text-gray); font-size: 0.9rem; font-weight: 500; display: none; }
+.username-display { color: var(--text-dark); font-size: 1rem; font-weight: 700; display: none; }
 
 /* ── Hero ── */
 .hero { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 60%, #001a4d 100%); color: var(--white); padding: 6rem 1.25rem 5rem; position: relative; overflow: hidden; text-align: center; }
@@ -99,29 +101,29 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       <li><a href="furniture.html">Furniture</a></li>
     </ul>
     <div class="auth-area">
-      <!-- Shown when NOT logged in -->
-      <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
+      <!-- These disappear when logged in -->
+      <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
       <a href="signup.html" class="btn-signup" data-auth-hide>Sign Up</a>
-      <!-- Shown when logged in -->
+      
+      <!-- These appear when logged in -->
       <span class="username-display" data-username></span>
       <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
     </div>
   </nav>
 </header>
 
-<!-- Hero -->
 <section class="hero">
   <div class="hero-content">
     <h1>Professional Building &amp; Electrical Services</h1>
     <p>Quality materials, expert services, and reliable delivery across the United Kingdom.</p>
     <div class="hero-buttons">
       <a href="electrical.html" class="hero-btn-primary">⚡ Electrical Products</a>
+      <!-- This button also hides if logged in -->
       <a href="signup.html" class="hero-btn-secondary" data-auth-hide>Create Free Account</a>
     </div>
   </div>
 </section>
 
-<!-- Services -->
 <section class="services-section">
   <div class="section-header">
     <h2>Our Services &amp; Products</h2>
@@ -131,43 +133,41 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <a href="electrical.html" class="service-card">
       <div class="service-icon">⚡</div>
       <h3>Electrical Services</h3>
-      <p>Professional electrical installations, consumer units, EV charging, circuit protection, and quality supplies from LiveElectrical.co.uk.</p>
+      <p>Professional electrical installations, consumer units, EV charging, and supplies.</p>
       <span class="service-link">Browse Electrical →</span>
     </a>
     <a href="steel.html" class="service-card">
       <div class="service-icon">🏗️</div>
       <h3>Steel &amp; Structural</h3>
-      <p>Structural steel, RSJs, hollow sections, angles, and channels for residential and commercial construction projects.</p>
+      <p>Structural steel, RSJs, and hollow sections for construction projects.</p>
       <span class="service-link">Browse Steel →</span>
     </a>
     <a href="flooring.html" class="service-card">
       <div class="service-icon">📐</div>
       <h3>Flooring Solutions</h3>
-      <p>Hardwood, laminate, vinyl, and specialist flooring options for every room and budget.</p>
+      <p>Hardwood, laminate, vinyl, and specialist flooring options.</p>
       <span class="service-link">Browse Flooring →</span>
     </a>
     <a href="furniture.html" class="service-card">
       <div class="service-icon">🛋️</div>
       <h3>Furniture &amp; Fittings</h3>
-      <p>Commercial and residential furniture, fixtures, and fittings to complete your project.</p>
+      <p>Commercial and residential furniture to complete your project.</p>
       <span class="service-link">Browse Furniture →</span>
     </a>
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-banner" id="contact">
   <h2>Need a Quote?</h2>
-  <p>Our team is ready to help with your next project. Get in touch for a free, no-obligation quote.</p>
+  <p>Our team is ready to help with your next project.</p>
   <a href="mailto:info@buildprouk.co.uk" class="cta-banner-btn">📧 Contact Us Today</a>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="footer-content">
     <div class="footer-section">
       <h3>BuildPro UK</h3>
-      <p style="color:rgba(255,255,255,0.75);font-size:0.9rem;line-height:1.7;">Your trusted partner for professional building and electrical services across the United Kingdom.</p>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.9rem;">Your trusted partner for professional building and electrical services.</p>
     </div>
     <div class="footer-section">
       <h3>Products</h3>
@@ -175,7 +175,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         <li><a href="electrical.html">Electrical</a></li>
         <li><a href="steel.html">Steel</a></li>
         <li><a href="flooring.html">Flooring</a></li>
-        <li><a href="furniture.html">Furniture</a></li>
       </ul>
     </div>
     <div class="footer-section">
@@ -185,23 +184,18 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         <li><a href="login.html">Log In</a></li>
       </ul>
     </div>
-    <div class="footer-section">
-      <h3>Contact</h3>
-      <ul>
-        <li><a href="tel:08001234567">0800 123 4567</a></li>
-        <li><a href="mailto:info@buildprouk.co.uk">info@buildprouk.co.uk</a></li>
-      </ul>
-    </div>
   </div>
   <div class="footer-bottom">
     <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
   </div>
 </footer>
 
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="auth.js"></script>
 <script>
+  // Double tap zoom prevention
   document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
 </script>
 </body>
