@@ -92,9 +92,9 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
 <header>
   <nav>
-    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    <a href="index.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
     <ul class="nav-links">
-      <li><a href="builder.html" class="active">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="electrical.html">Electrical</a></li>
       <li><a href="steel.html">Steel</a></li>
       <li><a href="flooring.html">Flooring</a></li>
@@ -107,7 +107,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       
       <!-- These appear when logged in -->
       <span class="username-display" data-username></span>
-      <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
+      <button class="btn-logout" data-logout onclick="handleLogout()">Log Out</button>
     </div>
   </nav>
 </header>
@@ -193,7 +193,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 <!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-<script src="auth.js"></script>
 <script>
   // Double tap zoom prevention
   document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
