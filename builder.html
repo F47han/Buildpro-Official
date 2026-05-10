@@ -84,6 +84,26 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 .footer-section a:hover { color: var(--white); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; text-align: center; color: rgba(255,255,255,0.7); font-size: 0.9rem; max-width: 1400px; margin: 0 auto; }
 
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.75rem; color: var(--primary-blue); cursor: pointer; min-width: 44px; min-height: 44px; padding: 0.5rem; }
+.mobile-nav-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 999; opacity: 0; transition: opacity 0.3s; }
+.mobile-nav-overlay.active { display: block; opacity: 1; }
+.mobile-nav { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--white); z-index: 1000; transition: right 0.3s; overflow-y: auto; box-shadow: -5px 0 20px rgba(0,0,0,0.2); }
+.mobile-nav.active { right: 0; }
+.mobile-nav-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 2px solid var(--border-gray); position: sticky; top: 0; background: var(--white); z-index: 1; }
+.mobile-nav-header h3 { color: var(--primary-blue); font-size: 1.25rem; }
+.close-mobile-nav { background: none; border: none; font-size: 2rem; color: var(--text-gray); cursor: pointer; min-width: 44px; min-height: 44px; padding: 0.5rem; }
+.mobile-nav-links { list-style: none; padding: 1rem 1.25rem; }
+.mobile-nav-links li { margin-bottom: 0.5rem; }
+.mobile-nav-links a { display: flex; padding: 1rem 1.25rem; text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 1.1rem; border-radius: 8px; transition: background 0.3s; min-height: 50px; align-items: center; gap: 0.75rem; }
+.mobile-nav-links a.active { background: rgba(0,71,171,0.1); color: var(--primary-blue); }
+.mobile-auth-buttons { padding: 1rem 1.25rem; border-top: 2px solid var(--border-gray); display: flex; flex-direction: column; gap: 0.75rem; }
+.mobile-auth-buttons .btn-signup, .mobile-auth-buttons .btn-login { width: 100%; justify-content: center; }
+
+@media (max-width: 968px) {
+  .nav-links, .auth-area { display: none; }
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+  .hero h1 { font-size: 2.5rem; }
+}
 @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .hero p { font-size: 1rem; } }
 @media (max-width: 640px) { .hero { padding: 4rem 1rem 3rem; } .services-section { padding: 3rem 1rem; } }
 </style>
@@ -92,9 +112,9 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
 <header>
   <nav>
-    <a href="index.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="builder.html" class="active">Home</a></li>
       <li><a href="electrical.html">Electrical</a></li>
       <li><a href="steel.html">Steel</a></li>
       <li><a href="flooring.html">Flooring</a></li>
@@ -107,10 +127,32 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       
       <!-- These appear when logged in -->
       <span class="username-display" data-username></span>
-      <button class="btn-logout" data-logout onclick="handleLogout()">Log Out</button>
+      <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
     </div>
+    <button class="mobile-menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">☰</button>
   </nav>
 </header>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <h3>Menu</h3>
+    <button class="close-mobile-nav" aria-label="Close menu" onclick="toggleMobileNav()">×</button>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="builder.html" class="active">🏠 Home</a></li>
+    <li><a href="electrical.html">⚡ Electrical</a></li>
+    <li><a href="steel.html">🏗️ Steel</a></li>
+    <li><a href="flooring.html">📐 Flooring</a></li>
+    <li><a href="furniture.html">🛋️ Furniture</a></li>
+  </ul>
+  <div class="mobile-auth-buttons">
+    <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
+    <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
+    <button class="btn-logout" data-logout onclick="signOut()" style="display:none; width: 100%; background: #D32F2F; color: white; padding: 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 50px;">Log Out</button>
+  </div>
+</div>
 
 <section class="hero">
   <div class="hero-content">
@@ -193,7 +235,24 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 <!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="auth.js"></script>
 <script>
+  // Mobile Navigation Toggle
+  function toggleMobileNav() {
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileOverlay = document.getElementById('mobileNavOverlay');
+    const body = document.body;
+    
+    mobileNav.classList.toggle('active');
+    mobileOverlay.classList.toggle('active');
+    
+    if (mobileNav.classList.contains('active')) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+  }
+
   // Double tap zoom prevention
   document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
 </script>
