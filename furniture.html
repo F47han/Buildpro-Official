@@ -28,7 +28,7 @@ nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex
 .btn-signup { background: var(--primary-blue); color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; min-height: 44px; display: flex; align-items: center; }
 .btn-login { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.7rem 1rem; min-height: 44px; display: flex; align-items: center; }
 .btn-logout { background: #D32F2F; color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; min-height: 44px; display: none; }
-.username-display { color: var(--text-gray); font-size: 0.9rem; font-weight: 500; display: none; }
+.username-display { color: var(--primary-blue); font-size: 1rem; font-weight: 700; display: none; margin-right: 0.5rem; }
 .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.75rem; color: var(--primary-blue); cursor: pointer; min-width: 44px; min-height: 44px; padding: 0.5rem; }
 
 .mobile-nav-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; }
@@ -223,7 +223,13 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
 <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
-  <div class="mobile-nav-header"><h3>Menu</h3><button class="close-mobile-nav" onclick="toggleMobileNav()">×</button></div>
+  <div class="mobile-nav-header">
+    <div style="display: flex; flex-direction: column;">
+      <h3>Menu</h3>
+      <span class="username-display" data-username style="margin-top: 0.25rem;"></span>
+    </div>
+    <button class="close-mobile-nav" onclick="toggleMobileNav()">×</button>
+  </div>
   <div style="padding: 1rem 1.25rem;">
     <div class="search-bar" style="max-width: 100%;">
       <input type="text" id="mobileSearch" placeholder="Search furniture...">

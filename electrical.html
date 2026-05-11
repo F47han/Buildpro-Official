@@ -192,6 +192,8 @@ color: var(--dark-blue);
   transition: background 0.3s; 
 }
 .btn-logout:hover { background: #B71C1C; }
+.username-display { color: var(--primary-blue); font-size: 1rem; font-weight: 700; display: none; margin-right: 0.5rem; }
+
 
 .mobile-menu-btn {
 display: none;
@@ -1128,7 +1130,10 @@ align-items: flex-start;
 <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-header">
-    <h3>Menu</h3>
+    <div style="display: flex; flex-direction: column;">
+      <h3>Menu</h3>
+      <span class="username-display" data-username style="margin-top: 0.25rem;"></span>
+    </div>
     <button class="close-mobile-nav" aria-label="Close menu" onclick="toggleMobileNav()">×</button>
   </div>
   <div style="padding: 1rem 1.25rem;">

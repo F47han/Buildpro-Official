@@ -94,20 +94,24 @@ function applyPriceVisibility(canSeePrices, isLoggedIn = false) {
 function updateNavForAuth(user) {
   // Logout buttons (elements with data-logout)
   document.querySelectorAll('[data-logout]').forEach(btn => {
-    btn.style.display = user ? '' : 'none';
+    // Override CSS display:none explicitly
+    btn.style.setProperty('display', user ? 'inline-flex' : 'none', 'important');
   });
   // Login/Signup links (elements with data-auth-hide)
   document.querySelectorAll('[data-auth-hide]').forEach(el => {
-    el.style.display = user ? 'none' : '';
+    el.style.setProperty('display', user ? 'none' : 'inline-flex', 'important');
   });
   // Show username if element exists
-  const nameEl = document.querySelector('[data-username]');
-  if (nameEl && user) {
-    nameEl.textContent = user.user_metadata?.fname
-      ? 'Hi, ' + user.user_metadata.fname
-      : user.email;
-    nameEl.style.display = '';
-  }
+  document.querySelectorAll('[data-username]').forEach(nameEl => {
+    if (user) {
+      nameEl.textContent = user.user_metadata?.fname
+        ? 'Hi, ' + user.user_metadata.fname
+        : 'Hi, User';
+      nameEl.style.setProperty('display', 'inline-block', 'important');
+    } else {
+      nameEl.style.setProperty('display', 'none', 'important');
+    }
+  });
 }
 
 // ─────────────────────────────────────────────
