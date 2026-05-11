@@ -168,11 +168,27 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   .nav-links, .auth-area { display: none; }
   .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
 }
+@media (max-width: 968px) {
+  .nav-links, .auth-area, .nav-center { display: none; }
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+  .filter-sidebar { display: none !important; }
+}
 @media (max-width: 640px) {
   .products-grid { grid-template-columns: 1fr; }
   .filter-header { flex-direction: column; align-items: flex-start; }
   .page-hero h1 { font-size: 1.75rem; }
 }
+.search-bar { position: relative; width: 100%; max-width: 280px; }
+.search-bar input { width: 100%; padding: 0.7rem 3rem 0.7rem 1rem; border: 2px solid var(--border-gray); border-radius: 25px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; min-height: 44px; }
+.search-bar button { position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: var(--primary-blue); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 36px; min-height: 36px; }
+.nav-center { display: flex; align-items: center; }
+.highlight-text { background: yellow; padding: 0 2px; }
+.search-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 3000; padding: 2rem 1.25rem; overflow-y: auto; }
+.search-modal.active { display: block; }
+.search-modal-content { max-width: 800px; margin: 0 auto; }
+.search-results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.close-search { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; }
+
 .price { visibility: hidden; }
 </style>
 </head>
@@ -180,27 +196,43 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
 <header>
   <nav>
-    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
-    <ul class="nav-links">
-      <li><a href="builder.html">Home</a></li>
-      <li><a href="electrical.html">Electrical</a></li>
-      <li><a href="steel.html">Steel</a></li>
-      <li><a href="flooring.html" class="active">Flooring</a></li>
-      <li><a href="furniture.html">Furniture</a></li>
-    </ul>
-    <div class="auth-area">
-      <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
-      <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
-      <span class="username-display" data-username></span>
-      <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
+    <div class="nav-left">
+      <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
     </div>
-    <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+    <div class="nav-center">
+      <div class="search-bar">
+        <input type="text" id="globalSearch" placeholder="Search flooring...">
+        <button onclick="performSearch()" aria-label="Search">🔍</button>
+      </div>
+    </div>
+    <div class="nav-right" style="display: flex; align-items: center; gap: 1rem;">
+      <ul class="nav-links">
+        <li><a href="builder.html">Home</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="steel.html">Steel</a></li>
+        <li><a href="flooring.html" class="active">Flooring</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+      </ul>
+      <div class="auth-area">
+        <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
+        <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
+        <span class="username-display" data-username></span>
+        <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+    </div>
   </nav>
 </header>
 
 <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-header"><h3>Menu</h3><button class="close-mobile-nav" onclick="toggleMobileNav()">×</button></div>
+  <div style="padding: 1rem 1.25rem;">
+    <div class="search-bar" style="max-width: 100%;">
+      <input type="text" id="mobileSearch" placeholder="Search flooring...">
+      <button onclick="performSearchMobile()" aria-label="Search">🔍</button>
+    </div>
+  </div>
   <ul class="mobile-nav-links">
     <li><a href="builder.html">🏠 Home</a></li>
     <li><a href="electrical.html">⚡ Electrical</a></li>
@@ -209,9 +241,17 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <li><a href="furniture.html">🛋️ Furniture</a></li>
   </ul>
   <div class="mobile-auth-buttons">
-    <a href="login.html"  class="btn-login"  data-auth-hide>Log In</a>
+    <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
     <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
-    <button class="btn-logout" data-logout onclick="signOut()" style="display:none;">Log Out</button>
+    <button class="btn-logout" data-logout onclick="signOut()" style="display:none; width: 100%; background: #D32F2F; color: white; padding: 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 50px;">Log Out</button>
+  </div>
+</div>
+
+<div id="searchModal" class="search-modal">
+  <button class="close-search" onclick="closeSearch()">×</button>
+  <div class="search-modal-content">
+    <h2 style="color: white; margin-bottom: 1.5rem;">Search Results</h2>
+    <div id="searchResults" class="search-results-grid"></div>
   </div>
 </div>
 
@@ -537,7 +577,43 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   }
   function applyMobileFilters() { filterProducts(); closeMobileFilter(); }
   document.getElementById('mobileFilterModal').addEventListener('click', e => { if (e.target === document.getElementById('mobileFilterModal')) closeMobileFilter(); });
-  document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
+  function performSearch() {
+    const searchTerm = document.getElementById('globalSearch').value.toLowerCase().trim();
+    executeSearch(searchTerm);
+  }
+  function performSearchMobile() {
+    const searchTerm = document.getElementById('mobileSearch').value.toLowerCase().trim();
+    executeSearch(searchTerm);
+    toggleMobileNav();
+  }
+  function executeSearch(searchTerm) {
+    if (!searchTerm) return;
+    const resultsContainer = document.getElementById('searchResults');
+    resultsContainer.innerHTML = '';
+    const products = document.querySelectorAll('.product-card');
+    let found = false;
+    products.forEach(product => {
+      const title = product.querySelector('.product-title').textContent.toLowerCase();
+      const desc = product.querySelector('.product-description').textContent.toLowerCase();
+      const sku = product.querySelector('.product-sku').textContent.toLowerCase();
+      if (title.includes(searchTerm) || desc.includes(searchTerm) || sku.includes(searchTerm)) {
+        const clone = product.cloneNode(true);
+        clone.classList.remove('hidden');
+        resultsContainer.appendChild(clone);
+        found = true;
+      }
+    });
+    if (!found) resultsContainer.innerHTML = '<p style="color: white; grid-column: 1/-1; text-align: center;">No products matching "' + searchTerm + '" found.</p>';
+    document.getElementById('searchModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSearch() {
+    document.getElementById('searchModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+  document.getElementById('globalSearch').addEventListener('keypress', e => { if (e.key === 'Enter') performSearch(); });
+  document.getElementById('mobileSearch')?.addEventListener('keypress', e => { if (e.key === 'Enter') performSearchMobile(); });
+
 </script>
 </body>
 </html>

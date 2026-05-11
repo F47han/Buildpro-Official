@@ -1020,6 +1020,9 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 .nav-center {
 display: none;
 }
+.filter-sidebar {
+display: none !important;
+}
 .mobile-menu-btn {
 display: flex;
 align-items: center;
@@ -1112,22 +1115,28 @@ align-items: flex-start;
 <!-- Mobile Navigation -->
 <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
-<div class="mobile-nav-header">
-<h3>Menu</h3>
-<button class="close-mobile-nav" aria-label="Close menu" onclick="toggleMobileNav()">×</button>
-</div>
-<ul class="mobile-nav-links">
+  <div class="mobile-nav-header">
+    <h3>Menu</h3>
+    <button class="close-mobile-nav" aria-label="Close menu" onclick="toggleMobileNav()">×</button>
+  </div>
+  <div style="padding: 1rem 1.25rem;">
+    <div class="search-bar" style="max-width: 100%;">
+      <input type="text" id="mobileSearch" placeholder="Search products...">
+      <button onclick="performSearchMobile()" aria-label="Search">🔍</button>
+    </div>
+  </div>
+  <ul class="mobile-nav-links">
 <li><a href="builder.html">🏠 Home</a></li>
 <li><a href="electrical.html" class="active">⚡ Electrical</a></li>
 <li><a href="steel.html">🏗️ Steel</a></li>
 <li><a href="flooring.html">📐 Flooring</a></li>
 <li><a href="furniture.html">🛋️ Furniture</a></li>
 </ul>
-<div class="mobile-auth-buttons">
-<a href="login.html" class="btn-login" data-auth-hide>Log In</a>
-<a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
-<button class="btn-logout" data-logout onclick="signOut()" style="display:none;">Log Out</button>
-</div>
+  <div class="mobile-auth-buttons">
+    <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
+    <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
+    <button class="btn-logout" data-logout onclick="signOut()" style="display:none; width: 100%; background: #D32F2F; color: white; padding: 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 50px;">Log Out</button>
+  </div>
 </div>
 
 <!-- Page Hero -->
@@ -1400,10 +1409,25 @@ const regex = new RegExp(`(${searchTerm})`, 'gi');
 return text.replace(regex, '<span class="highlight-text">$1</span>');
 }
 
+function performSearchMobile() {
+const searchTerm = document.getElementById('mobileSearch').value.toLowerCase().trim();
+if (!searchTerm) { alert('Please enter a search term'); return; }
+const results = electricalSearchData.filter(item => {
+return item.title.toLowerCase().includes(searchTerm) || item.description.toLowerCase().includes(searchTerm) || item.code.toLowerCase().includes(searchTerm) || item.keywords.some(keyword => keyword.includes(searchTerm));
+});
+displaySearchResults(results, searchTerm);
+toggleMobileNav();
+}
+
+document.getElementById('mobileSearch')?.addEventListener('keypress', function(e) {
+if (e.key === 'Enter') performSearchMobile();
+});
+
 function closeSearch() {
 document.getElementById('searchModal').classList.remove('active');
 document.body.style.overflow = 'auto';
 document.getElementById('globalSearch').value = '';
+document.getElementById('mobileSearch').value = '';
 }
 
 document.getElementById('searchModal').addEventListener('click', function(e) {
