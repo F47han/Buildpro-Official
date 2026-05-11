@@ -165,11 +165,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   .mobile-filter-btn { display: none; }
 }
 @media (max-width: 968px) {
-  .nav-links, .auth-area { display: none; }
-  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
-}
-@media (max-width: 968px) {
-  .nav-links, .auth-area, .nav-center { display: none; }
+  .nav-links, .auth-area, .nav-center { display: none !important; }
   .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
   .filter-sidebar { display: none !important; }
 }

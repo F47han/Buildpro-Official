@@ -167,7 +167,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   .mobile-filter-btn { display: none; }
 }
 @media (max-width: 968px) {
-  .nav-links, .auth-area, .nav-center { display: none; }
+  .nav-links, .auth-area, .nav-center { display: none !important; }
   .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
   .filter-sidebar { display: none !important; }
 }
@@ -240,7 +240,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   <div class="mobile-auth-buttons">
     <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
     <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
-    <button class="btn-logout" data-logout onclick="signOut()" style="display:none; width: 100%; background: #D32F2F; color: white; padding: 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 50px;">Log Out</button>
+    <button class="btn-logout" data-logout onclick="signOut()" style="display:none; width: 100%;">Log Out</button>
   </div>
 </div>
 
