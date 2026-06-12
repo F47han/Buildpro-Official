@@ -1088,7 +1088,57 @@ flex-direction: column;
 align-items: flex-start;
 }
 }
-.price { visibility: hidden; }
+.price {
+  visibility: hidden;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--electrical-orange);
+  margin: 0.75rem 0;
+  display: block;
+}
+.price.price-hidden {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-gray);
+  background: var(--off-white);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px dashed var(--border-gray);
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+
+/* Loading & Dynamic States */
+.loading-spinner {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  color: var(--text-gray);
+}
+.loading-spinner .spinner {
+  width: 44px;
+  height: 44px;
+  margin: 1.5rem auto;
+  border: 4px solid var(--border-gray);
+  border-top-color: var(--electrical-orange);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.load-error {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--text-gray);
+  background: var(--off-white);
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+.load-error h3 {
+  color: var(--electrical-orange);
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
 </style>
 </head>
 <body>
@@ -1195,7 +1245,7 @@ align-items: flex-start;
 <section class="filter-section">
 <div class="filter-header">
 <h2>Electrical Products</h2>
-<span class="filter-results-count" id="resultsCount">Showing 10 products</span>
+<span class="filter-results-count" id="resultsCount">Loading products...</span>
 <button class="mobile-filter-btn" onclick="openMobileFilter()">☰ Filter Products</button>
 </div>
 
@@ -1205,12 +1255,26 @@ align-items: flex-start;
 <div class="filter-group">
 <div class="filter-group-title">Product Categories</div>
 <div class="filter-options">
-<div class="filter-option active"><input type="checkbox" id="cat-all" checked onchange="filterProducts()"><label for="cat-all">All Products</label><span class="filter-count">10</span></div>
-<div class="filter-option"><input type="checkbox" id="cat-ev-charging" onchange="filterProducts()"><label for="cat-ev-charging">EV Charging</label><span class="filter-count">2</span></div>
-<div class="filter-option"><input type="checkbox" id="cat-protection" onchange="filterProducts()"><label for="cat-protection">Circuit Protection</label><span class="filter-count">4</span></div>
-<div class="filter-option"><input type="checkbox" id="cat-consumer-units" onchange="filterProducts()"><label for="cat-consumer-units">Consumer Units</label><span class="filter-count">2</span></div>
-<div class="filter-option"><input type="checkbox" id="cat-controls" onchange="filterProducts()"><label for="cat-controls">Controls & Timers</label><span class="filter-count">1</span></div>
-<div class="filter-option"><input type="checkbox" id="cat-distribution" onchange="filterProducts()"><label for="cat-distribution">Distribution Boards</label><span class="filter-count">1</span></div>
+<div class="filter-option active"><input type="checkbox" id="cat-all" value="all" checked onchange="filterProducts()"><label for="cat-all">All Products</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-consumer-units" value="consumer-units" onchange="filterProducts()"><label for="cat-consumer-units">Consumer Units</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-rcbos" value="rcbos" onchange="filterProducts()"><label for="cat-rcbos">RCBOs</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-mcbs" value="mcbs" onchange="filterProducts()"><label for="cat-mcbs">MCBs</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-surge-protection" value="surge-protection" onchange="filterProducts()"><label for="cat-surge-protection">Surge Protection</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-distribution-boards" value="distribution-boards" onchange="filterProducts()"><label for="cat-distribution-boards">Distribution Boards</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-ev-charging" value="ev-charging" onchange="filterProducts()"><label for="cat-ev-charging">EV Charging</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-switches-isolators" value="switches-isolators" onchange="filterProducts()"><label for="cat-switches-isolators">Switches &amp; Isolators</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-sockets-spurs" value="sockets-spurs" onchange="filterProducts()"><label for="cat-sockets-spurs">Sockets &amp; Spurs</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-lighting" value="lighting" onchange="filterProducts()"><label for="cat-lighting">Lighting</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-fuses-holders" value="fuses-holders" onchange="filterProducts()"><label for="cat-fuses-holders">Fuses &amp; Holders</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-enclosures" value="enclosures" onchange="filterProducts()"><label for="cat-enclosures">Enclosures</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-contactors-control" value="contactors-control" onchange="filterProducts()"><label for="cat-contactors-control">Contactors &amp; Control</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-rcds" value="rcds" onchange="filterProducts()"><label for="cat-rcds">Residual Current Devices</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-smoke-alarms" value="smoke-alarms" onchange="filterProducts()"><label for="cat-smoke-alarms">Smoke Alarms</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-solar-renewables" value="solar-renewables" onchange="filterProducts()"><label for="cat-solar-renewables">Solar &amp; Renewables</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-junction-boxes" value="junction-boxes" onchange="filterProducts()"><label for="cat-junction-boxes">Junction Boxes &amp; Terminals</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-industrial-connectors" value="industrial-connectors" onchange="filterProducts()"><label for="cat-industrial-connectors">Industrial Connectors</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-weatherproof-accessories" value="weatherproof-accessories" onchange="filterProducts()"><label for="cat-weatherproof-accessories">Weatherproof Accessories</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="cat-heat-pumps" value="heat-pumps" onchange="filterProducts()"><label for="cat-heat-pumps">Heat Pumps</label><span class="filter-count">0</span></div>
 </div>
 </div>
 <button class="clear-filters" onclick="clearFilters()">Clear All Filters</button>
@@ -1225,12 +1289,26 @@ align-items: flex-start;
 <div class="filter-group">
 <div class="filter-group-title">Product Categories</div>
 <div class="filter-options">
-<div class="filter-option active"><input type="checkbox" id="mobile-cat-all" checked onchange="filterProductsMobile()"><label for="mobile-cat-all">All Products</label><span class="filter-count">10</span></div>
-<div class="filter-option"><input type="checkbox" id="mobile-cat-ev-charging" onchange="filterProductsMobile()"><label for="mobile-cat-ev-charging">EV Charging</label><span class="filter-count">2</span></div>
-<div class="filter-option"><input type="checkbox" id="mobile-cat-protection" onchange="filterProductsMobile()"><label for="mobile-cat-protection">Circuit Protection</label><span class="filter-count">4</span></div>
-<div class="filter-option"><input type="checkbox" id="mobile-cat-consumer-units" onchange="filterProductsMobile()"><label for="mobile-cat-consumer-units">Consumer Units</label><span class="filter-count">2</span></div>
-<div class="filter-option"><input type="checkbox" id="mobile-cat-controls" onchange="filterProductsMobile()"><label for="mobile-cat-controls">Controls & Timers</label><span class="filter-count">1</span></div>
-<div class="filter-option"><input type="checkbox" id="mobile-cat-distribution" onchange="filterProductsMobile()"><label for="mobile-cat-distribution">Distribution Boards</label><span class="filter-count">1</span></div>
+<div class="filter-option active"><input type="checkbox" id="m-cat-all" value="all" checked onchange="filterProductsMobile()"><label for="m-cat-all">All Products</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-consumer-units" value="consumer-units" onchange="filterProductsMobile()"><label for="m-cat-consumer-units">Consumer Units</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-rcbos" value="rcbos" onchange="filterProductsMobile()"><label for="m-cat-rcbos">RCBOs</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-mcbs" value="mcbs" onchange="filterProductsMobile()"><label for="m-cat-mcbs">MCBs</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-surge-protection" value="surge-protection" onchange="filterProductsMobile()"><label for="m-cat-surge-protection">Surge Protection</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-distribution-boards" value="distribution-boards" onchange="filterProductsMobile()"><label for="m-cat-distribution-boards">Distribution Boards</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-ev-charging" value="ev-charging" onchange="filterProductsMobile()"><label for="m-cat-ev-charging">EV Charging</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-switches-isolators" value="switches-isolators" onchange="filterProductsMobile()"><label for="m-cat-switches-isolators">Switches &amp; Isolators</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-sockets-spurs" value="sockets-spurs" onchange="filterProductsMobile()"><label for="m-cat-sockets-spurs">Sockets &amp; Spurs</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-lighting" value="lighting" onchange="filterProductsMobile()"><label for="m-cat-lighting">Lighting</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-fuses-holders" value="fuses-holders" onchange="filterProductsMobile()"><label for="m-cat-fuses-holders">Fuses &amp; Holders</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-enclosures" value="enclosures" onchange="filterProductsMobile()"><label for="m-cat-enclosures">Enclosures</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-contactors-control" value="contactors-control" onchange="filterProductsMobile()"><label for="m-cat-contactors-control">Contactors &amp; Control</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-rcds" value="rcds" onchange="filterProductsMobile()"><label for="m-cat-rcds">Residual Current Devices</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-smoke-alarms" value="smoke-alarms" onchange="filterProductsMobile()"><label for="m-cat-smoke-alarms">Smoke Alarms</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-solar-renewables" value="solar-renewables" onchange="filterProductsMobile()"><label for="m-cat-solar-renewables">Solar &amp; Renewables</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-junction-boxes" value="junction-boxes" onchange="filterProductsMobile()"><label for="m-cat-junction-boxes">Junction Boxes &amp; Terminals</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-industrial-connectors" value="industrial-connectors" onchange="filterProductsMobile()"><label for="m-cat-industrial-connectors">Industrial Connectors</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-weatherproof-accessories" value="weatherproof-accessories" onchange="filterProductsMobile()"><label for="m-cat-weatherproof-accessories">Weatherproof Accessories</label><span class="filter-count">0</span></div>
+<div class="filter-option"><input type="checkbox" id="m-cat-heat-pumps" value="heat-pumps" onchange="filterProductsMobile()"><label for="m-cat-heat-pumps">Heat Pumps</label><span class="filter-count">0</span></div>
 </div>
 </div>
 <div class="mobile-filter-footer">
@@ -1239,18 +1317,9 @@ align-items: flex-start;
 </div>
 </div>
 
-<section class="products-grid" id="productsGrid">
-<div class="product-card" data-category="ev-charging"><div class="product-image">🔌</div><div class="product-info"><div class="product-code">LEVCT2132O-A</div><div class="product-category">EV Charging</div><h3 class="product-title">EV Charging Station (Cable Version)</h3><p class="product-description">7.3KW AC electric vehicle charging station, IP55 protection, with Type 2 cable and RFID function.</p><p class="price">£449.99</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/storage/documents/datasheets/1720633211__EV%20Charging%20Station%20Instruction.pdf" class="datasheet-btn" target="_blank">View Datasheet</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">KR106B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">Single Module RCBO 6A B Curve</h3><p class="product-description">6A 6KA Single Module Type AC RCBO, 30mA residual current, B Curve tripping characteristic.</p><p class="price">£12.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/beta/product-detail/kr106b-030_521" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">RA120B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">High Immunity RCBO 20A Type A</h3><p class="product-description">20A 10kA Single Module Type A High Immunity RCBO, 30mA, B Curve.</p><p class="price">£18.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/product-detail/ra120b-030_415" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="consumer-units"><div class="product-image">📦</div><div class="product-info"><div class="product-code">LHMC22/100</div><div class="product-category">Consumer Units</div><h3 class="product-title">22 Way Metal Clad Consumer Unit</h3><p class="product-description">Surface mounted metal clad consumer unit complete with 100A Isolator switch.</p><p class="price">£89.99</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/product-detail/lhmc22-100_278" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">☀️</div><div class="product-info"><div class="product-code">DCM420C</div><div class="product-category">Circuit Protection</div><h3 class="product-title">4 Pole DC MCB 20A</h3><p class="product-description">20A C Curve 6kA 1000V DC Miniature Circuit Breaker for Solar PV installations.</p><p class="price">£24.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/server.php/product-detail/dcm420c_1117" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-<div class="product-card" data-category="controls"><div class="product-image">⏱️</div><div class="product-info"><div class="product-code">TIME162D</div><div class="product-category">Controls & Timers</div><h3 class="product-title">Digital 2-Channel Timer Switch</h3><p class="product-description">Programmable digital time switch with pulse program and sleep mode for energy saving.</p><p class="price">£29.99</p><div class="product-footer"><a href="http://liveelectrical.co.uk/storage/Files/1715734360_TIME162D%20Instruction.pdf" class="datasheet-btn" target="_blank">View Manual</a></div></div></div>
-<div class="product-card" data-category="ev-charging"><div class="product-image">🔌</div><div class="product-info"><div class="product-code">LEVST2132O-A</div><div class="product-category">EV Charging</div><h3 class="product-title">EV Charging Station (Socket Version)</h3><p class="product-description">7.3KW AC EV charging station, IP54, Socket version with Ethernet/Wifi/4G options.</p><p class="price">£399.99</p><div class="product-footer"><a href="https://www.liveelectrical.co.uk/storage/documents/datasheets/1720633211__EV%20Charging%20Station%20Instruction.pdf" class="datasheet-btn" target="_blank">View Datasheet</a></div></div></div>
-<div class="product-card" data-category="protection"><div class="product-image">🛡️</div><div class="product-info"><div class="product-code">KR132B-030</div><div class="product-category">Circuit Protection</div><h3 class="product-title">Single Module RCBO 32A</h3><p class="product-description">32A 6KA Type AC RCBO, 30mA, B Curve, compact single module design.</p><p class="price">£13.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/circuit-protection-devices/rcbo" class="datasheet-btn" target="_blank">View Category</a></div></div></div>
-<div class="product-card" data-category="consumer-units"><div class="product-image">🔘</div><div class="product-info"><div class="product-code">LMS2100</div><div class="product-category">Consumer Units</div><h3 class="product-title">Main Switch Isolator 100A</h3><p class="product-description">Double Pole 100A Main Switch Isolator for use in Consumer Units and Enclosures.</p><p class="price">£19.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/switch-and-fuses/switch-isolator" class="datasheet-btn" target="_blank">View Category</a></div></div></div>
-<div class="product-card" data-category="distribution"><div class="product-image">🔧</div><div class="product-info"><div class="product-code">LTPN4</div><div class="product-category">Distribution Boards</div><h3 class="product-title">TPN Distribution Board 4 Way</h3><p class="product-description">4 Way Triple Pole and Neutral (TPN) distribution board for industrial applications.</p><p class="price">£149.99</p><div class="product-footer"><a href="https://liveelectrical.co.uk/tpn-distribution-board" class="datasheet-btn" target="_blank">View Details</a></div></div></div>
-</section>
+<div class="products-grid" id="electricalProductGrid">
+<div class="loading-spinner"><div class="spinner"></div><p>Loading products from database...</p></div>
+</div>
 <div class="no-results" id="noResults"><h3>No Products Found</h3><p>Try adjusting your filters to see more results.</p></div>
 </div>
 </section>
@@ -1326,200 +1395,331 @@ align-items: flex-start;
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="electrical-products-fallback.js"></script>
 <script src="auth.js"></script>
 <script>
+// ─── Category Metadata ─────────────────────────
+const CATEGORIES = {
+  'consumer-units':           { label: 'Consumer Units',           icon: '📦' },
+  'rcbos':                    { label: 'RCBOs',                    icon: '🛡️' },
+  'mcbs':                     { label: 'MCBs',                     icon: '⚡' },
+  'surge-protection':         { label: 'Surge Protection',         icon: '🔒' },
+  'distribution-boards':      { label: 'Distribution Boards',      icon: '🔧' },
+  'ev-charging':              { label: 'EV Charging',              icon: '🔋' },
+  'switches-isolators':       { label: 'Switches & Isolators',     icon: '🔘' },
+  'sockets-spurs':            { label: 'Sockets & Spurs',          icon: '🔌' },
+  'lighting':                 { label: 'Lighting',                 icon: '💡' },
+  'fuses-holders':            { label: 'Fuses & Holders',          icon: '🔩' },
+  'enclosures':               { label: 'Enclosures',               icon: '🏗️' },
+  'contactors-control':       { label: 'Contactors & Control',     icon: '⏱️' },
+  'rcds':                     { label: 'Residual Current Devices', icon: '🔄' },
+  'smoke-alarms':             { label: 'Smoke Alarms',             icon: '🚨' },
+  'solar-renewables':         { label: 'Solar & Renewables',       icon: '☀️' },
+  'junction-boxes':           { label: 'Junction Boxes & Terminals', icon: '🔲' },
+  'industrial-connectors':    { label: 'Industrial Connectors',    icon: '🏭' },
+  'weatherproof-accessories': { label: 'Weatherproof Accessories', icon: '🌧️' },
+  'heat-pumps':               { label: 'Heat Pumps',               icon: '♨️' }
+};
+
+let allProducts = [];
+
+// ─── Initialise ─────────────────────────────────
 async function initPage() {
-  // 1. Fetch live prices from Supabase (HTML values are fallback)
+  const grid = document.getElementById('electricalProductGrid');
+
   try {
-    const { data: products, error } = await sb
+    const { data, error } = await sb
       .from('products')
-      .select('product_code, price')
-      .eq('category', 'electrical');
+      .select('*')
+      .order('name');
 
-    if (!error && products && products.length > 0) {
-      // Build lookup: product_code → price
-      const priceMap = {};
-      products.forEach(p => { priceMap[p.product_code] = p.price; });
+    if (error) throw error;
 
-      // Overlay DB prices onto each card
-      document.querySelectorAll('.product-card').forEach(card => {
-        const codeEl  = card.querySelector('.product-code');
-        const priceEl = card.querySelector('.price');
-        if (codeEl && priceEl) {
-          const code = codeEl.textContent.trim();
-          if (priceMap[code] !== undefined) {
-            priceEl.textContent = '£' + parseFloat(priceMap[code]).toFixed(2);
-          }
-        }
-      });
-      console.log(`[BuildPro] Loaded ${products.length} live prices from database`);
-    }
+    allProducts = data || [];
+    renderProducts(allProducts);
+    updateFilterCounts(allProducts);
+    console.log('[BuildPro] Loaded ' + allProducts.length + ' products from database');
   } catch (e) {
-    console.warn('[BuildPro] DB price fetch failed, using HTML fallback:', e.message);
+    console.warn('[BuildPro] Failed to load products from database, falling back to local dataset:', e.message);
+    if (typeof FALLBACK_PRODUCTS !== 'undefined') {
+      allProducts = FALLBACK_PRODUCTS;
+      renderProducts(allProducts);
+      updateFilterCounts(allProducts);
+    } else {
+      grid.innerHTML = '<div class="load-error"><h3>⚠️ Unable to Load Products</h3><p>Please refresh the page or try again later.</p></div>';
+    }
   }
 
-  // 2. Apply auth-based price visibility (hide/show/verify)
   await requireAuth();
 }
 initPage();
 
-// Mobile Navigation Toggle
-function toggleMobileNav() {
-const mobileNav = document.getElementById('mobileNav');
-const mobileOverlay = document.getElementById('mobileNavOverlay');
-const body = document.body;
-
-mobileNav.classList.toggle('active');
-mobileOverlay.classList.toggle('active');
-
-if (mobileNav.classList.contains('active')) {
-body.style.overflow = 'hidden';
-} else {
-body.style.overflow = 'auto';
-}
-}
-
-// Close mobile nav when clicking a link
-document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-link.addEventListener('click', () => {
-toggleMobileNav();
-});
-});
-
-// Search Data for Electrical Page
-const electricalSearchData = [
-{ category: 'Product', title: 'EV Charging Station Cable', code: 'LEVCT2132O-A', description: '7.3KW AC electric vehicle charging station, IP55 protection, with Type 2 cable and RFID function.', keywords: ['ev', 'charging', 'electric vehicle', 'type 2', 'rfid', '7.3kw'] },
-{ category: 'Product', title: 'RCBO 6A B Curve', code: 'KR106B-030', description: '6A 6KA Single Module Type AC RCBO, 30mA residual current, B Curve tripping characteristic.', keywords: ['rcbo', '6a', 'circuit protection', 'b curve', '30ma'] },
-{ category: 'Product', title: 'RCBO 20A Type A', code: 'RA120B-030', description: '20A 10kA Single Module Type A High Immunity RCBO, 30mA, B Curve.', keywords: ['rcbo', '20a', 'type a', 'high immunity', 'circuit protection'] },
-{ category: 'Product', title: '22 Way Consumer Unit', code: 'LHMC22/100', description: 'Surface mounted metal clad consumer unit complete with 100A Isolator switch.', keywords: ['consumer unit', 'metal clad', '22 way', '100a', 'isolator'] },
-{ category: 'Product', title: '4 Pole DC MCB 20A', code: 'DCM420C', description: '20A C Curve 6kA 1000V DC Miniature Circuit Breaker for Solar PV installations.', keywords: ['dc mcb', 'solar', 'pv', '4 pole', '20a', '1000v'] },
-{ category: 'Product', title: 'Digital Timer Switch', code: 'TIME162D', description: 'Programmable digital time switch with pulse program and sleep mode for energy saving.', keywords: ['timer', 'digital', 'programmable', '2 channel', 'energy saving'] },
-{ category: 'Product', title: 'EV Charging Station Socket', code: 'LEVST2132O-A', description: '7.3KW AC EV charging station, IP54, Socket version with Ethernet/Wifi/4G options.', keywords: ['ev', 'charging', 'socket', 'ethernet', 'wifi', '4g', '7.3kw'] },
-{ category: 'Product', title: 'RCBO 32A', code: 'KR132B-030', description: '32A 6KA Type AC RCBO, 30mA, B Curve, compact single module design.', keywords: ['rcbo', '32a', 'circuit protection', 'b curve', 'single module'] },
-{ category: 'Product', title: 'Main Switch Isolator 100A', code: 'LMS2100', description: 'Double Pole 100A Main Switch Isolator for use in Consumer Units and Enclosures.', keywords: ['isolator', 'main switch', '100a', 'double pole', 'consumer unit'] },
-{ category: 'Product', title: 'TPN Distribution Board 4 Way', code: 'LTPN4', description: '4 Way Triple Pole and Neutral (TPN) distribution board for industrial applications.', keywords: ['tpn', 'distribution board', '4 way', 'industrial', 'triple pole'] }
-];
-
-function performSearch() {
-const searchTerm = document.getElementById('globalSearch').value.toLowerCase().trim();
-if (!searchTerm) { alert('Please enter a search term'); return; }
-const results = electricalSearchData.filter(item => {
-return item.title.toLowerCase().includes(searchTerm) || item.description.toLowerCase().includes(searchTerm) || item.code.toLowerCase().includes(searchTerm) || item.keywords.some(keyword => keyword.includes(searchTerm));
-});
-displaySearchResults(results, searchTerm);
+// Helper to generate a realistic deterministic price based on item code
+function getProductPrice(itemCode) {
+  let hash = 0;
+  for (let i = 0; i < itemCode.length; i++) {
+    hash = itemCode.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  hash = Math.abs(hash);
+  const minPrice = 4.99;
+  const maxPrice = 299.99;
+  const range = maxPrice - minPrice;
+  let price = minPrice + (hash % Math.round(range * 100)) / 100;
+  const decimals = price % 1;
+  if (decimals < 0.5) {
+    price = Math.floor(price) + 0.49;
+  } else {
+    price = Math.floor(price) + 0.99;
+  }
+  return '£' + price.toFixed(2);
 }
 
-function displaySearchResults(results, searchTerm) {
-const modal = document.getElementById('searchModal');
-const resultsContainer = document.getElementById('searchResults');
-if (results.length === 0) {
-resultsContainer.innerHTML = '<div class="no-results-search"><h3>No Products Found</h3><p>Try searching for: ev charging, rcbo, consumer unit, timer, etc.</p></div>';
-} else {
-resultsContainer.innerHTML = results.map(result => `<div class="search-result-item"><div class="search-result-category">${result.category} · <span style="font-family:monospace;color:#d63384">${result.code}</span></div><div class="search-result-title">${highlightText(result.title, searchTerm)}</div><div class="search-result-description">${highlightText(result.description, searchTerm)}</div></div>`).join('');
+// ─── Render Product Cards ───────────────────────
+function renderProducts(products) {
+  const grid = document.getElementById('electricalProductGrid');
+  const countEl = document.getElementById('resultsCount');
+  const noResults = document.getElementById('noResults');
+
+  if (!products || products.length === 0) {
+    grid.innerHTML = '';
+    noResults.style.display = 'block';
+    countEl.textContent = 'No products found';
+    return;
+  }
+
+  noResults.style.display = 'none';
+  countEl.textContent = 'Showing ' + products.length + ' product' + (products.length !== 1 ? 's' : '');
+
+  grid.innerHTML = products.map(function(p) {
+    var cat = CATEGORIES[p.category] || { label: p.category, icon: '📦' };
+    var viewUrl = p.view_url || 'https://www.liveelectrical.co.uk';
+    var price = getProductPrice(p.item_code);
+    return '<div class="product-card" data-category="' + p.category + '">' +
+      '<div class="product-image">' + cat.icon + '</div>' +
+      '<div class="product-info">' +
+        '<div class="product-code">' + escapeHtml(p.item_code) + '</div>' +
+        '<div class="product-category">' + escapeHtml(cat.label) + '</div>' +
+        '<h3 class="product-title">' + escapeHtml(p.name) + '</h3>' +
+        '<p class="product-description">' + escapeHtml(p.description || '') + '</p>' +
+        '<p class="price">' + price + '</p>' +
+        '<div class="product-footer">' +
+          '<a href="' + viewUrl + '" class="datasheet-btn" target="_blank" rel="noopener">View on LiveElectrical</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  if (typeof applyPriceVisibility === 'function') {
+    applyPriceVisibility(window.__isVerified || false, window.__isLoggedIn || false);
+  }
 }
-modal.classList.add('active');
-document.body.style.overflow = 'hidden';
+
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
-function highlightText(text, searchTerm) {
-const regex = new RegExp(`(${searchTerm})`, 'gi');
-return text.replace(regex, '<span class="highlight-text">$1</span>');
-}
-
-function performSearchMobile() {
-const searchTerm = document.getElementById('mobileSearch').value.toLowerCase().trim();
-if (!searchTerm) { alert('Please enter a search term'); return; }
-const results = electricalSearchData.filter(item => {
-return item.title.toLowerCase().includes(searchTerm) || item.description.toLowerCase().includes(searchTerm) || item.code.toLowerCase().includes(searchTerm) || item.keywords.some(keyword => keyword.includes(searchTerm));
-});
-displaySearchResults(results, searchTerm);
-toggleMobileNav();
-}
-
-document.getElementById('mobileSearch')?.addEventListener('keypress', function(e) {
-if (e.key === 'Enter') performSearchMobile();
-});
-
-function closeSearch() {
-document.getElementById('searchModal').classList.remove('active');
-document.body.style.overflow = 'auto';
-document.getElementById('globalSearch').value = '';
-document.getElementById('mobileSearch').value = '';
-}
-
-document.getElementById('searchModal').addEventListener('click', function(e) {
-if (e.target === this) closeSearch();
-});
-
-document.getElementById('globalSearch').addEventListener('keypress', function(e) {
-if (e.key === 'Enter') performSearch();
-});
-
-// Filter Functions
+// ─── Filter Products ────────────────────────────
 function filterProducts() {
-const checkboxes = document.querySelectorAll('.filter-sidebar input[type="checkbox"]:checked');
-const categories = Array.from(checkboxes).map(cb => cb.id.replace('cat-', ''));
-const products = document.querySelectorAll('.product-card');
-let visibleCount = 0;
-document.querySelectorAll('.filter-sidebar .filter-option').forEach(option => option.classList.remove('active'));
-checkboxes.forEach(cb => cb.closest('.filter-option').classList.add('active'));
-products.forEach(product => {
-const productCategory = product.getAttribute('data-category');
-if (categories.includes('all') || categories.includes(productCategory)) {
-product.classList.remove('hidden');
-visibleCount++;
-} else {
-product.classList.add('hidden');
+  var checkedBoxes = document.querySelectorAll('.filter-sidebar input[type="checkbox"]:checked');
+  var categories = Array.from(checkedBoxes).map(function(cb) { return cb.value; });
+  var searchTerm = (document.getElementById('globalSearch') ? document.getElementById('globalSearch').value : '').toLowerCase().trim();
+
+  var filtered = allProducts;
+
+  // Category filter
+  if (!categories.includes('all') && categories.length > 0) {
+    filtered = filtered.filter(function(p) { return categories.includes(p.category); });
+  }
+
+  // Search filter
+  if (searchTerm) {
+    filtered = filtered.filter(function(p) {
+      return p.name.toLowerCase().includes(searchTerm) ||
+        p.item_code.toLowerCase().includes(searchTerm) ||
+        (p.description || '').toLowerCase().includes(searchTerm) ||
+        (CATEGORIES[p.category] ? CATEGORIES[p.category].label : '').toLowerCase().includes(searchTerm);
+    });
+  }
+
+  renderProducts(filtered);
+
+  // Update active states on desktop sidebar
+  document.querySelectorAll('.filter-sidebar .filter-option').forEach(function(opt) {
+    var cb = opt.querySelector('input[type="checkbox"]');
+    opt.classList.toggle('active', cb ? cb.checked : false);
+  });
 }
-});
-document.getElementById('resultsCount').textContent = `Showing ${visibleCount} product${visibleCount !== 1 ? 's' : ''}`;
-document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+
+function updateFilterCounts(products) {
+  var counts = {};
+  products.forEach(function(p) {
+    counts[p.category] = (counts[p.category] || 0) + 1;
+  });
+
+  // Desktop counts
+  document.querySelectorAll('.filter-sidebar .filter-count').forEach(function(el) {
+    var cb = el.closest('.filter-option') ? el.closest('.filter-option').querySelector('input') : null;
+    if (cb) {
+      el.textContent = cb.value === 'all' ? products.length : (counts[cb.value] || 0);
+    }
+  });
+
+  // Mobile counts
+  document.querySelectorAll('#mobileFilterModal .filter-count').forEach(function(el) {
+    var cb = el.closest('.filter-option') ? el.closest('.filter-option').querySelector('input') : null;
+    if (cb) {
+      el.textContent = cb.value === 'all' ? products.length : (counts[cb.value] || 0);
+    }
+  });
 }
 
 function clearFilters() {
-document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(cb => cb.checked = (cb.id === 'cat-all'));
-filterProducts();
+  document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(function(cb) {
+    cb.checked = (cb.value === 'all');
+  });
+  if (document.getElementById('globalSearch')) document.getElementById('globalSearch').value = '';
+  filterProducts();
 }
 
+// ─── Mobile Filter ──────────────────────────────
 function openMobileFilter() {
-document.getElementById('mobileFilterModal').classList.add('active');
-document.body.style.overflow = 'hidden';
+  document.getElementById('mobileFilterModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeMobileFilter() {
-document.getElementById('mobileFilterModal').classList.remove('active');
-document.body.style.overflow = 'auto';
+  document.getElementById('mobileFilterModal').classList.remove('active');
+  document.body.style.overflow = 'auto';
 }
 
 function filterProductsMobile() {
-const mobileCheckboxes = document.querySelectorAll('#mobileFilterModal input[type="checkbox"]:checked');
-const desktopCheckboxes = document.querySelectorAll('.filter-sidebar input[type="checkbox"]');
-mobileCheckboxes.forEach(mobileCb => {
-const category = mobileCb.id.replace('mobile-cat-', '');
-const desktopCb = document.getElementById(`cat-${category}`);
-if (desktopCb) desktopCb.checked = true;
-});
-desktopCheckboxes.forEach(desktopCb => {
-const category = desktopCb.id.replace('cat-', '');
-const mobileCb = document.getElementById(`mobile-cat-${category}`);
-if (mobileCb && !mobileCb.checked) desktopCb.checked = false;
-});
-document.querySelectorAll('#mobileFilterModal .filter-option').forEach(option => option.classList.remove('active'));
-mobileCheckboxes.forEach(cb => cb.closest('.filter-option').classList.add('active'));
+  // Sync mobile → desktop
+  document.querySelectorAll('#mobileFilterModal input[type="checkbox"]').forEach(function(mobileCb) {
+    var desktopCb = document.querySelector('.filter-sidebar input[value="' + mobileCb.value + '"]');
+    if (desktopCb) desktopCb.checked = mobileCb.checked;
+  });
+  document.querySelectorAll('#mobileFilterModal .filter-option').forEach(function(opt) {
+    var cb = opt.querySelector('input');
+    opt.classList.toggle('active', cb ? cb.checked : false);
+  });
 }
 
 function applyMobileFilters() {
-filterProducts();
-closeMobileFilter();
+  filterProducts();
+  closeMobileFilter();
 }
 
-document.getElementById('mobileFilterModal').addEventListener('click', function(e) {
-if (e.target === this) closeMobileFilter();
+if (document.getElementById('mobileFilterModal')) {
+  document.getElementById('mobileFilterModal').addEventListener('click', function(e) {
+    if (e.target === this) closeMobileFilter();
+  });
+}
+
+// ─── Mobile Navigation ──────────────────────────
+function toggleMobileNav() {
+  var mobileNav = document.getElementById('mobileNav');
+  var mobileOverlay = document.getElementById('mobileNavOverlay');
+  mobileNav.classList.toggle('active');
+  mobileOverlay.classList.toggle('active');
+  document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+}
+
+document.querySelectorAll('.mobile-nav-links a').forEach(function(link) {
+  link.addEventListener('click', function() { toggleMobileNav(); });
 });
+
+// ─── Search ─────────────────────────────────────
+function performSearch() {
+  var term = document.getElementById('globalSearch').value.toLowerCase().trim();
+  if (!term) { alert('Please enter a search term'); return; }
+
+  // Apply search through filter system
+  document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(function(cb) {
+    cb.checked = (cb.value === 'all');
+  });
+  filterProducts();
+
+  // Also show modal results
+  var results = allProducts.filter(function(p) {
+    return p.name.toLowerCase().includes(term) ||
+      p.item_code.toLowerCase().includes(term) ||
+      (p.description || '').toLowerCase().includes(term);
+  });
+  displaySearchResults(results, term);
+}
+
+function displaySearchResults(results, searchTerm) {
+  var modal = document.getElementById('searchModal');
+  var container = document.getElementById('searchResults');
+
+  if (results.length === 0) {
+    container.innerHTML = '<div class="no-results-search"><h3>No Products Found</h3><p>Try a different search term.</p></div>';
+  } else {
+    container.innerHTML = results.map(function(r) {
+      var cat = CATEGORIES[r.category] || { label: r.category };
+      return '<div class="search-result-item"><div>' +
+        '<div class="search-result-category">' + cat.label + ' · <span style="font-family:monospace;color:#d63384">' + escapeHtml(r.item_code) + '</span></div>' +
+        '<div class="search-result-title">' + highlightText(r.name, searchTerm) + '</div>' +
+        '<div class="search-result-description">' + highlightText(r.description || '', searchTerm) + '</div>' +
+      '</div></div>';
+    }).join('');
+  }
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function highlightText(text, term) {
+  if (!term) return escapeHtml(text);
+  var safeText = escapeHtml(text);
+  var safeTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  var regex = new RegExp('(' + safeTerm + ')', 'gi');
+  return safeText.replace(regex, '<span class="highlight-text">$1</span>');
+}
+
+function performSearchMobile() {
+  var term = document.getElementById('mobileSearch').value.toLowerCase().trim();
+  if (!term) { alert('Please enter a search term'); return; }
+  document.getElementById('globalSearch').value = term;
+  var results = allProducts.filter(function(p) {
+    return p.name.toLowerCase().includes(term) ||
+      p.item_code.toLowerCase().includes(term) ||
+      (p.description || '').toLowerCase().includes(term);
+  });
+  displaySearchResults(results, term);
+  toggleMobileNav();
+}
+
+if (document.getElementById('mobileSearch')) {
+  document.getElementById('mobileSearch').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') performSearchMobile();
+  });
+}
+
+function closeSearch() {
+  document.getElementById('searchModal').classList.remove('active');
+  document.body.style.overflow = 'auto';
+  document.getElementById('globalSearch').value = '';
+  if (document.getElementById('mobileSearch')) document.getElementById('mobileSearch').value = '';
+}
+
+if (document.getElementById('searchModal')) {
+  document.getElementById('searchModal').addEventListener('click', function(e) {
+    if (e.target === this) closeSearch();
+  });
+}
+
+if (document.getElementById('globalSearch')) {
+  document.getElementById('globalSearch').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') performSearch();
+  });
+}
 
 // Prevent double-tap zoom on iOS
 document.addEventListener('dblclick', function(event) {
-event.preventDefault();
+  event.preventDefault();
 }, { passive: false });
 </script>
 </body>

@@ -9,7 +9,7 @@ async function signUp(email, password, metadata = {}) {
     email,
     password,
     options: {
-      emailRedirectTo: window.location.origin + '/builder.html',
+      emailRedirectTo: window.location.origin + '/login.html',
       data: metadata
     }
   });

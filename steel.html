@@ -110,55 +110,24 @@ nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex
 .finishing-card p { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 0.75rem; }
 .finishing-card .recommendation { background: var(--primary-blue); color: white; padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
 
-.filter-section { margin-bottom: 2.5rem; }
-.filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-gray); flex-wrap: wrap; gap: 1rem; }
-.filter-header h2 { font-size: 1.5rem; color: var(--primary-blue); }
-.filter-results-count { color: var(--text-gray); font-weight: 500; font-size: 0.95rem; }
-.mobile-filter-btn { display: flex; background: var(--steel-grey); color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 44px; align-items: center; gap: 0.5rem; }
-.filter-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+.quote-section { padding: 4rem 1.25rem; margin: 2rem 0; }
+.quote-container { max-width: 900px; margin: 0 auto; text-align: center; }
+.quote-badge { display: inline-block; background: var(--steel-grey); color: white; padding: 0.5rem 1.25rem; border-radius: 25px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+.quote-container h2 { font-size: 2rem; color: var(--primary-blue); margin-bottom: 1.25rem; line-height: 1.3; }
+.quote-description { font-size: 1.05rem; color: var(--text-gray); max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; }
+.quote-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+.quote-step { background: var(--off-white); padding: 2rem 1.5rem; border-radius: 16px; transition: transform 0.3s ease, box-shadow 0.3s ease; border-top: 4px solid var(--steel-grey); }
+.quote-step:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+.step-number { width: 52px; height: 52px; background: linear-gradient(135deg, var(--steel-grey), var(--primary-blue)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; margin: 0 auto 1.25rem; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+.quote-step h3 { color: var(--text-dark); margin-bottom: 0.75rem; font-size: 1.15rem; }
+.quote-step p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.7; }
+.quote-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--steel-grey), var(--primary-blue)); color: white; padding: 1.15rem 2.5rem; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; min-height: 56px; box-shadow: 0 4px 20px rgba(0,71,171,0.3); }
+.quote-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,71,171,0.4); }
+.quote-note { margin-top: 1.5rem; color: var(--text-gray); font-size: 0.95rem; }
+.quote-note a { color: var(--primary-blue); font-weight: 600; text-decoration: none; }
 
-.filter-sidebar { background: var(--off-white); padding: 1.5rem; border-radius: 12px; height: fit-content; position: sticky; top: 80px; }
-.filter-sidebar h3 { font-size: 1.15rem; color: var(--primary-blue); margin-bottom: 1.25rem; padding-bottom: 0.65rem; border-bottom: 2px solid var(--border-gray); }
-.filter-group { margin-bottom: 1.5rem; }
-.filter-group-title { font-weight: 600; color: var(--text-dark); margin-bottom: 0.75rem; font-size: 0.95rem; }
-.filter-options { display: flex; flex-direction: column; gap: 0.65rem; }
-.filter-option { display: flex; align-items: center; gap: 0.65rem; cursor: pointer; padding: 0.5rem; border-radius: 6px; }
-.filter-option input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--steel-grey); cursor: pointer; }
-.filter-option label { cursor: pointer; color: var(--text-gray); flex: 1; font-size: 0.95rem; }
-.filter-option.active label { color: var(--steel-grey); font-weight: 600; }
-.filter-count { background: var(--border-gray); padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem; }
-.clear-filters { width: 100%; background: var(--white); color: var(--steel-grey); border: 2px solid var(--steel-grey); padding: 0.75rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 1rem; min-height: 44px; }
-
-.mobile-filter-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; }
-.mobile-filter-modal.active { display: flex; justify-content: flex-end; }
-.mobile-filter-content { background: var(--white); width: 100%; max-width: 320px; height: 100%; overflow-y: auto; padding: 2rem 1.25rem; }
-.mobile-filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-gray); }
-.mobile-filter-header h3 { font-size: 1.25rem; color: var(--primary-blue); }
-.close-filter { background: none; border: none; font-size: 2rem; color: var(--text-gray); cursor: pointer; min-width: 44px; min-height: 44px; }
-.mobile-filter-footer { position: sticky; bottom: 0; background: var(--white); padding-top: 1rem; border-top: 2px solid var(--border-gray); margin-top: 1.5rem; }
-.apply-filters-btn { width: 100%; background: var(--steel-grey); color: white; border: none; padding: 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; min-height: 50px; }
-
-.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-.product-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,71,171,0.08); transition: all 0.4s; border: 2px solid transparent; display: flex; flex-direction: column; }
-.product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(74,85,104,0.25); border-color: var(--steel-grey); }
-.product-card.hidden { display: none; }
-.product-image { width: 100%; height: 180px; background: linear-gradient(135deg, var(--off-white), var(--border-gray)); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; }
-.product-info { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
-.product-code { font-family: monospace; background: #e9ecef; padding: 0.25rem 0.65rem; border-radius: 4px; font-size: 0.8rem; color: #d63384; display: inline-block; margin-bottom: 0.65rem; width: fit-content; }
-.product-category { color: var(--steel-grey); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
-.product-title { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.65rem; font-weight: 600; line-height: 1.3; }
-.product-description { color: var(--text-gray); font-size: 0.85rem; margin-bottom: 0.75rem; line-height: 1.5; flex-grow: 1; }
-
-/* Price element */
 .price { font-size: 1.15rem; font-weight: 700; color: var(--steel-grey); margin-bottom: 0.75rem; }
 .price.price-hidden { font-size: 0.85rem; font-weight: 600; color: var(--text-gray); background: var(--off-white); padding: 0.4rem 0.75rem; border-radius: 20px; display: inline-block; }
-
-.product-footer { display: flex; flex-direction: column; gap: 0.65rem; padding-top: 1rem; border-top: 1px solid var(--border-gray); margin-top: auto; }
-.inquire-btn { background: var(--steel-grey); color: white; border: none; padding: 0.75rem; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: background 0.3s; min-height: 44px; display: flex; align-items: center; justify-content: center; }
-.inquire-btn:hover { background: var(--steel-dark); }
-.view-specs { background: var(--white); color: var(--steel-grey); border: 2px solid var(--steel-grey); padding: 0.75rem; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; justify-content: center; }
-.view-specs:hover { background: var(--steel-grey); color: white; }
-.no-results { text-align: center; padding: 3rem 1.5rem; color: var(--text-gray); display: none; }
 
 .distribution-section { background: var(--off-white); padding: 3rem 1.25rem; margin: 3rem 0; border-radius: 12px; }
 .distribution-header { text-align: center; margin-bottom: 2rem; }
@@ -200,35 +169,16 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   .service-details { grid-template-columns: 1fr 1fr; gap: 3rem; }
   .service-image { height: 450px; font-size: 8rem; }
   .service-info h2 { font-size: 2.5rem; }
-  .filter-layout { grid-template-columns: 280px 1fr; }
-  .mobile-filter-btn { display: none; }
   .uk-map { grid-template-columns: repeat(4, 1fr); }
-}
-@media (max-width: 968px) {
-  .nav-links, .auth-area { display: none; }
-  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
 }
 @media (max-width: 968px) {
   .nav-links, .auth-area, .nav-center { display: none !important; }
   .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
-  .filter-sidebar { display: none !important; }
 }
 @media (max-width: 640px) {
-  .products-grid { grid-template-columns: 1fr; }
-  .filter-header { flex-direction: column; align-items: flex-start; }
   .uk-map { grid-template-columns: repeat(2, 1fr); }
   .specialist-grid, .sizes-grid, .finishing-grid { grid-template-columns: 1fr; }
 }
-.search-bar { position: relative; width: 100%; max-width: 280px; }
-.search-bar input { width: 100%; padding: 0.7rem 3rem 0.7rem 1rem; border: 2px solid var(--border-gray); border-radius: 25px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; min-height: 44px; }
-.search-bar button { position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: var(--primary-blue); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 36px; min-height: 36px; }
-.nav-center { display: flex; align-items: center; }
-.highlight-text { background: yellow; padding: 0 2px; }
-.search-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 3000; padding: 2rem 1.25rem; overflow-y: auto; }
-.search-modal.active { display: block; }
-.search-modal-content { max-width: 800px; margin: 0 auto; }
-.search-results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.close-search { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; }
 
 .price { visibility: hidden; }
 </style>
@@ -239,12 +189,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   <nav>
     <div class="nav-left">
       <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
-    </div>
-    <div class="nav-center">
-      <div class="search-bar">
-        <input type="text" id="globalSearch" placeholder="Search steel...">
-        <button onclick="performSearch()" aria-label="Search">🔍</button>
-      </div>
     </div>
     <div class="nav-right" style="display: flex; align-items: center; gap: 1rem;">
       <ul class="nav-links">
@@ -274,12 +218,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     </div>
     <button class="close-mobile-nav" onclick="toggleMobileNav()">×</button>
   </div>
-  <div style="padding: 1rem 1.25rem;">
-    <div class="search-bar" style="max-width: 100%;">
-      <input type="text" id="mobileSearch" placeholder="Search steel...">
-      <button onclick="performSearchMobile()" aria-label="Search">🔍</button>
-    </div>
-  </div>
   <ul class="mobile-nav-links">
     <li><a href="builder.html">🏠 Home</a></li>
     <li><a href="electrical.html">⚡ Electrical</a></li>
@@ -292,18 +230,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
     <button class="btn-logout" data-logout onclick="signOut()" style="display:none; width: 100%;">Log Out</button>
   </div>
-</div>
-
-<div id="searchModal" class="search-modal">
-  <button class="close-search" onclick="closeSearch()">×</button>
-  <div class="search-modal-content">
-    <h2 style="color: white; margin-bottom: 1.5rem;">Search Results</h2>
-    <div id="searchResults" class="search-results-grid"></div>
-  </div>
-</div>
-
-<div class="price-login-banner" id="priceLoginBanner">
-  🔒 <strong>Prices are hidden.</strong> You must <a href="login.html">log in</a> and verify your email to view all product prices.
 </div>
 
 <section class="page-hero">
@@ -420,66 +346,30 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     </div>
   </section>
 
-  <section class="filter-section">
-    <div class="filter-header">
-      <h2>Steel Products</h2>
-      <span class="filter-results-count" id="resultsCount">Showing 12 products</span>
-      <button class="mobile-filter-btn" onclick="openMobileFilter()">☰ Filter Products</button>
-    </div>
-
-    <div class="filter-layout">
-      <aside class="filter-sidebar">
-        <h3>Filter Products</h3>
-        <div class="filter-group">
-          <div class="filter-group-title">Product Categories</div>
-          <div class="filter-options">
-            <div class="filter-option active"><input type="checkbox" id="cat-all" checked onchange="filterProducts()"><label for="cat-all">All Products</label><span class="filter-count">12</span></div>
-            <div class="filter-option"><input type="checkbox" id="cat-beams" onchange="filterProducts()"><label for="cat-beams">Structural Beams</label><span class="filter-count">4</span></div>
-            <div class="filter-option"><input type="checkbox" id="cat-plates" onchange="filterProducts()"><label for="cat-plates">Plates &amp; Sheets</label><span class="filter-count">3</span></div>
-            <div class="filter-option"><input type="checkbox" id="cat-rebar" onchange="filterProducts()"><label for="cat-rebar">Reinforcement</label><span class="filter-count">2</span></div>
-            <div class="filter-option"><input type="checkbox" id="cat-fabrication" onchange="filterProducts()"><label for="cat-fabrication">Fabrication</label><span class="filter-count">3</span></div>
-          </div>
+  <section class="quote-section">
+    <div class="quote-container">
+      <div class="quote-badge">Trade & Commercial</div>
+      <h2>Custom Specifications & Commercial Pricing</h2>
+      <p class="quote-description">Our steel products are priced based on your specific requirements, volume, and project specifications. Pricing fluctuates with market conditions, material grades, and custom fabrication needs — we provide tailored quotes to ensure you get the best value.</p>
+      <div class="quote-steps">
+        <div class="quote-step">
+          <div class="step-number">1</div>
+          <h3>Tell Us What You Need</h3>
+          <p>Share your project specifications, quantities, dimensions, and any custom requirements with our specialist team.</p>
         </div>
-        <button class="clear-filters" onclick="clearFilters()">Clear All Filters</button>
-      </aside>
-
-      <div class="mobile-filter-modal" id="mobileFilterModal">
-        <div class="mobile-filter-content">
-          <div class="mobile-filter-header">
-            <h3>Filter Products</h3>
-            <button class="close-filter" onclick="closeMobileFilter()">×</button>
-          </div>
-          <div class="filter-group">
-            <div class="filter-group-title">Product Categories</div>
-            <div class="filter-options">
-              <div class="filter-option active"><input type="checkbox" id="m-cat-all" checked onchange="filterProductsMobile()"><label for="m-cat-all">All Products</label><span class="filter-count">12</span></div>
-              <div class="filter-option"><input type="checkbox" id="m-cat-beams" onchange="filterProductsMobile()"><label for="m-cat-beams">Structural Beams</label><span class="filter-count">4</span></div>
-              <div class="filter-option"><input type="checkbox" id="m-cat-plates" onchange="filterProductsMobile()"><label for="m-cat-plates">Plates &amp; Sheets</label><span class="filter-count">3</span></div>
-              <div class="filter-option"><input type="checkbox" id="m-cat-rebar" onchange="filterProductsMobile()"><label for="m-cat-rebar">Reinforcement</label><span class="filter-count">2</span></div>
-              <div class="filter-option"><input type="checkbox" id="m-cat-fabrication" onchange="filterProductsMobile()"><label for="m-cat-fabrication">Fabrication</label><span class="filter-count">3</span></div>
-            </div>
-          </div>
-          <div class="mobile-filter-footer">
-            <button class="apply-filters-btn" onclick="applyMobileFilters()">Apply Filters</button>
-          </div>
+        <div class="quote-step">
+          <div class="step-number">2</div>
+          <h3>Receive Your Quote</h3>
+          <p>Our specialists will prepare a detailed, competitive quote tailored to your project within 24-48 hours.</p>
+        </div>
+        <div class="quote-step">
+          <div class="step-number">3</div>
+          <h3>Confirm & Deliver</h3>
+          <p>Approve your quote and we'll arrange manufacturing, quality checks, and delivery directly to your site.</p>
         </div>
       </div>
-
-      <section class="products-grid" id="productsGrid">
-        <div class="product-card" data-category="beams"><div class="product-image">🔺</div><div class="product-info"><div class="product-code">STL-RSJ-203x133</div><div class="product-category">Structural Beams</div><h3 class="product-title">RSJ Universal Beam 203x133x30</h3><p class="product-description">Hot-rolled steel universal beam, 203mm depth x 133mm flange. S355 grade steel.</p><p class="price">£142.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="plates"><div class="product-image">⬛</div><div class="product-info"><div class="product-code">STL-PLT-20MM-S355</div><div class="product-category">Plates &amp; Sheets</div><h3 class="product-title">Mild Steel Plate 20mm S355</h3><p class="product-description">High-strength structural steel plate, 20mm thickness. Cut to size available.</p><p class="price">£89.50</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="fabrication"><div class="product-image">📐</div><div class="product-info"><div class="product-code">STL-ANG-50x50x6-GALV</div><div class="product-category">Fabrication</div><h3 class="product-title">Galvanized Steel Angle 50x50x6mm</h3><p class="product-description">Hot-dip galvanized equal angle. Corrosion resistant for outdoor applications.</p><p class="price">£28.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="rebar"><div class="product-image">🔩</div><div class="product-info"><div class="product-code">STL-RBR-16MM-B500B</div><div class="product-category">Reinforcement</div><h3 class="product-title">Reinforcement Bar 16mm B500B</h3><p class="product-description">High-yield deformed reinforcement bar, 16mm diameter. B500B grade.</p><p class="price">£18.75</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="beams"><div class="product-image">🏢</div><div class="product-info"><div class="product-code">STL-UC-203x203x46</div><div class="product-category">Structural Beams</div><h3 class="product-title">Universal Column 203x203x46</h3><p class="product-description">Hot-rolled steel universal column. Vertical load-bearing applications.</p><p class="price">£168.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="plates"><div class="product-image">⬡</div><div class="product-info"><div class="product-code">STL-CHK-5MM-GALV</div><div class="product-category">Plates &amp; Sheets</div><h3 class="product-title">Galvanized Checker Plate 5mm</h3><p class="product-description">Anti-slip galvanized steel checker plate. Ideal for walkways and stairs.</p><p class="price">£67.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="fabrication"><div class="product-image">🔧</div><div class="product-info"><div class="product-code">STL-FAB-BRK-CUSTOM</div><div class="product-category">Fabrication</div><h3 class="product-title">Custom Steel Bracket</h3><p class="product-description">Bespoke steel bracket fabrication to your drawings. Powder coated finish.</p><p class="price">£45.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="rebar"><div class="product-image">🕸️</div><div class="product-info"><div class="product-code">STL-MSH-A142-ROLL</div><div class="product-category">Reinforcement</div><h3 class="product-title">Steel Mesh A142</h3><p class="product-description">Welded steel mesh for concrete reinforcement. 200x200mm aperture.</p><p class="price">£52.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="fabrication"><div class="product-image">🚧</div><div class="product-info"><div class="product-code">STL-RAIL-PC-BLK</div><div class="product-category">Fabrication</div><h3 class="product-title">Powder Coated Railing</h3><p class="product-description">Modular steel railing system with black powder coated finish.</p><p class="price">£95.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="beams"><div class="product-image">📏</div><div class="product-info"><div class="product-code">STL-UB-356x171x51</div><div class="product-category">Structural Beams</div><h3 class="product-title">Universal Beam 356x171x51</h3><p class="product-description">Heavy-duty universal beam for large span applications. S355 grade.</p><p class="price">£214.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="plates"><div class="product-image">📄</div><div class="product-info"><div class="product-code">STL-SHT-0.7MM-GALV</div><div class="product-category">Plates &amp; Sheets</div><h3 class="product-title">Galvanized Steel Sheet 0.7mm</h3><p class="product-description">Light gauge galvanized steel sheet for cladding and roofing. Z275 coating.</p><p class="price">£34.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-        <div class="product-card" data-category="fabrication"><div class="product-image">🚪</div><div class="product-info"><div class="product-code">STL-GATE-FRM-CUSTOM</div><div class="product-category">Fabrication</div><h3 class="product-title">Custom Steel Gate Frame</h3><p class="product-description">Fabricated steel gate frames to your specifications. Galvanized or painted.</p><p class="price">£320.00</p><div class="product-footer"><a href="builder.html#contact" class="inquire-btn">Request Quote</a></div></div></div>
-      </section>
-      <div class="no-results" id="noResults"><h3>No Products Found</h3><p>Try adjusting your filters.</p></div>
+      <a href="builder.html#contact" class="quote-cta-btn">Request a Free Quote →</a>
+      <p class="quote-note">📞 Prefer to talk? Call us on <a href="tel:08001234567">0800 123 4567</a></p>
     </div>
   </section>
 
@@ -559,8 +449,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 <script src="auth.js"></script>
 <script>
   async function initPage() {
-    const loggedIn = await requireAuth();
-    document.getElementById('priceLoginBanner').classList.toggle('show', !loggedIn);
+    await requireAuth();
   }
   initPage();
 
@@ -569,73 +458,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     document.getElementById('mobileNavOverlay').classList.toggle('active');
   }
   document.querySelectorAll('.mobile-nav-links a').forEach(l => l.addEventListener('click', toggleMobileNav));
-
-  function filterProducts() {
-    const checked = Array.from(document.querySelectorAll('.filter-sidebar input[type="checkbox"]:checked')).map(c => c.id.replace('cat-', ''));
-    let count = 0;
-    document.querySelectorAll('.product-card').forEach(card => {
-      const show = checked.includes('all') || checked.includes(card.dataset.category);
-      card.classList.toggle('hidden', !show);
-      if (show) count++;
-    });
-    document.getElementById('resultsCount').textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
-    document.getElementById('noResults').style.display = count === 0 ? 'block' : 'none';
-  }
-  function clearFilters() {
-    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(cb => cb.checked = cb.id === 'cat-all');
-    filterProducts();
-  }
-  function openMobileFilter()  { document.getElementById('mobileFilterModal').classList.add('active'); }
-  function closeMobileFilter() { document.getElementById('mobileFilterModal').classList.remove('active'); }
-  function filterProductsMobile() {
-    document.querySelectorAll('#mobileFilterModal input[type="checkbox"]:checked').forEach(mcb => {
-      const dcb = document.getElementById('cat-' + mcb.id.replace('m-cat-', ''));
-      if (dcb) dcb.checked = true;
-    });
-    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(dcb => {
-      const mcb = document.getElementById('m-cat-' + dcb.id.replace('cat-', ''));
-      if (mcb && !mcb.checked) dcb.checked = false;
-    });
-  }
-  function applyMobileFilters() { filterProducts(); closeMobileFilter(); }
-  document.getElementById('mobileFilterModal').addEventListener('click', e => { if (e.target === document.getElementById('mobileFilterModal')) closeMobileFilter(); });
-  function performSearch() {
-    const searchTerm = document.getElementById('globalSearch').value.toLowerCase().trim();
-    executeSearch(searchTerm);
-  }
-  function performSearchMobile() {
-    const searchTerm = document.getElementById('mobileSearch').value.toLowerCase().trim();
-    executeSearch(searchTerm);
-    toggleMobileNav();
-  }
-  function executeSearch(searchTerm) {
-    if (!searchTerm) return;
-    const resultsContainer = document.getElementById('searchResults');
-    resultsContainer.innerHTML = '';
-    const products = document.querySelectorAll('.product-card');
-    let found = false;
-    products.forEach(product => {
-      const title = product.querySelector('.product-title').textContent.toLowerCase();
-      const desc = product.querySelector('.product-description').textContent.toLowerCase();
-      const code = product.querySelector('.product-code').textContent.toLowerCase();
-      if (title.includes(searchTerm) || desc.includes(searchTerm) || code.includes(searchTerm)) {
-        const clone = product.cloneNode(true);
-        clone.classList.remove('hidden');
-        resultsContainer.appendChild(clone);
-        found = true;
-      }
-    });
-    if (!found) resultsContainer.innerHTML = '<p style="color: white; grid-column: 1/-1; text-align: center;">No products matching "' + searchTerm + '" found.</p>';
-    document.getElementById('searchModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeSearch() {
-    document.getElementById('searchModal').classList.remove('active');
-    document.body.style.overflow = 'auto';
-  }
-  document.getElementById('globalSearch').addEventListener('keypress', e => { if (e.key === 'Enter') performSearch(); });
-  document.getElementById('mobileSearch')?.addEventListener('keypress', e => { if (e.key === 'Enter') performSearchMobile(); });
-
 </script>
 </body>
 </html>
