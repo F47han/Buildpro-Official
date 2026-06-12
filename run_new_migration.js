@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 async function run() {
-  const url = "https://api.supabase.com/v1/projects/dyidbpwyzatoihydmkwa/database/query";
+  const url = "https://dyidbpwyzatoihydmkwa.supabase.co/pg/v1/query";
   const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5aWRicHd5emF0b2loeWRta3dhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTY2MTkwMSwiZXhwIjoyMDkxMjM3OTAxfQ.VZsRNvXFSOjVFaTRsJAC_65gTVG8p7gGvfuzm30GP8o";
 
   const sql = fs.readFileSync('./migration_new_electrical_products.sql', 'utf8');
@@ -10,6 +10,7 @@ async function run() {
   const res = await fetch(url, {
     method: 'POST',
     headers: {
+      'apikey': key,
       'Authorization': `Bearer ${key}`,
       'Content-Type': 'application/json'
     },
