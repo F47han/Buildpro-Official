@@ -1382,16 +1382,7 @@ align-items: flex-start;
 </div>
 </footer>
 
-<!-- Search Modal -->
-<div id="searchModal" class="search-modal">
-<div class="search-modal-content">
-<div class="search-modal-header">
-<h3>Search Results</h3>
-<button class="close-search" aria-label="Close search" onclick="closeSearch()">×</button>
-</div>
-<div id="searchResults" class="search-results"></div>
-</div>
-</div>
+<!-- Search Modal Removed -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -1451,6 +1442,29 @@ async function initPage() {
   }
 
   await requireAuth();
+
+  // Read URL search / category parameters with XSS sanitization
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchParam = urlParams.get('search');
+  const catParam = urlParams.get('category');
+
+  if (searchParam) {
+    const cleanSearch = escapeHtml(searchParam);
+    const searchInput = document.getElementById('globalSearch');
+    if (searchInput) {
+      searchInput.value = cleanSearch;
+      filterProducts();
+    }
+  } else if (catParam) {
+    const cleanCat = escapeHtml(catParam);
+    const allCb = document.getElementById('cat-all');
+    if (allCb) allCb.checked = false;
+    const targetCb = document.querySelector(`.filter-sidebar input[value="${cleanCat}"]`);
+    if (targetCb) {
+      targetCb.checked = true;
+      filterProducts();
+    }
+  }
 }
 initPage();
 
@@ -1630,91 +1644,34 @@ document.querySelectorAll('.mobile-nav-links a').forEach(function(link) {
   link.addEventListener('click', function() { toggleMobileNav(); });
 });
 
-// ─── Search ─────────────────────────────────────
-function performSearch() {
-  var term = document.getElementById('globalSearch').value.toLowerCase().trim();
-  if (!term) { alert('Please enter a search term'); return; }
-
-  // Apply search through filter system
-  document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(function(cb) {
-    cb.checked = (cb.value === 'all');
-  });
-  filterProducts();
-
-  // Also show modal results
-  var results = allProducts.filter(function(p) {
-    return p.name.toLowerCase().includes(term) ||
-      p.item_code.toLowerCase().includes(term) ||
-      (p.description || '').toLowerCase().includes(term);
-  });
-  displaySearchResults(results, term);
+// Debouncing to protect keystroke performance
+function debounce(func, delay) {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
 }
 
-function displaySearchResults(results, searchTerm) {
-  var modal = document.getElementById('searchModal');
-  var container = document.getElementById('searchResults');
-
-  if (results.length === 0) {
-    container.innerHTML = '<div class="no-results-search"><h3>No Products Found</h3><p>Try a different search term.</p></div>';
-  } else {
-    container.innerHTML = results.map(function(r) {
-      var cat = CATEGORIES[r.category] || { label: r.category };
-      return '<div class="search-result-item"><div>' +
-        '<div class="search-result-category">' + cat.label + ' · <span style="font-family:monospace;color:#d63384">' + escapeHtml(r.item_code) + '</span></div>' +
-        '<div class="search-result-title">' + highlightText(r.name, searchTerm) + '</div>' +
-        '<div class="search-result-description">' + highlightText(r.description || '', searchTerm) + '</div>' +
-      '</div></div>';
-    }).join('');
-  }
-
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function highlightText(text, term) {
-  if (!term) return escapeHtml(text);
-  var safeText = escapeHtml(text);
-  var safeTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  var regex = new RegExp('(' + safeTerm + ')', 'gi');
-  return safeText.replace(regex, '<span class="highlight-text">$1</span>');
-}
-
-function performSearchMobile() {
-  var term = document.getElementById('mobileSearch').value.toLowerCase().trim();
-  if (!term) { alert('Please enter a search term'); return; }
-  document.getElementById('globalSearch').value = term;
-  var results = allProducts.filter(function(p) {
-    return p.name.toLowerCase().includes(term) ||
-      p.item_code.toLowerCase().includes(term) ||
-      (p.description || '').toLowerCase().includes(term);
-  });
-  displaySearchResults(results, term);
-  toggleMobileNav();
+// ─── Instant Search Handlers ───────────────────────
+if (document.getElementById('globalSearch')) {
+  const searchInput = document.getElementById('globalSearch');
+  searchInput.addEventListener('input', debounce(function() {
+    filterProducts();
+  }, 150));
 }
 
 if (document.getElementById('mobileSearch')) {
-  document.getElementById('mobileSearch').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') performSearchMobile();
-  });
-}
-
-function closeSearch() {
-  document.getElementById('searchModal').classList.remove('active');
-  document.body.style.overflow = 'auto';
-  document.getElementById('globalSearch').value = '';
-  if (document.getElementById('mobileSearch')) document.getElementById('mobileSearch').value = '';
-}
-
-if (document.getElementById('searchModal')) {
-  document.getElementById('searchModal').addEventListener('click', function(e) {
-    if (e.target === this) closeSearch();
-  });
-}
-
-if (document.getElementById('globalSearch')) {
-  document.getElementById('globalSearch').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') performSearch();
-  });
+  const mobSearch = document.getElementById('mobileSearch');
+  mobSearch.addEventListener('input', debounce(function() {
+    const desktopSearch = document.getElementById('globalSearch');
+    if (desktopSearch) {
+      desktopSearch.value = mobSearch.value;
+    }
+    filterProducts();
+  }, 150));
 }
 
 // Prevent double-tap zoom on iOS

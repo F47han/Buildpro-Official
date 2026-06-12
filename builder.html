@@ -106,6 +106,111 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 }
 @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .hero p { font-size: 1rem; } }
 @media (max-width: 640px) { .hero { padding: 4rem 1rem 3rem; } .services-section { padding: 3rem 1rem; } }
+
+/* Hero Search Styles */
+.hero-search-container {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  position: relative;
+}
+.hero-search-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border-radius: 30px;
+  padding: 0.25rem 0.5rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+.hero-search-wrapper:focus-within {
+  border-color: var(--light-blue);
+  box-shadow: 0 8px 35px rgba(0,71,171,0.25);
+}
+.hero-search-icon {
+  font-size: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-gray);
+}
+.hero-search-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 1.05rem;
+  padding: 0.75rem 0.5rem;
+  color: var(--text-dark);
+  font-family: inherit;
+  border-radius: 30px;
+}
+.hero-search-btn {
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  outline: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.hero-search-btn:hover {
+  background: var(--dark-blue);
+}
+.search-dropdown {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 10;
+  text-align: left;
+  display: none;
+  border: 1px solid var(--border-gray);
+}
+.search-dropdown.active {
+  display: block;
+}
+.suggestion-item {
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid var(--border-gray);
+}
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+.suggestion-item:hover {
+  background: var(--off-white);
+}
+.suggestion-icon {
+  font-size: 1.4rem;
+}
+.suggestion-info {
+  display: flex;
+  flex-direction: column;
+}
+.suggestion-title {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+.suggestion-meta {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+}
+.suggestion-no-results {
+  padding: 1rem 1.25rem;
+  color: var(--text-gray);
+  font-size: 0.95rem;
+  text-align: center;
+}
 </style>
 </head>
 <body>
@@ -161,6 +266,17 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   <div class="hero-content">
     <h1>Professional Building &amp; Electrical Services</h1>
     <p>Quality materials, expert services, and reliable delivery across the United Kingdom.</p>
+    
+    <!-- Hero Search -->
+    <div class="hero-search-container">
+      <div class="hero-search-wrapper">
+        <span class="hero-search-icon">🔍</span>
+        <input type="text" id="heroSearchInput" placeholder="Search 130+ electrical products, items, or codes..." autocomplete="off">
+        <button class="hero-search-btn" onclick="triggerHeroSearch()">Search</button>
+      </div>
+      <div id="heroSearchDropdown" class="search-dropdown"></div>
+    </div>
+
     <div class="hero-buttons">
       <a href="electrical.html" class="hero-btn-primary">⚡ Electrical Products</a>
       <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;" data-auth-hide>
@@ -241,8 +357,85 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 <!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="electrical-products-fallback.js"></script>
 <script src="auth.js"></script>
 <script>
+  // Autocomplete Search Configuration
+  const CATEGORY_ICONS = {
+    'consumer-units':           '📦',
+    'rcbos':                    '🛡️',
+    'mcbs':                     '⚡',
+    'surge-protection':         '🔒',
+    'distribution-boards':      '🔧',
+    'ev-charging':              '🔋',
+    'switches-isolators':       '🔘',
+    'sockets-spurs':            '🔌',
+    'lighting':                 '💡',
+    'fuses-holders':            '🔩',
+    'enclosures':               '🏗️',
+    'contactors-control':       '⏱️',
+    'rcds':                     '🔄',
+    'smoke-alarms':             '🚨',
+    'solar-renewables':         '☀️',
+    'junction-boxes':           '🔲',
+    'industrial-connectors':    '🏭',
+    'weatherproof-accessories': '🌧️',
+    'heat-pumps':               '♨️'
+  };
+
+  const CATEGORY_LABELS = {
+    'consumer-units':           'Consumer Units',
+    'rcbos':                    'RCBOs',
+    'mcbs':                     'MCBs',
+    'surge-protection':         'Surge Protection',
+    'distribution-boards':      'Distribution Boards',
+    'ev-charging':              'EV Charging',
+    'switches-isolators':       'Switches & Isolators',
+    'sockets-spurs':            'Sockets & Spurs',
+    'lighting':                 'Lighting',
+    'fuses-holders':            'Fuses & Holders',
+    'enclosures':               'Enclosures',
+    'contactors-control':       'Contactors & Control',
+    'rcds':                     'Residual Current Devices',
+    'smoke-alarms':             'Smoke Alarms',
+    'solar-renewables':         'Solar & Renewables',
+    'junction-boxes':           'Junction Boxes & Terminals',
+    'industrial-connectors':    'Industrial Connectors',
+    'weatherproof-accessories': 'Weatherproof Accessories',
+    'heat-pumps':               'Heat Pumps'
+  };
+
+  // Safe HTML Escaping for XSS Prevention
+  function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Debouncing to protect keystroke performance
+  function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
+
+  function triggerHeroSearch() {
+    const input = document.getElementById('heroSearchInput');
+    const term = input.value.trim();
+    if (term) {
+      window.location.href = 'electrical.html?search=' + encodeURIComponent(term);
+    }
+  }
+
+  function selectSuggestion(itemCode) {
+    window.location.href = 'electrical.html?search=' + encodeURIComponent(itemCode);
+  }
+
   // Mobile Navigation Toggle
   function toggleMobileNav() {
     const mobileNav = document.getElementById('mobileNav');
@@ -258,6 +451,72 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       body.style.overflow = 'auto';
     }
   }
+
+  // Bind input search events
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('heroSearchInput');
+    const dropdown = document.getElementById('heroSearchDropdown');
+
+    if (!searchInput || !dropdown) return;
+
+    // Trigger search on Enter key
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        triggerHeroSearch();
+      }
+    });
+
+    const handleSearchInput = debounce(() => {
+      const term = searchInput.value.toLowerCase().trim();
+      if (!term || typeof FALLBACK_PRODUCTS === 'undefined') {
+        dropdown.innerHTML = '';
+        dropdown.classList.remove('active');
+        return;
+      }
+
+      // Filter products
+      const matches = FALLBACK_PRODUCTS.filter(p => {
+        return p.name.toLowerCase().includes(term) ||
+          p.item_code.toLowerCase().includes(term) ||
+          p.category.toLowerCase().includes(term) ||
+          (p.description || '').toLowerCase().includes(term);
+      }).slice(0, 5); // Limit to top 5 matches for display performance
+
+      if (matches.length === 0) {
+        dropdown.innerHTML = '<div class="suggestion-no-results">No products found</div>';
+        dropdown.classList.add('active');
+        return;
+      }
+
+      dropdown.innerHTML = matches.map(p => {
+        const icon = CATEGORY_ICONS[p.category] || '📦';
+        const label = CATEGORY_LABELS[p.category] || p.category;
+        
+        // Sanitize strings during dynamic rendering to prevent XSS
+        const safeName = escapeHtml(p.name);
+        const safeCode = escapeHtml(p.item_code);
+        const safeCategory = escapeHtml(label);
+
+        return `<div class="suggestion-item" onclick="selectSuggestion('${escapeHtml(p.item_code)}')">
+          <span class="suggestion-icon">${icon}</span>
+          <div class="suggestion-info">
+            <span class="suggestion-title">${safeName}</span>
+            <span class="suggestion-meta">${safeCategory} · <strong style="font-family:monospace">${safeCode}</strong></span>
+          </div>
+        </div>`;
+      }).join('');
+      dropdown.classList.add('active');
+    }, 150); // 150ms debounce delay
+
+    searchInput.addEventListener('input', handleSearchInput);
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+  });
 
   // Double tap zoom prevention
   document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
