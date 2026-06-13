@@ -1169,6 +1169,177 @@ align-items: flex-start;
 .show-more-btn:active {
   transform: translateY(-1px);
 }
+
+/* Secondary Button and Datasheet Modal Styles */
+.datasheet-sec-btn {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--border-gray);
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.datasheet-sec-btn:hover {
+  background: var(--off-white);
+  border-color: var(--electrical-orange);
+}
+.datasheet-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  backdrop-filter: blur(4px);
+}
+.datasheet-modal.active {
+  display: flex;
+}
+.datasheet-modal-content {
+  background: var(--white);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 650px;
+  overflow: hidden;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+  animation: dsModalSlideUp 0.3s ease-out;
+}
+@keyframes dsModalSlideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.datasheet-modal-header {
+  background: linear-gradient(135deg, var(--electrical-orange), var(--primary-blue));
+  color: white;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.datasheet-modal-header h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.datasheet-modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.datasheet-modal-body {
+  padding: 1.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.datasheet-header-info {
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--electrical-orange);
+  padding-bottom: 1rem;
+}
+.datasheet-header-info h4 {
+  font-size: 1.4rem;
+  color: var(--primary-blue);
+  margin-bottom: 0.25rem;
+}
+.datasheet-header-info .brand-tag {
+  font-size: 0.85rem;
+  color: var(--electrical-orange);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.datasheet-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+.datasheet-specs-table th, .datasheet-specs-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-gray);
+}
+.datasheet-specs-table th {
+  background: var(--off-white);
+  color: var(--text-dark);
+  font-weight: 700;
+  width: 35%;
+}
+.datasheet-specs-table td {
+  color: var(--text-gray);
+}
+.datasheet-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.datasheet-modal-btn {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 40px;
+}
+.datasheet-modal-btn:hover {
+  background: var(--dark-blue);
+}
+.datasheet-print-btn {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--border-gray);
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 40px;
+}
+.datasheet-print-btn:hover {
+  background: var(--off-white);
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #datasheetModal, #datasheetModal * {
+    visibility: visible;
+  }
+  #datasheetModal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    background: white;
+    display: block !important;
+  }
+  .datasheet-modal-content {
+    box-shadow: none;
+    border: none;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .datasheet-modal-close, .datasheet-modal-footer {
+    display: none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1247,7 +1418,7 @@ align-items: flex-start;
 <!-- Delivery Banner -->
 <div class="delivery-banner">
 <strong>🚚 Next Day Delivery Available</strong>
-<small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered within two working days.</small>
+<small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered the following working day (day after).</small>
 </div>
 
 <!-- Page Content -->
@@ -1401,6 +1572,14 @@ align-items: flex-start;
 </ul>
 </div>
 <div class="footer-section">
+<h3>Supply Partners</h3>
+<ul>
+<li><a href="https://www.liveelectrical.co.uk" target="_blank" rel="noopener">Live Electrical</a></li>
+<li><a href="https://www.merrinton.com" target="_blank" rel="noopener">Merrinton Flooring</a></li>
+<li><a href="https://www.manchestersteels.co.uk" target="_blank" rel="noopener">Manchester Steels</a></li>
+</ul>
+</div>
+<div class="footer-section">
 <h3>Contact</h3>
 <ul>
 <li><a href="tel:08001234567">0800 123 4567</a></li>
@@ -1412,8 +1591,62 @@ align-items: flex-start;
 <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
 </div>
 </footer>
-
-<!-- Search Modal Removed -->
+<!-- Technical Datasheet Modal -->
+<div class="datasheet-modal" id="datasheetModal">
+  <div class="datasheet-modal-content">
+    <div class="datasheet-modal-header">
+      <h3 id="dsModalTitle">Technical Datasheet</h3>
+      <button class="datasheet-modal-close" onclick="closeDatasheet()">×</button>
+    </div>
+    <div class="datasheet-modal-body">
+      <div class="datasheet-header-info">
+        <span class="brand-tag">BuildPro UK Certified</span>
+        <h4 id="dsName">-</h4>
+        <p style="font-size: 0.9rem; color: var(--text-gray); margin: 0;">Part Number: <strong id="dsCode" style="color:var(--text-dark);">-</strong> | Category: <span id="dsCategory">-</span></p>
+      </div>
+      
+      <p id="dsDescription" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-gray); margin-bottom: 1.5rem;"></p>
+      
+      <h4 style="font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 0.75rem;">Compliance & Technical Specifications</h4>
+      <table class="datasheet-specs-table">
+        <tbody>
+          <tr>
+            <th>Compliance Standard</th>
+            <td id="dsStandard">-</td>
+          </tr>
+          <tr>
+            <th>Rated Voltage</th>
+            <td id="dsVoltage">-</td>
+          </tr>
+          <tr>
+            <th>IP Protection Rating</th>
+            <td id="dsIpRating">-</td>
+          </tr>
+          <tr>
+            <th>Testing & Certs</th>
+            <td id="dsTesting">-</td>
+          </tr>
+          <tr>
+            <th>Enclosure Material</th>
+            <td id="dsMaterial">-</td>
+          </tr>
+          <tr>
+            <th>Manufacturer</th>
+            <td>BuildPro UK (Sourced in Partnership)</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>123 Construction Way, London, EC1A 1BB</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="datasheet-modal-footer">
+      <button class="datasheet-print-btn" onclick="window.print()">Print / Save PDF</button>
+      <a href="#" id="dsQuoteLink" class="datasheet-modal-btn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Request Quote</a>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -1577,6 +1810,7 @@ function renderProducts(products, totalCount) {
         '<p class="price">' + price + '</p>' +
         '<div class="product-footer">' +
           '<a href="' + mailtoUrl + '" class="datasheet-btn">Request Quote</a>' +
+          '<button onclick="showDatasheet(\'' + escapeHtml(p.item_code) + '\')" class="datasheet-sec-btn">View Datasheet</button>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -1744,6 +1978,190 @@ if (document.getElementById('mobileSearch')) {
     filterProducts();
   }, 150));
 }
+
+// ─── Compliance & Technical Standards Mapping ───────
+const COMPLIANCE_STANDARDS = {
+  'consumer-units': {
+    standard: 'BS 7671 / BS EN 61439-3',
+    voltage: '230V AC 50Hz',
+    ipRating: 'IP40 (Enclosure) / IP2X (Internal)',
+    testing: 'UKCA & CE Certified, EN 61439 compliant',
+    material: 'Robust Powder-Coated Steel (1.2mm)'
+  },
+  'rcbos': {
+    standard: 'BS EN 61009-1',
+    voltage: '230V AC 50Hz',
+    ipRating: 'IP20',
+    testing: 'Type A, 6kA Short-Circuit Capacity',
+    material: 'Flame Retardant Polycarbonate'
+  },
+  'mcbs': {
+    standard: 'BS EN 60898-1',
+    voltage: '230V / 400V AC 50Hz',
+    ipRating: 'IP20',
+    testing: 'Type B / C Curve, 6kA / 10kA Rated',
+    material: 'Flame Retardant Polycarbonate'
+  },
+  'surge-protection': {
+    standard: 'BS EN 61643-11 / BS 7671',
+    voltage: '275V AC (Max)',
+    ipRating: 'IP20',
+    testing: 'Type 2 SPD, Imax 40kA (8/20µs)',
+    material: 'Flame Retardant Polycarbonate'
+  },
+  'distribution-boards': {
+    standard: 'BS EN 61439-3 / BS 7671',
+    voltage: '230V / 400V AC 50Hz',
+    ipRating: 'IP31 / IP65 (Weatherproof)',
+    testing: 'UKCA & CE Certified',
+    material: 'Heavy Duty Steel Enclosure'
+  },
+  'ev-charging': {
+    standard: 'BS 7671 Sec 722 / BS EN 61851',
+    voltage: '230V AC (Single Phase) / 400V AC (Three Phase)',
+    ipRating: 'IP65 Weatherproof',
+    testing: 'Built-in 6mA DC Leakage Detection (RDC-DD)',
+    material: 'UV-Stabilized Polycarbonate / ABS'
+  },
+  'switches-isolators': {
+    standard: 'BS EN 60947-3 / BS EN 60669-1',
+    voltage: '230V / 400V AC 50Hz',
+    ipRating: 'IP20 / IP66 (Outdoor)',
+    testing: 'Load Break Disconnector Certified',
+    material: 'Flame Retardant Polycarbonate / Urea'
+  },
+  'sockets-spurs': {
+    standard: 'BS 1363-2',
+    voltage: '230V AC 50Hz',
+    ipRating: 'IP20 / IP66 (Outdoor)',
+    testing: 'Double Pole Switches, 13A Rated',
+    material: 'Urea Formaldehyde / Polycarbonate'
+  },
+  'lighting': {
+    standard: 'BS EN 60598-1 / BS EN 60598-2-1',
+    voltage: '220-240V AC 50Hz',
+    ipRating: 'IP20 / IP44 / IP65 (Hazardous)',
+    testing: 'Class I / Class II, CE & UKCA Approved',
+    material: 'Die-cast Aluminium / Polycarbonate Diffuser'
+  },
+  'fuses-holders': {
+    standard: 'BS 1362 / BS 88',
+    voltage: '250V / 415V AC',
+    ipRating: 'IP20',
+    testing: 'ASTA Certified',
+    material: 'Ceramic Body, Silver Plated End Caps'
+  },
+  'enclosures': {
+    standard: 'BS EN 62208 / BS EN 60670',
+    voltage: 'Up to 1000V AC',
+    ipRating: 'IP55 / IP65 / IP66',
+    testing: 'IK08 / IK10 Impact Resistance',
+    material: 'Galvanised Steel / Glass Reinforced Polyester (GRP)'
+  },
+  'contactors-control': {
+    standard: 'BS EN 60947-4-1',
+    voltage: '230V AC Coil / 400V AC Contacts',
+    ipRating: 'IP20',
+    testing: 'CE, UKCA, UL Listed',
+    material: 'Flame Retardant Resin'
+  },
+  'rcds': {
+    standard: 'BS EN 61008-1',
+    voltage: '230V AC 50Hz',
+    ipRating: 'IP20',
+    testing: 'Type A / AC, 30mA Trip Sensitivity',
+    material: 'Flame Retardant Polycarbonate'
+  },
+  'smoke-alarms': {
+    standard: 'BS 5839-6 Grade D1/D2 / BS EN 14604',
+    voltage: '230V AC with Lithium Battery Backup',
+    ipRating: 'IP20',
+    testing: 'Kitemarked, Interlinkable up to 12 units',
+    material: 'ABS Plastic'
+  },
+  'solar-renewables': {
+    standard: 'BS 7671 Sec 712 / BS EN 61215',
+    voltage: 'Up to 1000V DC',
+    ipRating: 'IP65 (Inverter) / IP68 (Connectors)',
+    testing: 'TÜV & MCS Certified',
+    material: 'Anodized Aluminium / Temper-glass / PV'
+  },
+  'junction-boxes': {
+    standard: 'BS EN 60670-22',
+    voltage: '450V AC',
+    ipRating: 'IP20 / IP66 (Weatherproof)',
+    testing: 'Flame retardant to 650°C (Glow Wire Test)',
+    material: 'Polypropylene / ABS'
+  },
+  'industrial-connectors': {
+    standard: 'BS EN 60309-1 / BS EN 60309-2',
+    voltage: '110V / 230V / 415V AC',
+    ipRating: 'IP44 / IP67 Splashproof/Waterproof',
+    testing: 'Hour position 4h / 6h / 9h',
+    material: 'Heavy Duty Polyamide 6 (Nylon)'
+  },
+  'weatherproof-accessories': {
+    standard: 'BS 1363-2 / BS EN 60669-1',
+    voltage: '230V AC 50Hz',
+    ipRating: 'IP66 with plug gel-seal gasket',
+    testing: 'Impact Resistant Enclosure',
+    material: 'High-Impact Polycarbonate'
+  },
+  'heat-pumps': {
+    standard: 'BS EN 14511 / BS EN 378 / MCS',
+    voltage: '230V AC (Single Phase)',
+    ipRating: 'IPX4 Outdoor Rated',
+    testing: 'ERP A+++ Efficiency rating',
+    material: 'Powder-Coated Weatherproof Galvanized Steel'
+  }
+};
+
+function showDatasheet(itemCode) {
+  const p = allProducts.find(function(prod) { return prod.item_code === itemCode; });
+  if (!p) {
+    alert('Product details not found.');
+    return;
+  }
+  
+  const cat = CATEGORIES[p.category] || { label: p.category, icon: '📦' };
+  const specs = COMPLIANCE_STANDARDS[p.category] || {
+    standard: 'BS 7671 / BS EN 60947',
+    voltage: '230V AC 50Hz',
+    ipRating: 'IP20',
+    testing: 'UKCA & CE Certified',
+    material: 'Flame Retardant Polycarbonate'
+  };
+
+  document.getElementById('dsModalTitle').innerText = 'Technical Datasheet - ' + p.item_code;
+  document.getElementById('dsName').innerText = p.name;
+  document.getElementById('dsCode').innerText = p.item_code;
+  document.getElementById('dsCategory').innerText = cat.label;
+  document.getElementById('dsDescription').innerText = p.description || 'No description available.';
+  document.getElementById('dsStandard').innerText = specs.standard;
+  document.getElementById('dsVoltage').innerText = specs.voltage;
+  document.getElementById('dsIpRating').innerText = specs.ipRating;
+  document.getElementById('dsTesting').innerText = specs.testing;
+  document.getElementById('dsMaterial').innerText = specs.material;
+
+  const subject = 'Quote Request: ' + p.name + ' (' + p.item_code + ')';
+  const body = 'Hello BuildPro UK,\n\nI would like to request a quote for the following product:\n- Product: ' + p.name + '\n- Item Code: ' + p.item_code + '\n\nPlease let me know the price and availability.\n\nThank you!';
+  const mailtoUrl = 'mailto:info@buildprouk.co.uk?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  document.getElementById('dsQuoteLink').href = mailtoUrl;
+
+  document.getElementById('datasheetModal').classList.add('active');
+}
+
+function closeDatasheet() {
+  document.getElementById('datasheetModal').classList.remove('active');
+}
+
+// Close modal when clicking outside content
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('datasheetModal');
+  if (event.target === modal) {
+    closeDatasheet();
+  }
+});
 
 // Prevent double-tap zoom on iOS
 document.addEventListener('dblclick', function(event) {

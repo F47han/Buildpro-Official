@@ -143,6 +143,316 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 }
 
 .price { visibility: hidden; }
+/* Delivery Banner Styles */
+.delivery-banner {
+  background: #FFF3E0;
+  border-bottom: 1px solid #FFE0B2;
+  color: #E65100;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 99;
+  font-weight: 500;
+}
+.delivery-banner strong { color: #E65100; }
+.delivery-banner small { margin-left: 0.5rem; color: #555; }
+
+/* Flooring Catalog Styles */
+.flooring-section-title {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: var(--primary-blue);
+}
+.flooring-section-desc {
+  text-align: center;
+  color: var(--text-gray);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  font-size: 1rem;
+}
+.flooring-category-header {
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  margin: 3rem 0 1.5rem;
+  border-bottom: 2px solid var(--brand-gold);
+  padding-bottom: 0.5rem;
+}
+.flooring-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.flooring-card {
+  background: var(--white);
+  border: 1px solid var(--border-gray);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.flooring-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,71,171,0.08);
+  border-color: var(--brand-gold);
+}
+.flooring-img-container {
+  height: 200px;
+  background: linear-gradient(135deg, var(--off-white), var(--border-gray));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+}
+.flooring-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--brand-gold);
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.flooring-card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.flooring-card-body h3 {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+.flooring-card-body .type-label {
+  font-size: 0.85rem;
+  color: var(--brand-gold);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+.flooring-card-body p {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+.flooring-meta-simple {
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--text-gray);
+  border-top: 1px solid var(--border-gray);
+  padding-top: 1rem;
+  margin-top: auto;
+  margin-bottom: 1.25rem;
+}
+.flooring-meta-simple li {
+  margin-bottom: 0.45rem;
+  display: flex;
+  justify-content: space-between;
+}
+.flooring-meta-simple li strong {
+  color: var(--text-dark);
+}
+.flooring-card-footer {
+  display: flex;
+  gap: 0.75rem;
+}
+.flooring-card-footer a, .flooring-card-footer button {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+.flooring-btn-quote {
+  background: var(--brand-gold);
+  color: white;
+}
+.flooring-btn-quote:hover {
+  background: var(--primary-blue);
+  box-shadow: 0 4px 12px rgba(0,71,171,0.2);
+}
+.flooring-btn-tech {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--border-gray) !important;
+}
+.flooring-btn-tech:hover {
+  background: var(--off-white);
+  border-color: var(--brand-gold) !important;
+}
+
+/* Downloads Section */
+.downloads-section {
+  background: var(--off-white);
+  padding: 3rem 1.5rem;
+  border-radius: 12px;
+  margin: 3rem 0;
+}
+.downloads-section h2 {
+  text-align: center;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+.downloads-section-desc {
+  text-align: center;
+  color: var(--text-gray);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.download-card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-gray);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.download-icon {
+  font-size: 2.5rem;
+}
+.download-info {
+  flex: 1;
+}
+.download-info h4 {
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
+}
+.download-info p {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  margin-bottom: 0.75rem;
+}
+.download-link {
+  color: var(--brand-gold);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.download-link:hover {
+  color: var(--primary-blue);
+  text-decoration: underline;
+}
+
+/* Tech Modal Styles */
+.tech-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  backdrop-filter: blur(4px);
+}
+.tech-modal.active {
+  display: flex;
+}
+.tech-modal-content {
+  background: var(--white);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+  animation: modalSlideUp 0.3s ease-out;
+}
+@keyframes modalSlideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.tech-modal-header {
+  background: linear-gradient(135deg, var(--brand-gold), var(--primary-blue));
+  color: white;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tech-modal-header h3 {
+  font-size: 1.25rem;
+}
+.tech-modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.tech-modal-body {
+  padding: 1.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.tech-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+.tech-specs-table th, .tech-specs-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-gray);
+}
+.tech-specs-table th {
+  background: var(--off-white);
+  color: var(--text-dark);
+  font-weight: 700;
+  width: 40%;
+}
+.tech-specs-table td {
+  color: var(--text-gray);
+}
+.tech-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-gray);
+  display: flex;
+  justify-content: flex-end;
+}
+.tech-modal-btn {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 40px;
+}
+.tech-modal-btn:hover {
+  background: var(--dark-blue);
+}
 </style>
 </head>
 <body>
@@ -170,6 +480,11 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     </div>
   </nav>
 </header>
+
+<div class="delivery-banner">
+  <strong>🚚 Next Day Delivery Available</strong>
+  <small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered the following working day (day after).</small>
+</div>
 
 <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
@@ -260,16 +575,197 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       <p><strong>Choose SPC Rigid Core</strong> if you are installing in areas with temperature fluctuations (like conservatories), high moisture (bathrooms, kitchens), or over subfloors that aren't perfectly smooth. Its rigid stone core prevents "telegraphing" of imperfections and won't warp in direct sunlight or extreme temperature shifts.</p>
       <p><strong>Choose LVT</strong> for a softer, quieter feel underfoot in bedrooms and living rooms. It is ideal for large projects where a low-profile, permanent bond to the subfloor is required, and where you want maximum texture depth and realistic embossing.</p>
     </div>
-    <div class="tech-cta">
-      <a href="https://www.merrinton.com/pages/accreditations" target="_blank">View Full Technical Sheets →</a>
+  </section>
+
+  <!-- Flooring Collection Section -->
+  <section class="flooring-catalog" id="flooringCatalog">
+    <h2 class="flooring-section-title">BuildPro Flooring Range</h2>
+    <p class="flooring-section-desc">Our bespoke collection of commercial-grade SPC Rigid Core flooring, designed for durability, ease of installation, and structural integrity.</p>
+
+    <!-- Wood-Effect Category -->
+    <h3 class="flooring-category-header">🪵 Wood-Effect SPC Planks</h3>
+    <div class="flooring-grid">
+      <!-- Kingsley Oak -->
+      <div class="flooring-card">
+        <div class="flooring-img-container">🪵<span class="flooring-badge">SPC CLICK</span></div>
+        <div class="flooring-card-body">
+          <span class="type-label">Wood-Effect Planks</span>
+          <h3>Kingsley Oak</h3>
+          <p>A classic, natural oak flooring with realistic textured wood grain finishes. Fully waterproof and perfect for living areas and workspaces.</p>
+          <ul class="flooring-meta-simple">
+            <li><span>Thickness</span><strong>6mm (incl. IXPE)</strong></li>
+            <li><span>Wear Layer</span><strong>0.55mm Commercial</strong></li>
+            <li><span>Dimensions</span><strong>180mm x 1200mm</strong></li>
+          </ul>
+          <div class="flooring-card-footer">
+            <a href="mailto:info@buildprouk.co.uk?subject=Quote%20Request%3A%20Kingsley%20Oak%20SPC%20Flooring&body=Hello%20BuildPro%20UK%2C%0A%0AI%20would%20like%20to%20request%20a%20quote%20for%20the%20Kingsley%20Oak%20SPC%20Flooring.%20Please%20provide%20pricing%20and%20availability.%0A%0AThank%20you%21" class="flooring-btn-quote">Request Quote</a>
+            <button onclick="showTechSheet('kingsley-oak')" class="flooring-btn-tech">Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Light Chestnut -->
+      <div class="flooring-card">
+        <div class="flooring-img-container">🪵<span class="flooring-badge">SPC CLICK</span></div>
+        <div class="flooring-card-body">
+          <span class="type-label">Wood-Effect Planks</span>
+          <h3>Light Chestnut</h3>
+          <p>A warm, bright chestnut color variant with soft golden undertones. Ideal for highlighting natural light in bedrooms and commercial offices.</p>
+          <ul class="flooring-meta-simple">
+            <li><span>Thickness</span><strong>6mm (incl. IXPE)</strong></li>
+            <li><span>Wear Layer</span><strong>0.55mm Commercial</strong></li>
+            <li><span>Dimensions</span><strong>180mm x 1200mm</strong></li>
+          </ul>
+          <div class="flooring-card-footer">
+            <a href="mailto:info@buildprouk.co.uk?subject=Quote%20Request%3A%20Light%20Chestnut%20SPC%20Flooring&body=Hello%20BuildPro%20UK%2C%0A%0AI%20would%20like%20to%20request%20a%20quote%20for%20the%20Light%20Chestnut%20SPC%20Flooring.%20Please%20provide%20pricing%20and%20availability.%0A%0AThank%20you%21" class="flooring-btn-quote">Request Quote</a>
+            <button onclick="showTechSheet('light-chestnut')" class="flooring-btn-tech">Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stone Grey -->
+      <div class="flooring-card">
+        <div class="flooring-img-container">🪵<span class="flooring-badge">SPC CLICK</span></div>
+        <div class="flooring-card-body">
+          <span class="type-label">Wood-Effect Planks</span>
+          <h3>Stone Grey</h3>
+          <p>Modern cool grey oak styling with a textured matte finish. Highly resistant to stains and ideal for high-traffic modern commercial spaces.</p>
+          <ul class="flooring-meta-simple">
+            <li><span>Thickness</span><strong>6mm (incl. IXPE)</strong></li>
+            <li><span>Wear Layer</span><strong>0.55mm Commercial</strong></li>
+            <li><span>Dimensions</span><strong>180mm x 1200mm</strong></li>
+          </ul>
+          <div class="flooring-card-footer">
+            <a href="mailto:info@buildprouk.co.uk?subject=Quote%20Request%3A%20Stone%20Grey%20SPC%20Flooring&body=Hello%20BuildPro%20UK%2C%0A%0AI%20would%20like%20to%20request%20a%20quote%20for%20the%20Stone%20Grey%20SPC%20Flooring.%20Please%20provide%20pricing%20and%20availability.%0A%0AThank%20you%21" class="flooring-btn-quote">Request Quote</a>
+            <button onclick="showTechSheet('stone-grey')" class="flooring-btn-tech">Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Walnut -->
+      <div class="flooring-card">
+        <div class="flooring-img-container">🪵<span class="flooring-badge">SPC CLICK</span></div>
+        <div class="flooring-card-body">
+          <span class="type-label">Wood-Effect Planks</span>
+          <h3>Walnut</h3>
+          <p>A deep, rich walnut grain with premium character markings. Delivers a luxurious look for boardrooms, hotel lobbies, and bedrooms.</p>
+          <ul class="flooring-meta-simple">
+            <li><span>Thickness</span><strong>6mm (incl. IXPE)</strong></li>
+            <li><span>Wear Layer</span><strong>0.55mm Commercial</strong></li>
+            <li><span>Dimensions</span><strong>180mm x 1200mm</strong></li>
+          </ul>
+          <div class="flooring-card-footer">
+            <a href="mailto:info@buildprouk.co.uk?subject=Quote%20Request%3A%20Walnut%20SPC%20Flooring&body=Hello%20BuildPro%20UK%2C%0A%0AI%20would%20like%20to%20request%20a%20quote%20for%20the%20Walnut%20SPC%20Flooring.%20Please%20provide%20pricing%20and%20availability.%0A%0AThank%20you%21" class="flooring-btn-quote">Request Quote</a>
+            <button onclick="showTechSheet('walnut')" class="flooring-btn-tech">Specs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stone-Effect Category -->
+    <h3 class="flooring-category-header">🪨 Stone-Effect SPC Tiles</h3>
+    <div class="flooring-grid">
+      <!-- Norfolk Flint -->
+      <div class="flooring-card">
+        <div class="flooring-img-container">🪨<span class="flooring-badge">SPC TILE</span></div>
+        <div class="flooring-card-body">
+          <span class="type-label">Stone-Effect Tiles</span>
+          <h3>Norfolk Flint</h3>
+          <p>Light grey finish with delicate marbling textures. A clean, contemporary tile alternative that is warmer underfoot than stone.</p>
+          <ul class="flooring-meta-simple">
+            <li><span>Thickness</span><strong>6mm (incl. IXPE)</strong></li>
+            <li><span>Wear Layer</span><strong>0.55mm Commercial</strong></li>
+            <li><span>Dimensions</span><strong>300mm x 600mm</strong></li>
+          </ul>
+          <div class="flooring-card-footer">
+            <a href="mailto:info@buildprouk.co.uk?subject=Quote%20Request%3A%20Norfolk%20Flint%20SPC%20Tile&body=Hello%20BuildPro%20UK%2C%0A%0AI%20would%20like%20to%20request%20a%20quote%20for%20the%20Norfolk%20Flint%20SPC%20Tile.%20Please%20provide%20pricing%20and%20availability.%0A%0AThank%20you%21" class="flooring-btn-quote">Request Quote</a>
+            <button onclick="showTechSheet('norfolk-flint')" class="flooring-btn-tech">Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tuscan Marble -->
+      <div class="flooring-card">
+        <div class="flooring-img-container">🪨<span class="flooring-badge">SPC TILE</span></div>
+        <div class="flooring-card-body">
+          <span class="type-label">Stone-Effect Tiles</span>
+          <h3>Tuscan Marble</h3>
+          <p>Refined white and grey marble pattern with soft, natural veining. Delivers a bright, spacious, and elegant visual for kitchens and bathrooms.</p>
+          <ul class="flooring-meta-simple">
+            <li><span>Thickness</span><strong>6mm (incl. IXPE)</strong></li>
+            <li><span>Wear Layer</span><strong>0.55mm Commercial</strong></li>
+            <li><span>Dimensions</span><strong>600mm x 600mm</strong></li>
+          </ul>
+          <div class="flooring-card-footer">
+            <a href="mailto:info@buildprouk.co.uk?subject=Quote%20Request%3A%20Tuscan%20Marble%20SPC%20Tile&body=Hello%20BuildPro%20UK%2C%0A%0AI%20would%20like%20to%20request%20a%20quote%20for%20the%20Tuscan%20Marble%20SPC%20Tile.%20Please%20provide%20pricing%20and%20availability.%0A%0AThank%20you%21" class="flooring-btn-quote">Request Quote</a>
+            <button onclick="showTechSheet('tuscan-marble')" class="flooring-btn-tech">Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Biscay Marble -->
+      <div class="flooring-card">
+        <div class="flooring-img-container">🪨<span class="flooring-badge">SPC TILE</span></div>
+        <div class="flooring-card-body">
+          <span class="type-label">Stone-Effect Tiles</span>
+          <h3>Biscay Marble</h3>
+          <p>Deep, dramatic matte black slate finish with subtle white veins. Excellent scratch resistance, creating a high-contrast premium layout.</p>
+          <ul class="flooring-meta-simple">
+            <li><span>Thickness</span><strong>6mm (incl. IXPE)</strong></li>
+            <li><span>Wear Layer</span><strong>0.55mm Commercial</strong></li>
+            <li><span>Dimensions</span><strong>600mm x 1200mm</strong></li>
+          </ul>
+          <div class="flooring-card-footer">
+            <a href="mailto:info@buildprouk.co.uk?subject=Quote%20Request%3A%20Biscay%20Marble%20SPC%20Tile&body=Hello%20BuildPro%20UK%2C%0A%0AI%20would%20like%20to%20request%20a%20quote%20for%20the%20Biscay%20Marble%20SPC%20Tile.%20Please%20provide%20pricing%20and%20availability.%0A%0AThank%20you%21" class="flooring-btn-quote">Request Quote</a>
+            <button onclick="showTechSheet('biscay-marble')" class="flooring-btn-tech">Specs</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Filter Section -->
+  <!-- Downloads & Documentation Section -->
+  <section class="downloads-section">
+    <h2>📋 Technical Sheets &amp; Certifications</h2>
+    <p class="downloads-section-desc">Download official BuildPro UK compliance certificates and warranty documentation for your building control records.</p>
+    <div class="downloads-grid">
+      <!-- Compliance PDF -->
+      <div class="download-card">
+        <span class="download-icon">🛡️</span>
+        <div class="download-info">
+          <h4>Compliance Certificate</h4>
+          <p>Verification of Fire Rating (Bfl-S1), Slip Resistance (R10), and Indoor Air compliance.</p>
+          <a href="compliance.pdf" target="_blank" class="download-link">Download Certificate (PDF) →</a>
+        </div>
+      </div>
+
+      <!-- Quality Standards PDF -->
+      <div class="download-card">
+        <span class="download-icon">⚙️</span>
+        <div class="download-info">
+          <h4>Quality &amp; ISO Standards</h4>
+          <p>Certification of ISO 9001 and ISO 14001 manufacturing and product tests.</p>
+          <a href="quality.pdf" target="_blank" class="download-link">Download Certificate (PDF) →</a>
+        </div>
+      </div>
+
+      <!-- Warranty Guide -->
+      <div class="download-card">
+        <span class="download-icon">📜</span>
+        <div class="download-info">
+          <h4>Flooring Warranty Guide</h4>
+          <p>Full breakdown of the Lifetime Residential and 10-Year Commercial Wear Warranty details.</p>
+          <a href="#" onclick="alert('BuildPro UK warrants all Core SPC Flooring against wear-through, fading, and structural separation. Residential installations are covered by a Lifetime Warranty; commercial installations are covered for 10 years when installed by certified fitters.'); return false;" class="download-link">View Warranty Info →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
   <section class="quote-section">
     <div class="quote-container">
       <div class="quote-badge">Bespoke & Commercial</div>
-      <h2>Custom Specifications & Commercial Pricing</h2>
+      <h2>Custom Specifications &amp; Commercial Pricing</h2>
       <p class="quote-description">Our flooring products are priced based on area coverage, material selection, underlay requirements, and installation specifications. We provide tailored quotes to match your exact project needs and budget.</p>
       <div class="quote-steps">
         <div class="quote-step">
@@ -284,7 +780,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         </div>
         <div class="quote-step">
           <div class="step-number">3</div>
-          <h3>Confirm & Install</h3>
+          <h3>Confirm &amp; Install</h3>
           <p>Approve your quote and we'll arrange material delivery and professional installation at your convenience.</p>
         </div>
       </div>
@@ -300,9 +796,9 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   </div>
 
   <div class="partner-section">
-    <h3>🤝 Premium Flooring Partner</h3>
-    <p>Proud supplier of The Merrinton Collection and Stone Collection flooring products.</p>
-    <a href="https://www.merrinton.com" target="_blank" class="partner-link"><span>📐</span><span>Visit Merrinton</span><span>→</span></a>
+    <h3>🤝 Premium Flooring Partners</h3>
+    <p>BuildPro UK supplies premium SPC and LVT floor coverings sourced in partnership with Merrinton Flooring. For customized layouts, specifications, or samples, contact our team.</p>
+    <a href="builder.html#contact" class="partner-link"><span>📐</span><span>Contact Flooring Specialist</span><span>→</span></a>
   </div>
 </section>
 
@@ -311,11 +807,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <div class="footer-section">
       <h3>BuildPro UK</h3>
       <p style="color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:1rem;">Your trusted partner for professional building and flooring services across the United Kingdom.</p>
-      <div class="partner-site">
-        <h4>Partner Site</h4>
-        <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;margin-bottom:0.5rem;">Premium flooring supplier:</p>
-        <a href="https://www.merrinton.com" target="_blank">merrinton.com</a>
-      </div>
     </div>
     <div class="footer-section">
       <h3>Quick Links</h3>
@@ -338,6 +829,14 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       </ul>
     </div>
     <div class="footer-section">
+      <h3>Supply Partners</h3>
+      <ul>
+        <li><a href="https://www.liveelectrical.co.uk" target="_blank" rel="noopener">Live Electrical</a></li>
+        <li><a href="https://www.merrinton.com" target="_blank" rel="noopener">Merrinton Flooring</a></li>
+        <li><a href="https://www.manchestersteels.co.uk" target="_blank" rel="noopener">Manchester Steels</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
       <h3>Contact</h3>
       <ul>
         <li><a href="tel:08001234567">0800 123 4567</a></li>
@@ -346,18 +845,204 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 BuildPro UK. All rights reserved. | Partner: <a href="https://www.merrinton.com" style="color:var(--brand-gold);">Merrinton Flooring</a></p>
+    <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
   </div>
 </footer>
+<!-- Technical Sheet Modal -->
+<div class="tech-modal" id="techSheetModal">
+  <div class="tech-modal-content">
+    <div class="tech-modal-header">
+      <h3 id="modalTitle">Technical Specification</h3>
+      <button class="tech-modal-close" onclick="closeTechSheet()">×</button>
+    </div>
+    <div class="tech-modal-body">
+      <table class="tech-specs-table">
+        <tbody>
+          <tr>
+            <th>Product Name</th>
+            <td id="specName">-</td>
+          </tr>
+          <tr>
+            <th>Product Type</th>
+            <td id="specType">-</td>
+          </tr>
+          <tr>
+            <th>Total Thickness</th>
+            <td id="specThickness">-</td>
+          </tr>
+          <tr>
+            <th>Wear Layer</th>
+            <td id="specWearLayer">-</td>
+          </tr>
+          <tr>
+            <th>Dimensions</th>
+            <td id="specDimensions">-</td>
+          </tr>
+          <tr>
+            <th>Pack Coverage</th>
+            <td id="specCoverage">-</td>
+          </tr>
+          <tr>
+            <th>Click System</th>
+            <td id="specClick">-</td>
+          </tr>
+          <tr>
+            <th>Underlay</th>
+            <td id="specUnderlay">-</td>
+          </tr>
+          <tr>
+            <th>Slip Rating</th>
+            <td id="specSlip">-</td>
+          </tr>
+          <tr>
+            <th>Fire Classification</th>
+            <td id="specFire">-</td>
+          </tr>
+          <tr>
+            <th>Warranty</th>
+            <td id="specWarranty">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tech-modal-footer">
+      <button class="tech-modal-btn" onclick="closeTechSheet()">Close</button>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="auth.js"></script>
 <script>
+  const FLOORING_PRODUCTS = {
+    'kingsley-oak': {
+      name: 'Kingsley Oak',
+      type: 'Wood-Effect SPC Plank',
+      thickness: '6.0mm (including 1.0mm IXPE)',
+      wearLayer: '0.55mm Commercial Grade',
+      dimensions: '180mm x 1200mm',
+      coverage: '2.20 m² per pack',
+      click: 'Unipush™ Click System',
+      underlay: 'Built-in 1.0mm IXPE Sound Reducing',
+      slip: 'R10',
+      fire: 'Bfl-S1 (Flame Retardant)',
+      warranty: 'Lifetime Residential / 10-Year Commercial'
+    },
+    'light-chestnut': {
+      name: 'Light Chestnut',
+      type: 'Wood-Effect SPC Plank',
+      thickness: '6.0mm (including 1.0mm IXPE)',
+      wearLayer: '0.55mm Commercial Grade',
+      dimensions: '180mm x 1200mm',
+      coverage: '2.20 m² per pack',
+      click: 'Unipush™ Click System',
+      underlay: 'Built-in 1.0mm IXPE Sound Reducing',
+      slip: 'R10',
+      fire: 'Bfl-S1 (Flame Retardant)',
+      warranty: 'Lifetime Residential / 10-Year Commercial'
+    },
+    'stone-grey': {
+      name: 'Stone Grey',
+      type: 'Wood-Effect SPC Plank',
+      thickness: '6.0mm (including 1.0mm IXPE)',
+      wearLayer: '0.55mm Commercial Grade',
+      dimensions: '180mm x 1200mm',
+      coverage: '2.20 m² per pack',
+      click: 'Unipush™ Click System',
+      underlay: 'Built-in 1.0mm IXPE Sound Reducing',
+      slip: 'R10',
+      fire: 'Bfl-S1 (Flame Retardant)',
+      warranty: 'Lifetime Residential / 10-Year Commercial'
+    },
+    'walnut': {
+      name: 'Walnut',
+      type: 'Wood-Effect SPC Plank',
+      thickness: '6.0mm (including 1.0mm IXPE)',
+      wearLayer: '0.55mm Commercial Grade',
+      dimensions: '180mm x 1200mm',
+      coverage: '2.20 m² per pack',
+      click: 'Unipush™ Click System',
+      underlay: 'Built-in 1.0mm IXPE Sound Reducing',
+      slip: 'R10',
+      fire: 'Bfl-S1 (Flame Retardant)',
+      warranty: 'Lifetime Residential / 10-Year Commercial'
+    },
+    'norfolk-flint': {
+      name: 'Norfolk Flint',
+      type: 'Stone-Effect SPC Tile',
+      thickness: '6.0mm (including 1.0mm IXPE)',
+      wearLayer: '0.55mm Commercial Grade',
+      dimensions: '300mm x 600mm',
+      coverage: '1.44 m² per pack (8 tiles)',
+      click: 'Unilin Click System',
+      underlay: 'Built-in 1.0mm IXPE Sound Reducing',
+      slip: 'R10',
+      fire: 'Bfl-S1 (Flame Retardant)',
+      warranty: 'Lifetime Residential / 10-Year Commercial'
+    },
+    'tuscan-marble': {
+      name: 'Tuscan Marble',
+      type: 'Stone-Effect SPC Tile',
+      thickness: '6.0mm (including 1.0mm IXPE)',
+      wearLayer: '0.55mm Commercial Grade',
+      dimensions: '600mm x 600mm',
+      coverage: '2.88 m² per pack (8 tiles)',
+      click: 'Unilin Click System',
+      underlay: 'Built-in 1.0mm IXPE Sound Reducing',
+      slip: 'R10',
+      fire: 'Bfl-S1 (Flame Retardant)',
+      warranty: 'Lifetime Residential / 10-Year Commercial'
+    },
+    'biscay-marble': {
+      name: 'Biscay Marble',
+      type: 'Stone-Effect SPC Tile',
+      thickness: '6.0mm (including 1.0mm IXPE)',
+      wearLayer: '0.55mm Commercial Grade',
+      dimensions: '600mm x 1200mm',
+      coverage: '2.88 m² per pack (4 tiles)',
+      click: 'Unilin Click System',
+      underlay: 'Built-in 1.0mm IXPE Sound Reducing',
+      slip: 'R10',
+      fire: 'Bfl-S1 (Flame Retardant)',
+      warranty: 'Lifetime Residential / 10-Year Commercial'
+    }
+  };
+
   async function initPage() {
     await requireAuth();
   }
   initPage();
+
+  function showTechSheet(productId) {
+    const prod = FLOORING_PRODUCTS[productId];
+    if (!prod) return;
+    document.getElementById('modalTitle').innerText = prod.name + ' Technical Specs';
+    document.getElementById('specName').innerText = prod.name;
+    document.getElementById('specType').innerText = prod.type;
+    document.getElementById('specThickness').innerText = prod.thickness;
+    document.getElementById('specWearLayer').innerText = prod.wearLayer;
+    document.getElementById('specDimensions').innerText = prod.dimensions;
+    document.getElementById('specCoverage').innerText = prod.coverage;
+    document.getElementById('specClick').innerText = prod.click;
+    document.getElementById('specUnderlay').innerText = prod.underlay;
+    document.getElementById('specSlip').innerText = prod.slip;
+    document.getElementById('specFire').innerText = prod.fire;
+    document.getElementById('specWarranty').innerText = prod.warranty;
+    document.getElementById('techSheetModal').classList.add('active');
+  }
+
+  function closeTechSheet() {
+    document.getElementById('techSheetModal').classList.remove('active');
+  }
+
+  // Close modal when clicking outside content
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('techSheetModal');
+    if (event.target === modal) {
+      closeTechSheet();
+    }
+  });
 
   function toggleMobileNav() {
     document.getElementById('mobileNav').classList.toggle('active');

@@ -138,7 +138,69 @@ footer a { color: var(--white); text-decoration: none; }
 <script src="supabase.js"></script>
 <script src="auth.js"></script>
 <script>
-  // THE AUTO-REDIRECT HAS BEEN REMOVED FROM THIS SECTION
+  // Check for email verification redirect
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const hash = window.location.hash;
+    if (hash.includes('access_token=') || params.get('type') === 'signup' || hash.includes('type=signup') || hash.includes('error=')) {
+      if (hash.includes('error=')) {
+        // Handle potential error returned from Supabase verification
+        const errorDescription = new URLSearchParams(hash.substring(1)).get('error_description') || 'Verification failed. The link may have expired.';
+        showGlobalError(decodeURIComponent(errorDescription.replace(/\+/g, ' ')));
+        return;
+      }
+      
+      // Show verification success alert
+      const successAlert = document.createElement('div');
+      successAlert.id = 'verificationSuccessAlert';
+      successAlert.className = 'global-success-banner';
+      successAlert.innerHTML = '<h3>🎉 Account Verified!</h3><p>Your email address has been successfully verified. You are now logged in. Redirecting to home page...</p>';
+      
+      // Insert successAlert style dynamically
+      if (!document.getElementById('success-banner-styles')) {
+        const style = document.createElement('style');
+        style.id = 'success-banner-styles';
+        style.textContent = `
+          .global-success-banner {
+            background: #E8F5E9;
+            border: 2px solid #A5D6A7;
+            color: #2E7D32;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            animation: bannerFadeIn 0.3s ease-out;
+          }
+          .global-success-banner h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1.2rem;
+            color: #1B5E20;
+            margin-top: 0;
+          }
+          .global-success-banner p {
+            font-size: 0.95rem;
+            margin: 0;
+          }
+          @keyframes bannerFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      
+      const container = document.querySelector('.login-form-container');
+      if (container) {
+        // Prepend before forms
+        container.insertBefore(successAlert, container.firstChild);
+      }
+      
+      // Redirect to home page after 3 seconds
+      setTimeout(() => {
+        window.location.href = 'builder.html';
+      }, 3000);
+    }
+  });
 
   function togglePwd() {
     const input = document.getElementById('password');

@@ -144,6 +144,20 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 }
 
 .price { visibility: hidden; }
+/* Delivery Banner Styles */
+.delivery-banner {
+  background: #FFF3E0;
+  border-bottom: 1px solid #FFE0B2;
+  color: #E65100;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 99;
+  font-weight: 500;
+}
+.delivery-banner strong { color: #E65100; }
+.delivery-banner small { margin-left: 0.5rem; color: #555; }
 </style>
 </head>
 <body>
@@ -171,6 +185,11 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     </div>
   </nav>
 </header>
+
+<div class="delivery-banner">
+  <strong>🚚 Next Day Delivery Available</strong>
+  <small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered the following working day (day after).</small>
+</div>
 
 <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
@@ -315,6 +334,14 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       <ul>
         <li><a href="signuppage.html">Sign Up</a></li>
         <li><a href="login.html">Log In</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Supply Partners</h3>
+      <ul>
+        <li><a href="https://www.liveelectrical.co.uk" target="_blank" rel="noopener">Live Electrical</a></li>
+        <li><a href="https://www.merrinton.com" target="_blank" rel="noopener">Merrinton Flooring</a></li>
+        <li><a href="https://www.manchestersteels.co.uk" target="_blank" rel="noopener">Manchester Steels</a></li>
       </ul>
     </div>
     <div class="footer-section">

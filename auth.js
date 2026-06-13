@@ -59,6 +59,9 @@ async function requireAuth() {
 
   // Hide or show prices depending on auth state
   applyPriceVisibility(verified, !!user);
+  
+  // Render verification banner if applicable
+  renderVerificationBanner(!!user, verified);
 
   return verified;
 }
@@ -120,6 +123,115 @@ function applyPriceVisibility(canSeePrices, isLoggedIn = false) {
 }
 
 // ─────────────────────────────────────────────
+// EMAIL VERIFICATION BANNER RENDERER
+// ─────────────────────────────────────────────
+function renderVerificationBanner(isLoggedIn, isVerified) {
+  const existing = document.querySelector('.verify-alert-banner');
+  if (existing) {
+    existing.remove();
+  }
+
+  if (isLoggedIn && !isVerified) {
+    if (!document.getElementById('verify-banner-styles')) {
+      const style = document.createElement('style');
+      style.id = 'verify-banner-styles';
+      style.textContent = `
+        .verify-alert-banner {
+          background: #FFF3E0;
+          border-bottom: 2px solid #FFE0B2;
+          color: #D84315;
+          padding: 0.85rem 1.25rem;
+          text-align: center;
+          font-size: 0.95rem;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+          position: relative;
+          z-index: 2100;
+          box-shadow: 0 2px 10px rgba(216, 67, 21, 0.05);
+          width: 100%;
+        }
+        .verify-resend-btn {
+          background: #D84315;
+          color: white;
+          border: none;
+          padding: 0.4rem 1rem;
+          border-radius: 4px;
+          font-weight: 700;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: background 0.2s;
+          min-height: 32px;
+          display: inline-flex;
+          align-items: center;
+        }
+        .verify-resend-btn:hover {
+          background: #BF360C;
+        }
+        .verify-resend-btn:disabled {
+          background: #FFCCBC;
+          color: #FF5722;
+          cursor: not-allowed;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const banner = document.createElement('div');
+    banner.className = 'verify-alert-banner';
+    banner.innerHTML = `
+      <span>📧 Please verify your email to unlock trade prices. Check your inbox for a confirmation link.</span>
+      <button onclick="resendVerificationEmail()" class="verify-resend-btn">Resend Link</button>
+    `;
+    
+    if (document.body) {
+      document.body.prepend(banner);
+    } else {
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.prepend(banner);
+      });
+    }
+  }
+}
+
+// Resend verification link
+async function resendVerificationEmail() {
+  const btn = document.querySelector('.verify-resend-btn');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = 'Sending...';
+  }
+  try {
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user || !user.email) {
+      throw new Error('No logged-in user or email found.');
+    }
+    const { error } = await sb.auth.resend({
+      type: 'signup',
+      email: user.email,
+      options: {
+        emailRedirectTo: window.location.origin + '/login.html'
+      }
+    });
+    if (error) throw error;
+    alert('Verification link has been sent to ' + user.email);
+    if (btn) btn.innerText = 'Sent!';
+  } catch (err) {
+    alert('Failed to resend: ' + err.message);
+    if (btn) {
+      btn.disabled = false;
+      btn.innerText = 'Resend Link';
+    }
+  }
+}
+
+// Expose resend function to window context
+window.resendVerificationEmail = resendVerificationEmail;
+
+// ─────────────────────────────────────────────
 // UPDATE NAV: swap Login/Signup links for Logout
 // ─────────────────────────────────────────────
 function updateNavForAuth(user) {
@@ -155,6 +267,7 @@ sb.auth.onAuthStateChange((_event, session) => {
   window.__isVerified = !!verified;
   updateNavForAuth(user);
   applyPriceVisibility(verified, !!user);
+  renderVerificationBanner(!!user, verified);
 });
 
 // ─────────────────────────────────────────────
@@ -167,4 +280,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.__isVerified = !!verified;
   updateNavForAuth(user);
   applyPriceVisibility(verified, !!user);
+  renderVerificationBanner(!!user, verified);
 });
