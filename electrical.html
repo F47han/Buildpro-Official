@@ -1139,6 +1139,36 @@ align-items: flex-start;
   margin-bottom: 0.75rem;
   font-size: 1.25rem;
 }
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+  width: 100%;
+}
+.show-more-btn {
+  background: linear-gradient(135deg, var(--electrical-orange), var(--electrical-yellow));
+  color: white;
+  border: none;
+  padding: 1.1rem 3rem;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  transition: all 0.3s ease;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.show-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+}
+.show-more-btn:active {
+  transform: translateY(-1px);
+}
 </style>
 </head>
 <body>
@@ -1210,7 +1240,7 @@ align-items: flex-start;
 <section class="page-hero">
 <div class="page-hero-content">
 <h1>⚡ Electrical Services & Supplies</h1>
-<p>Professional electrical installations, repairs, and premium quality electrical products from LiveElectrical.co.uk</p>
+<p>Professional electrical installations, repairs, and premium quality commercial-grade electrical products</p>
 </div>
 </section>
 
@@ -1321,6 +1351,12 @@ align-items: flex-start;
 <div class="loading-spinner"><div class="spinner"></div><p>Loading products from database...</p></div>
 </div>
 <div class="no-results" id="noResults"><h3>No Products Found</h3><p>Try adjusting your filters to see more results.</p></div>
+
+<!-- Pagination / Show More Button -->
+<div class="show-more-container" id="showMoreContainer" style="display: none;">
+  <button class="show-more-btn" onclick="loadMoreProducts()">Show More Products</button>
+</div>
+
 </div>
 </section>
 
@@ -1331,9 +1367,9 @@ align-items: flex-start;
 </div>
 
 <div class="partner-section">
-<h3>🤝 Our Trusted Partner</h3>
-<p>For an even wider range of electrical products and supplies, visit our partner site:</p>
-<a href="https://www.liveelectrical.co.uk" target="_blank" class="partner-link"><span>⚡</span><span>Visit LiveElectrical.co.uk</span><span>→</span></a>
+<h3>🤝 Direct Supply &amp; Custom Ordering</h3>
+<p>We source our electrical products directly from leading UK suppliers. For bulk orders or specific components not listed, please get in touch.</p>
+<a href="builder.html#contact" class="partner-link"><span>⚡</span><span>Request Custom Order</span><span>→</span></a>
 </div>
 
 </section>
@@ -1344,11 +1380,6 @@ align-items: flex-start;
 <div class="footer-section">
 <h3>BuildPro UK</h3>
 <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.7; margin-bottom: 1rem;">Your trusted partner for professional building and electrical services across the United Kingdom.</p>
-<div class="partner-site">
-<h4>Partner Site</h4>
-<p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-bottom: 0.5rem;">Visit our electrical supplies partner:</p>
-<a href="https://www.liveelectrical.co.uk" target="_blank">liveelectrical.co.uk</a>
-</div>
 </div>
 <div class="footer-section">
 <h3>Quick Links</h3>
@@ -1378,7 +1409,7 @@ align-items: flex-start;
 </div>
 </div>
 <div class="footer-bottom">
-<p>&copy; 2026 BuildPro UK. All rights reserved. | Partner: <a href="https://www.liveelectrical.co.uk" style="color: #00E676;">LiveElectrical.co.uk</a></p>
+<p>&copy; 2026 BuildPro UK. All rights reserved.</p>
 </div>
 </footer>
 
@@ -1413,6 +1444,8 @@ const CATEGORIES = {
 };
 
 let allProducts = [];
+let currentFilteredProducts = [];
+let displayedLimit = 10;
 
 // ─── Initialise ─────────────────────────────────
 async function initPage() {
@@ -1427,14 +1460,18 @@ async function initPage() {
     if (error) throw error;
 
     allProducts = data || [];
-    renderProducts(allProducts);
+    currentFilteredProducts = allProducts;
+    displayedLimit = 10;
+    renderProductsSlice();
     updateFilterCounts(allProducts);
     console.log('[BuildPro] Loaded ' + allProducts.length + ' products from database');
   } catch (e) {
     console.warn('[BuildPro] Failed to load products from database, falling back to local dataset:', e.message);
     if (typeof FALLBACK_PRODUCTS !== 'undefined') {
       allProducts = FALLBACK_PRODUCTS;
-      renderProducts(allProducts);
+      currentFilteredProducts = allProducts;
+      displayedLimit = 10;
+      renderProductsSlice();
       updateFilterCounts(allProducts);
     } else {
       grid.innerHTML = '<div class="load-error"><h3>⚠️ Unable to Load Products</h3><p>Please refresh the page or try again later.</p></div>';
@@ -1489,7 +1526,17 @@ function getProductPrice(itemCode) {
 }
 
 // ─── Render Product Cards ───────────────────────
-function renderProducts(products) {
+function renderProductsSlice() {
+  var slice = currentFilteredProducts.slice(0, displayedLimit);
+  renderProducts(slice, currentFilteredProducts.length);
+}
+
+function loadMoreProducts() {
+  displayedLimit += 10;
+  renderProductsSlice();
+}
+
+function renderProducts(products, totalCount) {
   const grid = document.getElementById('electricalProductGrid');
   const countEl = document.getElementById('resultsCount');
   const noResults = document.getElementById('noResults');
@@ -1498,15 +1545,27 @@ function renderProducts(products) {
     grid.innerHTML = '';
     noResults.style.display = 'block';
     countEl.textContent = 'No products found';
+    const showMoreContainer = document.getElementById('showMoreContainer');
+    if (showMoreContainer) showMoreContainer.style.display = 'none';
     return;
   }
 
   noResults.style.display = 'none';
-  countEl.textContent = 'Showing ' + products.length + ' product' + (products.length !== 1 ? 's' : '');
+  
+  if (totalCount > products.length) {
+    countEl.textContent = 'Showing ' + products.length + ' of ' + totalCount + ' products';
+  } else {
+    countEl.textContent = 'Showing ' + totalCount + ' product' + (totalCount !== 1 ? 's' : '');
+  }
 
   grid.innerHTML = products.map(function(p) {
     var cat = CATEGORIES[p.category] || { label: p.category, icon: '📦' };
-    var viewUrl = p.view_url || 'https://www.liveelectrical.co.uk';
+    
+    // Construct pre-filled email inquiry link
+    var subject = 'Quote Request: ' + p.name + ' (' + p.item_code + ')';
+    var body = 'Hello BuildPro UK,\n\nI would like to request a quote for the following product:\n- Product: ' + p.name + '\n- Item Code: ' + p.item_code + '\n- Category: ' + (cat.label || p.category) + '\n\nPlease let me know the price and availability.\n\nThank you!';
+    var mailtoUrl = 'mailto:info@buildprouk.co.uk?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
     var price = getProductPrice(p.item_code);
     return '<div class="product-card" data-category="' + p.category + '">' +
       '<div class="product-image">' + cat.icon + '</div>' +
@@ -1517,7 +1576,7 @@ function renderProducts(products) {
         '<p class="product-description">' + escapeHtml(p.description || '') + '</p>' +
         '<p class="price">' + price + '</p>' +
         '<div class="product-footer">' +
-          '<a href="' + viewUrl + '" class="datasheet-btn" target="_blank" rel="noopener">View on LiveElectrical</a>' +
+          '<a href="' + mailtoUrl + '" class="datasheet-btn">Request Quote</a>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -1525,6 +1584,16 @@ function renderProducts(products) {
 
   if (typeof applyPriceVisibility === 'function') {
     applyPriceVisibility(window.__isVerified || false, window.__isLoggedIn || false);
+  }
+
+  // Handle Show More button visibility
+  const showMoreContainer = document.getElementById('showMoreContainer');
+  if (showMoreContainer) {
+    if (totalCount > products.length) {
+      showMoreContainer.style.display = 'flex';
+    } else {
+      showMoreContainer.style.display = 'none';
+    }
   }
 }
 
@@ -1557,7 +1626,9 @@ function filterProducts() {
     });
   }
 
-  renderProducts(filtered);
+  currentFilteredProducts = filtered;
+  displayedLimit = 10;
+  renderProductsSlice();
 
   // Update active states on desktop sidebar
   document.querySelectorAll('.filter-sidebar .filter-option').forEach(function(opt) {

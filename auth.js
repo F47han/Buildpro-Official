@@ -67,21 +67,52 @@ async function requireAuth() {
 // PRICE VISIBILITY HELPER
 // ─────────────────────────────────────────────
 function applyPriceVisibility(canSeePrices, isLoggedIn = false) {
+  // Inject price-button styles if not already present
+  if (!document.getElementById('auth-price-styles')) {
+    const style = document.createElement('style');
+    style.id = 'auth-price-styles';
+    style.textContent = `
+      .price-login-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: inherit;
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+      }
+      .price.price-hidden {
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+      }
+      .price.price-hidden:hover {
+        background-color: var(--border-gray, #E1E8ED) !important;
+        border-color: var(--text-gray, #5A6C7D) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   document.querySelectorAll('.price').forEach(el => {
     if (!el.dataset.realPrice) {
       // Store the original price text the first time
       el.dataset.realPrice = el.textContent.trim();
     }
     if (canSeePrices) {
-      el.textContent = el.dataset.realPrice;
+      el.innerHTML = el.dataset.realPrice;
       el.style.visibility = 'visible';
       el.classList.remove('price-hidden');
     } else if (isLoggedIn) {
-      el.textContent = '📧 Verify your email to view prices';
+      el.innerHTML = '📧 Verify your email to view prices';
       el.style.visibility = 'visible';
       el.classList.add('price-hidden');
     } else {
-      el.textContent = '🔒 Login to view price';
+      el.innerHTML = '<a href="login.html" class="price-login-btn">🔒 Log In / Sign Up to see prices</a>';
       el.style.visibility = 'visible';
       el.classList.add('price-hidden');
     }

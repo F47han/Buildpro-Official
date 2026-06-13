@@ -57,9 +57,75 @@ nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex
 .page-hero h1 { font-size: 2.25rem; margin-bottom: 1rem; text-shadow: 0 4px 20px rgba(0,0,0,0.3); line-height: 1.2; }
 .page-hero p { font-size: 1.15rem; opacity: 0.95; max-width: 700px; }
 
-.inquiry-banner { background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue)); color: white; padding: 1.25rem 1.5rem; text-align: center; font-weight: 600; box-shadow: 0 4px 15px rgba(0,71,171,0.3); }
-.inquiry-banner h3 { font-size: 1.1rem; margin-bottom: 0.35rem; }
-.inquiry-banner p { opacity: 0.95; font-weight: 500; font-size: 0.9rem; }
+.inquiry-banner {
+  background: linear-gradient(135deg, var(--steel-grey), var(--primary-blue));
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,71,171,0.3);
+}
+@media (min-width: 768px) {
+  .inquiry-banner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    padding: 1.5rem 3rem;
+  }
+}
+.inquiry-banner-content {
+  flex: 1;
+}
+.inquiry-banner h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.inquiry-banner p {
+  opacity: 0.95;
+  font-size: 0.95rem;
+}
+.inquiry-banner-btn {
+  background: var(--white);
+  color: var(--primary-blue);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.inquiry-banner-btn:hover {
+  background: var(--steel-dark);
+  color: white;
+  transform: translateY(-2px);
+}
+.card-quote-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--steel-grey, #4a5568);
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  transition: all 0.3s;
+  min-height: 44px;
+}
+.card-quote-btn:hover {
+  background: var(--primary-blue);
+  box-shadow: 0 4px 15px rgba(0,71,171,0.2);
+}
 
 .page-content { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem; }
 .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; color: var(--primary-blue); text-decoration: none; font-weight: 600; min-height: 44px; }
@@ -240,8 +306,11 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 </section>
 
 <div class="inquiry-banner">
-  <h3>📋 Trade &amp; Commercial Inquiries Only - Quote Based</h3>
-  <p>All steel products are supplied to trade professionals on a quote-only basis. Submit an inquiry for pricing, specifications, and lead times.</p>
+  <div class="inquiry-banner-content">
+    <h3>📋 Trade &amp; Commercial Inquiries Only - Quote Based</h3>
+    <p>All steel products are supplied on a quote-only basis due to market fluctuations and custom specification requirements. We do not sell steel directly online.</p>
+  </div>
+  <a href="builder.html#contact" class="inquiry-banner-btn">Submit Request for Quote →</a>
 </div>
 
 <section class="page-content">
@@ -293,6 +362,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         </ul>
         <div class="size-applications"><h4>Applications:</h4><p>Internal load-bearing pillars, "Goal Post" structures, multi-story frames</p></div>
         <div class="size-note">⚠️ Width equal to depth - great resistance to crushing loads</div>
+        <a href="builder.html#contact" class="card-quote-btn">Request Quote for Columns →</a>
       </div>
       <div class="size-card">
         <h3>🔺 Universal Beams (UB / RSJ)</h3>
@@ -306,6 +376,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         </ul>
         <div class="size-applications"><h4>Applications:</h4><p>Floor joists, roof supports, "knocking through" internal walls</p></div>
         <div class="size-note">⚠️ Standard for horizontal spans - 6m, 9m, 12m lengths</div>
+        <a href="builder.html#contact" class="card-quote-btn">Request Quote for Beams →</a>
       </div>
       <div class="size-card">
         <h3>⬜ Hollow Sections (RHS/SHS/CHS)</h3>
@@ -319,6 +390,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         </ul>
         <div class="size-applications"><h4>Applications:</h4><p>Fencing, mezzanine floors, decorative architecture</p></div>
         <div class="size-note">⚠️ Used for aesthetic or structural framing</div>
+        <a href="builder.html#contact" class="card-quote-btn">Request Quote for Hollow Sections →</a>
       </div>
       <div class="size-card">
         <h3>📐 Merchant Bar</h3>
@@ -332,6 +404,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         </ul>
         <div class="size-applications"><h4>Applications:</h4><p>Connecting plates, bracing, lintels, corner protection</p></div>
         <div class="size-note">⚠️ Used for reinforcement and fabrication</div>
+        <a href="builder.html#contact" class="card-quote-btn">Request Quote for Merchant Bar →</a>
       </div>
     </div>
   </section>

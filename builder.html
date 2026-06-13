@@ -131,6 +131,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   font-size: 1.25rem;
   padding: 0.5rem 0.75rem;
   color: var(--text-gray);
+  flex-shrink: 0;
 }
 .hero-search-input {
   flex-grow: 1;
@@ -152,6 +153,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   font-weight: 700;
   cursor: pointer;
   transition: background 0.3s;
+  flex-shrink: 0;
 }
 .hero-search-btn:hover {
   background: var(--dark-blue);
@@ -271,7 +273,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <div class="hero-search-container">
       <div class="hero-search-wrapper">
         <span class="hero-search-icon">🔍</span>
-        <input type="text" id="heroSearchInput" placeholder="Search 130+ electrical products, items, or codes..." autocomplete="off">
+        <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search 130+ electrical products, items, or codes..." autocomplete="off">
         <button class="hero-search-btn" onclick="triggerHeroSearch()">Search</button>
       </div>
       <div id="heroSearchDropdown" class="search-dropdown"></div>
