@@ -255,6 +255,37 @@ function updateNavForAuth(user) {
       nameEl.style.setProperty('display', 'none', 'important');
     }
   });
+
+  // Dynamic Navigation Links injection
+  const navLinks = document.querySelector('.nav-links');
+  if (navLinks) {
+    if (user) {
+      // 1. My Dashboard link
+      if (!document.getElementById('nav-dash-link')) {
+        const li = document.createElement('li');
+        li.id = 'nav-dash-link';
+        li.innerHTML = '<a href="dashboard.html">My Dashboard</a>';
+        navLinks.appendChild(li);
+      }
+      
+      // 2. Admin Panel link
+      const adminEmails = ['admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk'];
+      if (adminEmails.includes(user.email)) {
+        if (!document.getElementById('nav-admin-link')) {
+          const li = document.createElement('li');
+          li.id = 'nav-admin-link';
+          li.innerHTML = '<a href="admin.html" style="color: #D32F2F; font-weight: bold;">Admin Panel</a>';
+          navLinks.appendChild(li);
+        }
+      }
+    } else {
+      // Remove links if logged out
+      const dashLink = document.getElementById('nav-dash-link');
+      if (dashLink) dashLink.remove();
+      const adminLink = document.getElementById('nav-admin-link');
+      if (adminLink) adminLink.remove();
+    }
+  }
 }
 
 // ─────────────────────────────────────────────
