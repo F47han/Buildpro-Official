@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Admin Portal | BuildPro UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --primary-blue: #0047AB; --light-blue: #3B7DD6; --accent-blue: #1E90FF; --dark-blue: #003380;
+  --white: #FFFFFF; --off-white: #F8FAFB; --text-dark: #1A2332; --text-gray: #5A6C7D;
+  --border-gray: #E1E8ED; --brand-gold: #b2945e; --brand-dark: #222;
+  --success-green: #00C853; --success-light: #E8F5E9;
+  --warning-amber: #FFB800; --warning-light: #FFF8E1;
+  --danger-red: #D32F2F; --danger-light: #FFEBEE;
+  --info-blue: #1E90FF; --info-light: #E3F2FD;
+}
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--off-white); min-height: 100vh; display: flex; flex-direction: column; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; }
+nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; min-height: 44px; display: flex; align-items: center; }
+.nav-links a:hover { color: var(--primary-blue); }
+.auth-area { display: flex; gap: 0.5rem; align-items: center; }
+.username-display { color: var(--primary-blue); font-size: 1rem; font-weight: 700; margin-right: 0.5rem; }
+.btn-logout { background: var(--danger-red); color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; transition: background 0.3s; }
+.btn-logout:hover { background: #B71C1C; }
+
+.admin-container { max-width: 1400px; margin: 2rem auto; padding: 0 1.25rem; width: 100%; flex-grow: 1; display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
+@media (max-width: 968px) {
+  .admin-container { grid-template-columns: 1fr; }
+}
+
+/* Sidebar Navigation */
+.sidebar-panel { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,71,171,0.05); border: 1px solid var(--border-gray); height: fit-content; }
+.sidebar-profile { text-align: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-gray); margin-bottom: 1.5rem; }
+.profile-avatar { width: 64px; height: 64px; background: linear-gradient(135deg, var(--brand-gold), var(--primary-blue)); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 1rem; }
+.profile-name { font-size: 1.2rem; color: var(--text-dark); margin-bottom: 0.25rem; word-break: break-all; }
+.profile-role { font-size: 0.8rem; background: var(--danger-light); color: var(--danger-red); padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; font-weight: 700; display: inline-block; }
+.sidebar-nav { list-style: none; }
+.sidebar-nav li { margin-bottom: 0.5rem; }
+.sidebar-nav button { width: 100%; display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1rem; background: none; border: none; text-align: left; font-family: inherit; font-size: 1rem; color: var(--text-gray); border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.3s; min-height: 44px; }
+.sidebar-nav button:hover, .sidebar-nav button.active { background: rgba(0,71,171,0.06); color: var(--primary-blue); font-weight: 700; }
+
+/* Main Panel */
+.main-panel { display: flex; flex-direction: column; gap: 2rem; }
+.admin-tab-content { display: none; }
+.admin-tab-content.active { display: flex; flex-direction: column; gap: 2rem; }
+
+/* KPI Cards */
+.metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.metric-card { background: var(--white); border: 1px solid var(--border-gray); padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+.metric-info h4 { font-size: 0.9rem; color: var(--text-gray); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+.metric-info p { font-size: 2rem; font-weight: 700; color: var(--text-dark); font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+.metric-icon { width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+.metric-icon.blue { background: var(--info-light); color: var(--primary-blue); }
+.metric-icon.amber { background: var(--warning-light); color: var(--warning-amber); }
+.metric-icon.green { background: var(--success-light); color: var(--success-green); }
+
+/* Table Cards */
+.admin-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border-gray); box-shadow: 0 4px 20px rgba(0,71,171,0.04); overflow: hidden; }
+.card-header { padding: 1.5rem; border-bottom: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.card-header h3 { font-size: 1.25rem; color: var(--text-dark); }
+.card-controls { display: flex; gap: 0.75rem; align-items: center; }
+
+/* Search Inputs & Filters */
+.search-input-wrapper { position: relative; }
+.search-input { width: 260px; padding: 0.5rem 1rem 0.5rem 2.25rem; border-radius: 6px; border: 1px solid var(--border-gray); font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.3s; min-height: 38px; }
+.search-input:focus { border-color: var(--primary-blue); }
+.search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-gray); font-size: 0.9rem; pointer-events: none; }
+.filter-select { padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-gray); font-family: inherit; font-size: 0.9rem; outline: none; min-height: 38px; background: white; cursor: pointer; }
+.btn-primary { background: var(--primary-blue); color: white; border: none; padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: background 0.3s; min-height: 38px; display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-primary:hover { background: var(--dark-blue); }
+
+.table-responsive { width: 100%; overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+.admin-table th, .admin-table td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-gray); vertical-align: middle; }
+.admin-table th { background: var(--off-white); font-weight: 700; color: var(--text-dark); }
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover td { background: rgba(248,250,251,0.5); }
+
+/* Badges & Status Dropdowns */
+.status-badge { display: inline-flex; align-items: center; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+.status-badge.pending { background: var(--warning-light); color: #B78103; }
+.status-badge.in-review { background: var(--info-light); color: #0070F3; }
+.status-badge.completed { background: var(--success-light); color: #2E7D32; }
+
+.action-row { display: flex; gap: 0.5rem; }
+.btn-action { background: var(--off-white); color: var(--text-dark); border: 1px solid var(--border-gray); padding: 0.4rem 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; min-height: 32px; display: inline-flex; align-items: center; justify-content: center; }
+.btn-action:hover { background: var(--border-gray); }
+.btn-action.danger { background: var(--danger-light); color: var(--danger-red); border-color: #FFCDD2; }
+.btn-action.danger:hover { background: #FFCDD2; }
+
+/* Settings Form */
+.settings-form { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; max-width: 700px; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-group label { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); }
+.form-group input, .form-group textarea, .form-group select { padding: 0.75rem 1rem; border-radius: 6px; border: 1px solid var(--border-gray); font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.3s; width: 100%; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary-blue); }
+.form-group p.help-text { font-size: 0.8rem; color: var(--text-gray); margin-top: -0.25rem; }
+.form-actions { display: flex; gap: 1rem; margin-top: 1rem; }
+
+/* Modal Panels */
+.modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; padding: 1.25rem; backdrop-filter: blur(4px); }
+.modal.active { display: flex; }
+.modal-content { background: var(--white); border-radius: 16px; width: 100%; max-width: 650px; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.3); animation: modalSlideUp 0.3s ease-out; }
+@keyframes modalSlideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-header { background: linear-gradient(135deg, var(--brand-dark), var(--primary-blue)); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.modal-header h3 { font-size: 1.25rem; }
+.modal-close { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; line-height: 1; min-width: 44px; min-height: 44px; }
+.modal-body { padding: 1.5rem; max-height: 70vh; overflow-y: auto; }
+.modal-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-gray); display: flex; justify-content: flex-end; gap: 1rem; align-items: center; }
+
+.spec-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.spec-table th, .spec-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border-gray); }
+.spec-table th { background: var(--off-white); color: var(--text-dark); font-weight: 700; width: 35%; }
+.spec-table td { color: var(--text-gray); }
+
+/* Toast Notification */
+.toast { position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem; background: var(--text-dark); color: white; border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 0.75rem; transform: translateY(100px); opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 3000; pointer-events: none; }
+.toast.active { transform: translateY(0); opacity: 1; }
+.toast-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold; }
+.toast-icon.success { background: var(--success-green); color: white; }
+.toast-icon.error { background: var(--danger-red); color: white; }
+
+footer { background: var(--text-dark); color: var(--white); padding: 2rem 1.25rem; margin-top: auto; border-top: 1px solid #333; }
+.footer-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-content p { font-size: 0.9rem; opacity: 0.8; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="nav-left">
+      <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span><span style="font-size:0.75rem; background:var(--danger-red); color:white; padding:0.15rem 0.5rem; border-radius:10px; margin-left:0.5rem;">ADMIN</span></a>
+    </div>
+    <div class="nav-right" style="display: flex; align-items: center; gap: 1.5rem;">
+      <ul class="nav-links">
+        <li><a href="builder.html">Main Site</a></li>
+        <li><a href="dashboard.html">Client Dashboard</a></li>
+      </ul>
+      <div class="auth-area">
+        <span class="username-display" id="adminEmailDisplay">Admin</span>
+        <button class="btn-logout" onclick="signOut()">Log Out</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="admin-container">
+  <!-- Sidebar Panel -->
+  <aside class="sidebar-panel">
+    <div class="sidebar-profile">
+      <div class="profile-avatar">A</div>
+      <h4 class="profile-name" id="adminName">Admin User</h4>
+      <span class="profile-role">System Admin</span>
+    </div>
+    <ul class="sidebar-nav">
+      <li><button onclick="switchTab('quotes')" id="tab-btn-quotes" class="active">📋 Manage Quotes</button></li>
+      <li><button onclick="switchTab('catalog')" id="tab-btn-catalog">⚡ Catalog Manager</button></li>
+      <li><button onclick="switchTab('settings')" id="tab-btn-settings">⚙️ Settings</button></li>
+    </ul>
+  </aside>
+
+  <!-- Main Panel -->
+  <main class="main-panel">
+    
+    <!-- Tab 1: Manage Quotes -->
+    <div id="tab-quotes" class="admin-tab-content active">
+      <!-- Metrics row -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-info">
+            <h4>Total Quotes</h4>
+            <p id="kpi-total-quotes">0</p>
+          </div>
+          <div class="metric-icon blue">📋</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-info">
+            <h4>Pending Reviews</h4>
+            <p id="kpi-pending-quotes">0</p>
+          </div>
+          <div class="metric-icon amber">⏳</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-info">
+            <h4>Completed Quotes</h4>
+            <p id="kpi-completed-quotes">0</p>
+          </div>
+          <div class="metric-icon green">✅</div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="card-header">
+          <h3>Customer Quote Submissions</h3>
+          <div class="card-controls">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="quoteSearch" placeholder="Search by name, email or ID..." oninput="filterQuotesTable()">
+            </div>
+            <select class="filter-select" id="quoteCategoryFilter" onchange="filterQuotesTable()">
+              <option value="all">All Categories</option>
+              <option value="electrical">Electrical</option>
+              <option value="flooring">Flooring</option>
+              <option value="steel">Steel</option>
+              <option value="furniture">Furniture</option>
+              <option value="general">General</option>
+            </select>
+            <select class="filter-select" id="quoteStatusFilter" onchange="filterQuotesTable()">
+              <option value="all">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="In Review">In Review</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Date Submitted</th>
+                <th>Quote ID</th>
+                <th>Client Name</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="quotesTableBody">
+              <!-- Dynamically populated -->
+              <tr><td colspan="6" style="text-align:center; padding:3rem; color:var(--text-gray);">Loading quote requests...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Catalog Manager -->
+    <div id="tab-catalog" class="admin-tab-content">
+      <!-- Catalog Metrics -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-info">
+            <h4>Catalog Items</h4>
+            <p id="kpi-total-products">0</p>
+          </div>
+          <div class="metric-icon blue">📦</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-info">
+            <h4>Price-Enabled Items</h4>
+            <p id="kpi-price-enabled">0</p>
+          </div>
+          <div class="metric-icon green">💰</div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="card-header">
+          <h3>Database Product Catalog (Electrical)</h3>
+          <div class="card-controls">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="catalogSearch" placeholder="Search by code or name..." oninput="filterCatalogTable()">
+            </div>
+            <select class="filter-select" id="catalogCategoryFilter" onchange="filterCatalogTable()">
+              <option value="all">All Categories</option>
+              <!-- Populated dynamically from product subcategories -->
+            </select>
+            <button class="btn-primary" onclick="openAddProductModal()">+ Add New Product</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Item Code</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price Enabled</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="catalogTableBody">
+              <!-- Dynamically populated -->
+              <tr><td colspan="6" style="text-align:center; padding:3rem; color:var(--text-gray);">Loading catalog...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Settings -->
+    <div id="tab-settings" class="admin-tab-content">
+      <div class="admin-card">
+        <div class="card-header">
+          <h3>Integrations & SMTP Settings</h3>
+        </div>
+        <form class="settings-form" id="settingsForm" onsubmit="saveSettings(event)">
+          <div class="form-group">
+            <label for="settingResendApiKey">Resend API Key</label>
+            <input type="password" id="settingResendApiKey" placeholder="re_123456789..." required>
+            <p class="help-text">Your secret Resend API credential used to fire invoice emails and alerts.</p>
+          </div>
+          <div class="form-group">
+            <label for="settingResendFromEmail">Verification / Outbound Sender Email</label>
+            <input type="email" id="settingResendFromEmail" placeholder="quotes@buildprouk.co.uk" required>
+            <p class="help-text">BuildPro UK branded sender address (e.g. quotes@buildprouk.co.uk or notifications@yourdomain.com).</p>
+          </div>
+          <div class="form-group">
+            <label for="settingAdminEmail">Admin Alert Notification Destination</label>
+            <input type="email" id="settingAdminEmail" placeholder="admin@buildprouk.co.uk" required>
+            <p class="help-text">Email address where admin copy alerts will be sent when clients submit new quote forms.</p>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="btnSaveSettings">Save Configuration Settings</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Modal: Quote Details -->
+<div class="modal" id="quoteDetailsModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="quoteModalTitle">Quote Details</h3>
+      <button class="modal-close" onclick="closeQuoteModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <table class="spec-table">
+        <tbody id="quoteModalSpecs">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+
+      <div class="form-group" style="margin-top: 1.5rem;">
+        <label for="updateQuoteStatus">Update Status</label>
+        <select class="filter-select" id="updateQuoteStatus" style="width: 100%;" onchange="handleQuoteStatusChange()">
+          <option value="Pending">Pending</option>
+          <option value="In Review">In Review</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <p class="help-text" id="quoteStatusHelpText" style="margin-top: 0.25rem;"></p>
+      </div>
+
+      <div id="quoteModalNotes" style="margin-top: 1.5rem; border-top: 1px solid var(--border-gray); padding-top: 1rem; display: none;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Client Delivery/Site Notes:</h4>
+        <p id="quoteModalNotesText" style="font-size: 0.9rem; color: var(--text-gray);"></p>
+      </div>
+
+      <div id="quoteModalPdfSection" style="margin-top: 1.5rem; border-top: 1px solid var(--border-gray); padding-top: 1.25rem; display: none;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem;">Branded PDF Document Status</h4>
+        <div id="pdfStatusContent">
+          <!-- Populated -->
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-action" onclick="closeQuoteModal()">Close Window</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Add / Edit Catalog Product -->
+<div class="modal" id="productModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="productModalTitle">Add Catalog Product</h3>
+      <button class="modal-close" onclick="closeProductModal()">×</button>
+    </div>
+    <form id="productForm" onsubmit="saveProduct(event)">
+      <div class="modal-body" style="display:flex; flex-direction:column; gap: 1.25rem;">
+        <input type="hidden" id="prodId">
+        <div class="form-group">
+          <label for="prodItemCode">Item Code (SKU) <span style="color:red;">*</span></label>
+          <input type="text" id="prodItemCode" placeholder="e.g. LSMC04" required>
+        </div>
+        <div class="form-group">
+          <label for="prodName">Product Name <span style="color:red;">*</span></label>
+          <input type="text" id="prodName" placeholder="Metal Consumer Unit Surface Mounted 4 Way" required>
+        </div>
+        <div class="form-group">
+          <label for="prodCategory">Category (Slug) <span style="color:red;">*</span></label>
+          <select id="prodCategory" required>
+            <option value="consumer-units">Consumer Units</option>
+            <option value="rcbos">RCBOs</option>
+            <option value="mcbs">MCBs</option>
+            <option value="isolators">Isolators</option>
+            <option value="distribution-boards">Distribution Boards</option>
+            <option value="switches-sockets">Switches & Sockets</option>
+            <option value="junction-boxes">Junction Boxes</option>
+            <option value="cable-accessories">Cable Accessories</option>
+            <option value="ventilation">Ventilation</option>
+            <option value="lighting">Lighting</option>
+            <option value="ev-charging">EV Charging</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="prodDescription">Description</label>
+          <textarea id="prodDescription" placeholder="Provide product technical description..." style="height: 80px; resize: none;"></textarea>
+        </div>
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.75rem;">
+          <input type="checkbox" id="prodPriceEnabled" style="width: auto; cursor:pointer;">
+          <label for="prodPriceEnabled" style="cursor:pointer; margin-bottom: 0;">Enable commercial pricing login banner visibility</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-action" onclick="closeProductModal()">Cancel</button>
+        <button type="submit" class="btn-primary" id="btnSaveProduct">Save Product Item</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast Box -->
+<div id="adminToast" class="toast">
+  <div id="adminToastIcon" class="toast-icon">✓</div>
+  <div id="adminToastMessage">Success message here!</div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2026 BuildPro UK Admin Panel. Internal Use Only.</p>
+    <p>Logged in as: <span id="adminFooterEmail">admin@buildprouk.co.uk</span></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+  let allQuotes = [];
+  let allProducts = [];
+  let currentActiveTab = 'quotes';
+  let activeDetailQuoteId = null;
+
+  async function initAdmin() {
+    const user = await getCurrentUser();
+    if (!user) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const adminEmails = ['admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk'];
+    if (!adminEmails.includes(user.email)) {
+      window.location.href = 'dashboard.html';
+      return;
+    }
+
+    document.getElementById('adminEmailDisplay').innerText = user.email;
+    document.getElementById('adminFooterEmail').innerText = user.email;
+    document.getElementById('adminName').innerText = user.user_metadata?.fname 
+      ? `${user.user_metadata.fname} ${user.user_metadata.lname || ''}`
+      : 'BuildPro Admin';
+
+    // Load Data
+    await loadQuotes();
+    await loadProducts();
+    await loadConfigSettings();
+  }
+
+  // --- Toast Manager ---
+  function showToast(msg, isSuccess = true) {
+    const toast = document.getElementById('adminToast');
+    const icon = document.getElementById('adminToastIcon');
+    const text = document.getElementById('adminToastMessage');
+
+    text.innerText = msg;
+    if (isSuccess) {
+      icon.innerText = '✓';
+      icon.className = 'toast-icon success';
+    } else {
+      icon.innerText = '✕';
+      icon.className = 'toast-icon error';
+    }
+
+    toast.classList.add('active');
+    setTimeout(() => {
+      toast.classList.remove('active');
+    }, 4000);
+  }
+
+  // --- Tab Switcher ---
+  function switchTab(tabId) {
+    document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.sidebar-nav button').forEach(el => el.classList.remove('active'));
+
+    document.getElementById(`tab-${tabId}`).classList.add('active');
+    document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+
+    currentActiveTab = tabId;
+  }
+
+  // --- Manage Quotes Tab ---
+  async function loadQuotes() {
+    try {
+      const { data, error } = await sb
+        .from('quote_requests')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      allQuotes = data || [];
+      
+      updateQuoteKPIs(allQuotes);
+      renderQuotesTable(allQuotes);
+    } catch (err) {
+      console.error("Failed to load quotes:", err.message);
+      showToast("Error loading quotes: " + err.message, false);
+    }
+  }
+
+  function updateQuoteKPIs(quotes) {
+    const total = quotes.length;
+    const pending = quotes.filter(q => q.status === 'Pending').length;
+    const completed = quotes.filter(q => q.status === 'Completed').length;
+
+    document.getElementById('kpi-total-quotes').innerText = total;
+    document.getElementById('kpi-pending-quotes').innerText = pending;
+    document.getElementById('kpi-completed-quotes').innerText = completed;
+  }
+
+  function renderQuotesTable(quotes) {
+    const tbody = document.getElementById('quotesTableBody');
+    if (quotes.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:3rem; color:var(--text-gray);">No quote requests matching filters.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = quotes.map(q => {
+      const dateStr = new Date(q.created_at).toLocaleDateString('en-GB', {
+        day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+      const clientName = `${q.fname} ${q.lname}`;
+      const shortId = q.id.substring(0, 8).toUpperCase();
+      
+      const categoryIcons = {
+        'electrical': '⚡ Electrical',
+        'flooring': '📐 Flooring',
+        'steel': '🏗️ Steel',
+        'furniture': '🛋️ Furniture',
+        'general': '❓ General'
+      };
+      const catLabel = categoryIcons[q.category] || q.category;
+      
+      const statusClass = q.status.toLowerCase().replace(' ', '-');
+
+      return `
+        <tr>
+          <td>${dateStr}</td>
+          <td style="font-family:monospace; font-weight:700;">${shortId}</td>
+          <td>
+            <strong>${clientName}</strong><br>
+            <span style="font-size:0.8rem; color:var(--text-gray);">${q.email}</span>
+          </td>
+          <td>${catLabel}</td>
+          <td><span class="status-badge ${statusClass}">${q.status}</span></td>
+          <td>
+            <button class="btn-action" onclick="openQuoteDetails('${q.id}')">Inspect & Manage</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function filterQuotesTable() {
+    const searchVal = document.getElementById('quoteSearch').value.toLowerCase().trim();
+    const catVal = document.getElementById('quoteCategoryFilter').value;
+    const statusVal = document.getElementById('quoteStatusFilter').value;
+
+    let filtered = allQuotes;
+
+    if (searchVal) {
+      filtered = filtered.filter(q => 
+        q.fname.toLowerCase().includes(searchVal) ||
+        q.lname.toLowerCase().includes(searchVal) ||
+        q.email.toLowerCase().includes(searchVal) ||
+        q.id.toLowerCase().includes(searchVal)
+      );
+    }
+
+    if (catVal !== 'all') {
+      filtered = filtered.filter(q => q.category === catVal);
+    }
+
+    if (statusVal !== 'all') {
+      filtered = filtered.filter(q => q.status === statusVal);
+    }
+
+    renderQuotesTable(filtered);
+  }
+
+  function openQuoteDetails(quoteId) {
+    const q = allQuotes.find(item => item.id === quoteId);
+    if (!q) return;
+
+    activeDetailQuoteId = quoteId;
+    const modal = document.getElementById('quoteDetailsModal');
+    const specsBody = document.getElementById('quoteModalSpecs');
+    const clientNotes = document.getElementById('quoteModalNotes');
+    const notesText = document.getElementById('quoteModalNotesText');
+    const pdfSection = document.getElementById('quoteModalPdfSection');
+    const pdfStatusContent = document.getElementById('pdfStatusContent');
+
+    const shortId = q.id.substring(0, 8).toUpperCase();
+    document.getElementById('quoteModalTitle').innerText = `Manage Quote Request - #${shortId}`;
+
+    // Update status select
+    document.getElementById('updateQuoteStatus').value = q.status;
+    updateQuoteStatusHelpText(q.status);
+
+    // Dynamic details compilation
+    let specsHtml = `
+      <tr><th>Quote ID</th><td style="font-family:monospace; font-weight:700;">${q.id}</td></tr>
+      <tr><th>Customer Name</th><td>${q.fname} ${q.lname}</td></tr>
+      <tr><th>Email</th><td><a href="mailto:${q.email}" style="color:var(--primary-blue);">${q.email}</a></td></tr>
+      <tr><th>Phone</th><td>${q.pnumber || 'N/A'}</td></tr>
+      <tr><th>Company</th><td>${q.company || 'N/A'}</td></tr>
+      <tr><th>Category</th><td>${q.category.toUpperCase()}</td></tr>
+      <tr><th>Date Submitted</th><td>${new Date(q.created_at).toLocaleString('en-GB')}</td></tr>
+    `;
+
+    const details = q.details || {};
+    for (const key in details) {
+      if (key === 'client_notes') continue;
+      const label = key.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+      specsHtml += `<tr><th>${label}</th><td>${details[key]}</td></tr>`;
+    }
+
+    specsBody.innerHTML = specsHtml;
+
+    // Delivery / Client Notes
+    if (details.client_notes) {
+      clientNotes.style.display = 'block';
+      notesText.innerText = details.client_notes;
+    } else {
+      clientNotes.style.display = 'none';
+    }
+
+    // PDF Panel Display
+    pdfSection.style.display = 'block';
+    if (q.status === 'Completed') {
+      if (q.pdf_url) {
+        pdfStatusContent.innerHTML = `
+          <div style="background:var(--success-light); border-left:4px solid var(--success-green); padding:0.75rem 1rem; border-radius:4px; margin-bottom:0.75rem;">
+            <p style="color:#2E7D32; font-size:0.9rem; font-weight:600;">✓ PDF generated and uploaded successfully!</p>
+          </div>
+          <a href="${q.pdf_url}" class="btn-primary" target="_blank" style="text-decoration:none;">📥 Download Branded Quote PDF</a>
+        `;
+      } else {
+        pdfStatusContent.innerHTML = `
+          <div style="background:var(--warning-light); border-left:4px solid var(--warning-amber); padding:0.75rem 1rem; border-radius:4px; margin-bottom:0.75rem;">
+            <p style="color:#B78103; font-size:0.9rem; font-weight:600;">⏳ Awaiting automated PDF compilation worker...</p>
+            <p style="font-size:0.8rem; color:var(--text-gray); margin-top:0.25rem;">The background quote worker will compile this PDF and email it to the client shortly.</p>
+          </div>
+        `;
+      }
+    } else {
+      pdfStatusContent.innerHTML = `
+        <p style="font-size:0.9rem; color:var(--text-gray);">PDF compilation and email alerts will trigger automatically once status is updated to <strong>Completed</strong>.</p>
+      `;
+    }
+
+    modal.classList.add('active');
+  }
+
+  function updateQuoteStatusHelpText(status) {
+    const help = document.getElementById('quoteStatusHelpText');
+    if (status === 'Pending') {
+      help.innerText = "Under review. Client sees status as 'Pending' in dashboard.";
+    } else if (status === 'In Review') {
+      help.innerText = "Spec under calculation. Client sees status as 'In Review' in dashboard.";
+    } else if (status === 'Completed') {
+      help.innerText = "Completed! This triggers PDF generation, Storage upload, and Resend email outbound alert.";
+      help.style.color = 'var(--success-green)';
+      return;
+    }
+    help.style.color = 'var(--text-gray)';
+  }
+
+  function handleQuoteStatusChange() {
+    const select = document.getElementById('updateQuoteStatus');
+    updateQuoteStatusHelpText(select.value);
+    
+    // Auto-update database
+    updateQuoteStatusInDb(activeDetailQuoteId, select.value);
+  }
+
+  async function updateQuoteStatusInDb(quoteId, newStatus) {
+    try {
+      const { data, error } = await sb
+        .from('quote_requests')
+        .update({ status: newStatus, updated_at: new Date().toISOString() })
+        .eq('id', quoteId)
+        .select();
+
+      if (error) throw error;
+      
+      showToast(`Quote status updated to ${newStatus}`);
+      await loadQuotes(); // Reload backend list
+      
+      // Update local modal view if it matches the active item
+      if (activeDetailQuoteId === quoteId) {
+        const q = allQuotes.find(item => item.id === quoteId);
+        if (q) openQuoteDetails(quoteId);
+      }
+    } catch (err) {
+      console.error("Failed to update status:", err.message);
+      showToast("Failed to update database: " + err.message, false);
+    }
+  }
+
+  function closeQuoteModal() {
+    document.getElementById('quoteDetailsModal').classList.remove('active');
+    activeDetailQuoteId = null;
+  }
+
+  // --- Catalog Manager Tab ---
+  async function loadProducts() {
+    try {
+      const { data, error } = await sb
+        .from('products')
+        .select('*')
+        .order('category', { ascending: true })
+        .order('item_code', { ascending: true });
+
+      if (error) throw error;
+      allProducts = data || [];
+
+      updateCatalogKPIs(allProducts);
+      populateCatalogCategories(allProducts);
+      renderCatalogTable(allProducts);
+    } catch (err) {
+      console.error("Failed to load products:", err.message);
+      showToast("Error loading catalog: " + err.message, false);
+    }
+  }
+
+  function updateCatalogKPIs(prods) {
+    document.getElementById('kpi-total-products').innerText = prods.length;
+    document.getElementById('kpi-price-enabled').innerText = prods.filter(p => p.price_enabled).length;
+  }
+
+  function populateCatalogCategories(prods) {
+    const filter = document.getElementById('catalogCategoryFilter');
+    const categories = [...new Set(prods.map(p => p.category))].sort();
+    
+    filter.innerHTML = `<option value="all">All Categories</option>` + 
+      categories.map(c => `<option value="${c}">${c.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</option>`).join('');
+  }
+
+  function renderCatalogTable(prods) {
+    const tbody = document.getElementById('catalogTableBody');
+    if (prods.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:3rem; color:var(--text-gray);">No products found in catalog.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = prods.map(p => {
+      const priceText = p.price_enabled 
+        ? `<span style="color:var(--success-green); font-weight:700;">✓ Enabled</span>` 
+        : `<span style="color:var(--text-gray); font-style:italic;">Disabled</span>`;
+
+      const desc = p.description 
+        ? (p.description.length > 80 ? p.description.substring(0, 80) + '...' : p.description)
+        : '<span style="color:var(--text-gray); font-style:italic;">No description</span>';
+
+      return `
+        <tr>
+          <td style="font-family:monospace; font-weight:700; color:var(--primary-blue);">${p.item_code}</td>
+          <td><strong>${p.name}</strong></td>
+          <td><span style="font-size:0.85rem; background:var(--off-white); padding:0.25rem 0.5rem; border-radius:4px;">${p.category}</span></td>
+          <td style="font-size:0.85rem; max-width:250px;">${desc}</td>
+          <td>${priceText}</td>
+          <td>
+            <div class="action-row">
+              <button class="btn-action" onclick="openEditProductModal('${p.id}')">Edit</button>
+              <button class="btn-action danger" onclick="deleteProduct('${p.id}', '${p.item_code}')">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function filterCatalogTable() {
+    const searchVal = document.getElementById('catalogSearch').value.toLowerCase().trim();
+    const catVal = document.getElementById('catalogCategoryFilter').value;
+
+    let filtered = allProducts;
+
+    if (searchVal) {
+      filtered = filtered.filter(p => 
+        p.item_code.toLowerCase().includes(searchVal) ||
+        p.name.toLowerCase().includes(searchVal) ||
+        (p.description && p.description.toLowerCase().includes(searchVal))
+      );
+    }
+
+    if (catVal !== 'all') {
+      filtered = filtered.filter(p => p.category === catVal);
+    }
+
+    renderCatalogTable(filtered);
+  }
+
+  function openAddProductModal() {
+    document.getElementById('productForm').reset();
+    document.getElementById('prodId').value = '';
+    document.getElementById('prodItemCode').disabled = false;
+    document.getElementById('productModalTitle').innerText = 'Add New Catalog Product';
+    
+    document.getElementById('productModal').classList.add('active');
+  }
+
+  function openEditProductModal(id) {
+    const p = allProducts.find(item => item.id === id);
+    if (!p) return;
+
+    document.getElementById('prodId').value = p.id;
+    document.getElementById('prodItemCode').value = p.item_code;
+    document.getElementById('prodItemCode').disabled = true; // SKU code key should not change easily
+    document.getElementById('prodName').value = p.name;
+    document.getElementById('prodCategory').value = p.category;
+    document.getElementById('prodDescription').value = p.description || '';
+    document.getElementById('prodPriceEnabled').checked = p.price_enabled;
+
+    document.getElementById('productModalTitle').innerText = `Edit Product: ${p.item_code}`;
+    document.getElementById('productModal').classList.add('active');
+  }
+
+  function closeProductModal() {
+    document.getElementById('productModal').classList.remove('active');
+  }
+
+  async function saveProduct(e) {
+    e.preventDefault();
+    const id = document.getElementById('prodId').value;
+    const item_code = document.getElementById('prodItemCode').value.trim();
+    const name = document.getElementById('prodName').value.trim();
+    const category = document.getElementById('prodCategory').value;
+    const description = document.getElementById('prodDescription').value.trim();
+    const price_enabled = document.getElementById('prodPriceEnabled').checked;
+
+    const btn = document.getElementById('btnSaveProduct');
+    btn.disabled = true;
+    btn.innerText = 'Saving...';
+
+    try {
+      const payload = {
+        item_code,
+        name,
+        category,
+        description: description || null,
+        price_enabled
+      };
+
+      let query;
+      if (id) {
+        // Update product
+        query = sb.from('products').update(payload).eq('id', id);
+      } else {
+        // Insert product
+        query = sb.from('products').insert([payload]);
+      }
+
+      const { error } = await query;
+      if (error) throw error;
+
+      showToast(id ? "Product updated successfully!" : "Product added to catalog!");
+      closeProductModal();
+      await loadProducts(); // Refresh list
+    } catch (err) {
+      console.error("Failed to save product:", err.message);
+      showToast("Error saving product: " + err.message, false);
+    } finally {
+      btn.disabled = false;
+      btn.innerText = 'Save Product Item';
+    }
+  }
+
+  async function deleteProduct(id, code) {
+    if (!confirm(`Are you absolutely sure you want to delete product ${code} from the catalog? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const { error } = await sb
+        .from('products')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      showToast(`Product ${code} deleted.`);
+      await loadProducts(); // Refresh list
+    } catch (err) {
+      console.error("Failed to delete product:", err.message);
+      showToast("Error deleting item: " + err.message, false);
+    }
+  }
+
+  // --- Settings Tab ---
+  async function loadConfigSettings() {
+    try {
+      const { data, error } = await sb
+        .from('app_settings')
+        .select('*');
+
+      if (error) throw error;
+
+      if (data) {
+        data.forEach(item => {
+          if (item.key === 'resend_api_key') {
+            document.getElementById('settingResendApiKey').value = item.value;
+          } else if (item.key === 'resend_from_email') {
+            document.getElementById('settingResendFromEmail').value = item.value;
+          } else if (item.key === 'admin_notification_email') {
+            document.getElementById('settingAdminEmail').value = item.value;
+          }
+        });
+      }
+    } catch (err) {
+      console.error("Failed to load settings:", err.message);
+      // Don't toast fail here, maybe empty config
+    }
+  }
+
+  async function saveSettings(e) {
+    e.preventDefault();
+    const apiKey = document.getElementById('settingResendApiKey').value.trim();
+    const fromEmail = document.getElementById('settingResendFromEmail').value.trim();
+    const adminEmail = document.getElementById('settingAdminEmail').value.trim();
+
+    const btn = document.getElementById('btnSaveSettings');
+    btn.disabled = true;
+    btn.innerText = 'Saving Configuration...';
+
+    try {
+      const updates = [
+        { key: 'resend_api_key', value: apiKey, updated_at: new Date().toISOString() },
+        { key: 'resend_from_email', value: fromEmail, updated_at: new Date().toISOString() },
+        { key: 'admin_notification_email', value: adminEmail, updated_at: new Date().toISOString() }
+      ];
+
+      const { error } = await sb
+        .from('app_settings')
+        .upsert(updates);
+
+      if (error) throw error;
+
+      showToast("Settings configuration saved successfully!");
+    } catch (err) {
+      console.error("Failed to save settings:", err.message);
+      showToast("Error saving configurations: " + err.message, false);
+    } finally {
+      btn.disabled = false;
+      btn.innerText = 'Save Configuration Settings';
+    }
+  }
+
+  // Close modals when clicking outside
+  window.addEventListener('click', e => {
+    const qModal = document.getElementById('quoteDetailsModal');
+    const pModal = document.getElementById('productModal');
+    if (e.target === qModal) closeQuoteModal();
+    if (e.target === pModal) closeProductModal();
+  });
+
+  // Start initialization
+  initAdmin();
+</script>
+</body>
+</html>

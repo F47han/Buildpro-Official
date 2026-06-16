@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Client Dashboard | BuildPro UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --primary-blue: #0047AB; --light-blue: #3B7DD6; --accent-blue: #1E90FF; --dark-blue: #003380;
+  --white: #FFFFFF; --off-white: #F8FAFB; --text-dark: #1A2332; --text-gray: #5A6C7D;
+  --border-gray: #E1E8ED; --brand-gold: #b2945e; --brand-dark: #222;
+  --success-green: #00C853; --success-light: #E8F5E9;
+  --warning-amber: #FFB800; --warning-light: #FFF8E1;
+  --info-blue: #1E90FF; --info-light: #E3F2FD;
+}
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--off-white); min-height: 100vh; display: flex; flex-direction: column; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; }
+nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; min-height: 44px; display: flex; align-items: center; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary-blue); }
+.auth-area { display: flex; gap: 0.5rem; align-items: center; }
+.username-display { color: var(--primary-blue); font-size: 1rem; font-weight: 700; margin-right: 0.5rem; }
+.btn-logout { background: #D32F2F; color: var(--white); padding: 0.7rem 1.25rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; transition: background 0.3s; }
+.btn-logout:hover { background: #B71C1C; }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.75rem; color: var(--primary-blue); cursor: pointer; min-width: 44px; min-height: 44px; padding: 0.5rem; }
+
+.dashboard-container { max-width: 1400px; margin: 2rem auto; padding: 0 1.25rem; width: 100%; flex-grow: 1; display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
+@media (max-width: 968px) {
+  .dashboard-container { grid-template-columns: 1fr; }
+}
+
+/* Sidebar Navigation */
+.sidebar-panel { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,71,171,0.05); border: 1px solid var(--border-gray); height: fit-content; }
+.sidebar-profile { text-align: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-gray); margin-bottom: 1.5rem; }
+.profile-avatar { width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-blue), var(--light-blue)); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 1rem; }
+.profile-name { font-size: 1.2rem; color: var(--text-dark); margin-bottom: 0.25rem; }
+.profile-role { font-size: 0.8rem; background: var(--border-gray); color: var(--text-gray); padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; font-weight: 700; display: inline-block; }
+.sidebar-nav { list-style: none; }
+.sidebar-nav li { margin-bottom: 0.5rem; }
+.sidebar-nav a { display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1rem; text-decoration: none; color: var(--text-gray); border-radius: 8px; font-weight: 500; transition: all 0.3s; min-height: 44px; }
+.sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(0,71,171,0.06); color: var(--primary-blue); font-weight: 700; }
+
+/* Main Dashboard Panel */
+.main-panel { display: flex; flex-direction: column; gap: 2rem; }
+.welcome-card { background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); color: white; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 30px rgba(0,71,171,0.15); position: relative; overflow: hidden; }
+.welcome-card::after { content: '🏗️'; position: absolute; right: 2rem; bottom: -1rem; font-size: 8rem; opacity: 0.1; }
+.welcome-card h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+.welcome-card p { font-size: 1.05rem; opacity: 0.9; }
+
+/* Quotes Table Card */
+.dashboard-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border-gray); box-shadow: 0 4px 20px rgba(0,71,171,0.04); overflow: hidden; }
+.card-header { padding: 1.5rem; border-bottom: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center; }
+.card-header h3 { font-size: 1.25rem; color: var(--text-dark); }
+.btn-new-quote { background: var(--primary-blue); color: white; padding: 0.6rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: background 0.3s; }
+.btn-new-quote:hover { background: var(--dark-blue); }
+
+.table-responsive { width: 100%; overflow-x: auto; }
+.quotes-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+.quotes-table th, .quotes-table td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-gray); vertical-align: middle; }
+.quotes-table th { background: var(--off-white); font-weight: 700; color: var(--text-dark); }
+.quotes-table tr:last-child td { border-bottom: none; }
+.quotes-table tr:hover td { background: rgba(248,250,251,0.5); }
+
+/* Status Badges */
+.status-badge { display: inline-flex; align-items: center; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+.status-badge.pending { background: var(--warning-light); color: #B78103; }
+.status-badge.in-review { background: var(--info-light); color: #0070F3; }
+.status-badge.completed { background: var(--success-light); color: #2E7D32; }
+
+.btn-view-details { background: var(--off-white); color: var(--text-dark); border: 1px solid var(--border-gray); padding: 0.4rem 0.9rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; min-height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+.btn-view-details:hover { background: var(--border-gray); border-color: var(--text-gray); }
+
+.no-quotes-message { text-align: center; padding: 4rem 2rem; color: var(--text-gray); }
+.no-quotes-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+/* Details Modal */
+.modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; padding: 1.25rem; backdrop-filter: blur(4px); }
+.modal.active { display: flex; }
+.modal-content { background: var(--white); border-radius: 16px; width: 100%; max-width: 600px; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.3); animation: modalSlideUp 0.3s ease-out; }
+@keyframes modalSlideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-header { background: linear-gradient(135deg, var(--primary-blue), var(--light-blue)); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.modal-header h3 { font-size: 1.25rem; }
+.modal-close { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; line-height: 1; }
+.modal-body { padding: 1.5rem; max-height: 70vh; overflow-y: auto; }
+.modal-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center; }
+.modal-btn-close { background: var(--off-white); color: var(--text-dark); border: 1px solid var(--border-gray); padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 700; cursor: pointer; min-height: 40px; }
+.modal-btn-download { background: var(--success-green); color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 700; cursor: pointer; text-decoration: none; min-height: 40px; display: inline-flex; align-items: center; gap: 0.5rem; }
+.modal-btn-download:hover { background: #00A844; }
+
+.spec-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.spec-table th, .spec-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border-gray); }
+.spec-table th { background: var(--off-white); color: var(--text-dark); font-weight: 700; width: 35%; }
+.spec-table td { color: var(--text-gray); }
+
+footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25rem 1.5rem; margin-top: auto; }
+.footer-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-content p { font-size: 0.9rem; opacity: 0.8; }
+.footer-content a { color: white; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="nav-left">
+      <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    </div>
+    <div class="nav-right" style="display: flex; align-items: center; gap: 1.5rem;">
+      <ul class="nav-links">
+        <li><a href="builder.html">Home</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="steel.html">Steel</a></li>
+        <li><a href="flooring.html">Flooring</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+      </ul>
+      <div class="auth-area">
+        <span class="username-display" data-username></span>
+        <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar-panel">
+    <div class="sidebar-profile">
+      <div class="profile-avatar" id="avatarChar">U</div>
+      <h4 class="profile-name" id="profileName">User</h4>
+      <span class="profile-role" id="profileRole">Trade Partner</span>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html" class="active">📊 Quote Requests</a></li>
+      <li><a href="builder.html#contact">📋 Request a Quote</a></li>
+      <li><a href="builder.html">🏠 Back to Shop</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Panel -->
+  <main class="main-panel">
+    <div class="welcome-card">
+      <h2>Welcome Back, <span id="welcomeName">User</span>!</h2>
+      <p>Manage your custom commercial quotes, technical specifications, and trade account details in one place.</p>
+    </div>
+
+    <div class="dashboard-card">
+      <div class="card-header">
+        <h3>Historical Quote Requests</h3>
+        <a href="builder.html#contact" class="btn-new-quote">+ New Quote Request</a>
+      </div>
+      
+      <div class="table-responsive">
+        <table class="quotes-table" id="quotesTable" style="display: none;">
+          <thead>
+            <tr>
+              <th>Date Requested</th>
+              <th>Reference ID</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="quotesTableBody">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+        
+        <div id="noQuotesMessage" class="no-quotes-message">
+          <div class="no-quotes-icon">📋</div>
+          <h4>No Quote Requests Found</h4>
+          <p style="margin-top:0.25rem;">You haven't submitted any commercial quotes yet.</p>
+          <a href="builder.html#contact" class="btn-new-quote" style="display:inline-block; margin-top: 1.5rem;">Request Your First Quote</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Details Modal -->
+<div class="modal" id="detailsModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Quote Details</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <table class="spec-table">
+        <tbody id="modalSpecsBody">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+      
+      <div id="modalClientNotes" style="margin-top: 1rem; border-top: 1px solid var(--border-gray); padding-top: 1rem; display: none;">
+        <h4 style="font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.25rem;">Your Delivery/Site Notes:</h4>
+        <p id="modalNotesText" style="font-size: 0.9rem; color: var(--text-gray); line-height: 1.5;"></p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn-close" onclick="closeModal()">Close</button>
+      <a href="#" id="btnDownloadPdf" class="modal-btn-download" target="_blank" style="display: none;">📥 Download Quote (PDF)</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
+    <p><a href="builder.html">Home</a> | <a href="mailto:info@buildprouk.co.uk">Support Contact</a></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+  let userQuotes = [];
+
+  async function initDashboard() {
+    const user = await getCurrentUser();
+    if (!user) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    // Populate profile details
+    const fname = user.user_metadata?.fname || 'Client';
+    const lname = user.user_metadata?.lname || '';
+    const accType = user.user_metadata?.acc_type || 'customer';
+    
+    document.getElementById('profileName').innerText = `${fname} ${lname}`;
+    document.getElementById('welcomeName').innerText = fname;
+    document.getElementById('avatarChar').innerText = fname.charAt(0).toUpperCase();
+    document.getElementById('profileRole').innerText = accType === 'trade' ? 'Trade Partner' : 'Retail Customer';
+
+    // Load Quotes
+    loadClientQuotes(user.id);
+  }
+
+  async function loadClientQuotes(userId) {
+    try {
+      const { data, error } = await sb
+        .from('quote_requests')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      userQuotes = data || [];
+      renderQuotesTable(userQuotes);
+    } catch (err) {
+      console.error("Failed to load quotes:", err.message);
+    }
+  }
+
+  function renderQuotesTable(quotes) {
+    const table = document.getElementById('quotesTable');
+    const tbody = document.getElementById('quotesTableBody');
+    const noMsg = document.getElementById('noQuotesMessage');
+
+    if (quotes.length === 0) {
+      table.style.display = 'none';
+      noMsg.style.display = 'block';
+      return;
+    }
+
+    table.style.display = 'table';
+    noMsg.style.display = 'none';
+
+    tbody.innerHTML = quotes.map(q => {
+      const date = new Date(q.created_at).toLocaleDateString('en-GB', {
+        day: '2-digit', month: 'short', year: 'numeric'
+      });
+      const refId = q.id.substring(0, 8).toUpperCase();
+      
+      const categoryLabels = {
+        'electrical': '⚡ Electrical',
+        'flooring': '📐 Flooring',
+        'steel': '🏗️ Steel',
+        'furniture': '🛋️ Furniture',
+        'general': '❓ General'
+      };
+      const catLabel = categoryLabels[q.category] || q.category;
+      
+      const statusClass = q.status.toLowerCase().replace(' ', '-');
+      const statusLabel = q.status;
+
+      return `
+        <tr>
+          <td>${date}</td>
+          <td style="font-family:monospace; font-weight:700;">${refId}</td>
+          <td>${catLabel}</td>
+          <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+          <td>
+            <button class="btn-view-details" onclick="viewQuoteDetails('${q.id}')">View Details</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function viewQuoteDetails(quoteId) {
+    const q = userQuotes.find(item => item.id === quoteId);
+    if (!q) return;
+
+    const modal = document.getElementById('detailsModal');
+    const specsBody = document.getElementById('modalSpecsBody');
+    const clientNotes = document.getElementById('modalClientNotes');
+    const notesText = document.getElementById('modalNotesText');
+    const downloadBtn = document.getElementById('btnDownloadPdf');
+
+    const ref = q.id.substring(0, 8).toUpperCase();
+    document.getElementById('modalTitle').innerText = `Quote Request Details - ${ref}`;
+
+    // Dynamic Specifications formatting
+    let specsHtml = `
+      <tr><th>Category</th><td>${q.category.toUpperCase()}</td></tr>
+      <tr><th>Current Status</th><td><span class="status-badge ${q.status.toLowerCase().replace(' ', '-')}">${q.status}</span></td></tr>
+      <tr><th>Date Submitted</th><td>${new Date(q.created_at).toLocaleString('en-GB')}</td></tr>
+    `;
+
+    // Extract dynamic details
+    const details = q.details || {};
+    for (const key in details) {
+      if (key === 'client_notes') continue; // Show in details section below instead
+      const label = key.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+      specsHtml += `<tr><th>${label}</th><td>${details[key]}</td></tr>`;
+    }
+
+    specsBody.innerHTML = specsHtml;
+
+    // Client Notes display
+    if (details.client_notes) {
+      clientNotes.style.display = 'block';
+      notesText.innerText = details.client_notes;
+    } else {
+      clientNotes.style.display = 'none';
+    }
+
+    // PDF Download Button
+    if (q.status === 'Completed' && q.pdf_url) {
+      downloadBtn.href = q.pdf_url;
+      downloadBtn.style.display = 'inline-flex';
+    } else {
+      downloadBtn.style.display = 'none';
+    }
+
+    modal.classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('detailsModal').classList.remove('active');
+  }
+
+  // Close modal when clicking outside
+  window.addEventListener('click', e => {
+    const modal = document.getElementById('detailsModal');
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Run Dashboard Initializer
+  initDashboard();
+</script>
+</body>
+</html>
