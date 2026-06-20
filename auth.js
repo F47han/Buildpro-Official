@@ -37,10 +37,25 @@ async function signOut() {
 
 // ─────────────────────────────────────────────
 // GET CURRENT USER (returns null if not logged in)
+// Uses local session for instant rendering, falling back to network check only if needed.
 // ─────────────────────────────────────────────
 async function getCurrentUser() {
-  const { data: { user } } = await sb.auth.getUser();
-  return user;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session?.user) {
+      return session.user;
+    }
+  } catch (e) {
+    console.warn("Failed to get session from local storage, falling back to network:", e);
+  }
+  
+  try {
+    const { data: { user } } = await sb.auth.getUser();
+    return user;
+  } catch (e) {
+    console.error("Failed to get user from network:", e);
+    return null;
+  }
 }
 
 // ─────────────────────────────────────────────
@@ -258,9 +273,11 @@ function updateNavForAuth(user) {
 
   // Dynamic Navigation Links injection
   const navLinks = document.querySelector('.nav-links');
-  if (navLinks) {
-    if (user) {
-      // 1. My Dashboard link
+  const mobileNavLinks = document.querySelector('.mobile-nav-links');
+
+  if (user) {
+    // Desktop Nav Links
+    if (navLinks) {
       if (!document.getElementById('nav-dash-link')) {
         const li = document.createElement('li');
         li.id = 'nav-dash-link';
@@ -268,7 +285,6 @@ function updateNavForAuth(user) {
         navLinks.appendChild(li);
       }
       
-      // 2. Admin Panel link
       const adminEmails = ['admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk', 'kidflashfarhan@outlook.com'];
       if (adminEmails.includes(user.email)) {
         if (!document.getElementById('nav-admin-link')) {
@@ -278,13 +294,38 @@ function updateNavForAuth(user) {
           navLinks.appendChild(li);
         }
       }
-    } else {
-      // Remove links if logged out
-      const dashLink = document.getElementById('nav-dash-link');
-      if (dashLink) dashLink.remove();
-      const adminLink = document.getElementById('nav-admin-link');
-      if (adminLink) adminLink.remove();
     }
+
+    // Mobile Nav Links
+    if (mobileNavLinks) {
+      if (!document.getElementById('mobile-nav-dash-link')) {
+        const li = document.createElement('li');
+        li.id = 'mobile-nav-dash-link';
+        li.innerHTML = '<a href="dashboard.html" onclick="if(typeof window.toggleMobileNav===\'function\') window.toggleMobileNav()">📋 My Dashboard</a>';
+        mobileNavLinks.appendChild(li);
+      }
+      
+      const adminEmails = ['admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk', 'kidflashfarhan@outlook.com'];
+      if (adminEmails.includes(user.email)) {
+        if (!document.getElementById('mobile-nav-admin-link')) {
+          const li = document.createElement('li');
+          li.id = 'mobile-nav-admin-link';
+          li.innerHTML = '<a href="admin.html" style="color: #D32F2F; font-weight: bold;" onclick="if(typeof window.toggleMobileNav===\'function\') window.toggleMobileNav()">🛡️ Admin Panel</a>';
+          mobileNavLinks.appendChild(li);
+        }
+      }
+    }
+  } else {
+    // Remove links if logged out
+    const dashLink = document.getElementById('nav-dash-link');
+    if (dashLink) dashLink.remove();
+    const adminLink = document.getElementById('nav-admin-link');
+    if (adminLink) adminLink.remove();
+
+    const mobDashLink = document.getElementById('mobile-nav-dash-link');
+    if (mobDashLink) mobDashLink.remove();
+    const mobAdminLink = document.getElementById('mobile-nav-admin-link');
+    if (mobAdminLink) mobAdminLink.remove();
   }
 }
 

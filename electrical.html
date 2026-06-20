@@ -1936,7 +1936,6 @@ if (document.getElementById('mobileFilterModal')) {
   });
 }
 
-// ─── Mobile Navigation ──────────────────────────
 function toggleMobileNav() {
   var mobileNav = document.getElementById('mobileNav');
   var mobileOverlay = document.getElementById('mobileNavOverlay');
@@ -1944,6 +1943,7 @@ function toggleMobileNav() {
   mobileOverlay.classList.toggle('active');
   document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
 }
+window.toggleMobileNav = toggleMobileNav;
 
 document.querySelectorAll('.mobile-nav-links a').forEach(function(link) {
   link.addEventListener('click', function() { toggleMobileNav(); });

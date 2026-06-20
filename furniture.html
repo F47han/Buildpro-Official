@@ -368,6 +368,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     document.getElementById('mobileNav').classList.toggle('active');
     document.getElementById('mobileNavOverlay').classList.toggle('active');
   }
+  window.toggleMobileNav = toggleMobileNav;
   document.querySelectorAll('.mobile-nav-links a').forEach(l => l.addEventListener('click', toggleMobileNav));
 </script>
 </body>

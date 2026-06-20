@@ -732,7 +732,6 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     window.location.href = 'electrical.html?search=' + encodeURIComponent(itemCode);
   }
 
-  // Mobile Navigation Toggle
   function toggleMobileNav() {
     const mobileNav = document.getElementById('mobileNav');
     const mobileOverlay = document.getElementById('mobileNavOverlay');
@@ -747,6 +746,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       body.style.overflow = 'auto';
     }
   }
+  window.toggleMobileNav = toggleMobileNav;
 
   // Bind input search events
   document.addEventListener('DOMContentLoaded', () => {
@@ -1053,11 +1053,11 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       <h4 style="margin-top:0;margin-bottom:0.75rem;color:var(--primary-blue);border-bottom:1px solid var(--border-gray);padding-bottom:0.5rem;">Client Details</h4>
       <p style="margin: 0.25rem 0;"><strong>Name:</strong> ${fname} ${lname}</p>
       <p style="margin: 0.25rem 0;"><strong>Email:</strong> ${email}</p>
-      \${pnumber ? `<p style="margin: 0.25rem 0;"><strong>Phone:</strong> \${pnumber}</p>` : ''}
-      \${company ? `<p style="margin: 0.25rem 0;"><strong>Company:</strong> \${company}</p>` : ''}
+      ${pnumber ? `<p style="margin: 0.25rem 0;"><strong>Phone:</strong> ${pnumber}</p>` : ''}
+      ${company ? `<p style="margin: 0.25rem 0;"><strong>Company:</strong> ${company}</p>` : ''}
       
-      <h4 style="margin-top:1.25rem;margin-bottom:0.75rem;color:var(--primary-blue);border-bottom:1px solid var(--border-gray);padding-bottom:0.5rem;">Requested Specifications (\${categoryLabel})</h4>
-      \${specsHtml}
+      <h4 style="margin-top:1.25rem;margin-bottom:0.75rem;color:var(--primary-blue);border-bottom:1px solid var(--border-gray);padding-bottom:0.5rem;">Requested Specifications (${categoryLabel})</h4>
+      ${specsHtml}
     `;
   }
 
