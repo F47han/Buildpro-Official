@@ -861,12 +861,15 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     const stepEl = document.getElementById(`step${step}`);
     const inputs = stepEl.querySelectorAll('input[required], select[required], textarea[required]');
     let valid = true;
+    let missingFields = false;
+    let invalidEmail = false;
 
     inputs.forEach(input => {
       // Basic check
       if (!input.value.trim()) {
         input.style.borderColor = 'var(--error-red, #D32F2F)';
         valid = false;
+        missingFields = true;
       } else {
         input.style.borderColor = 'var(--border-gray)';
       }
@@ -877,9 +880,20 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         if (!emailRegex.test(input.value.trim())) {
           input.style.borderColor = 'var(--error-red, #D32F2F)';
           valid = false;
+          invalidEmail = true;
         }
       }
     });
+
+    if (!valid) {
+      if (missingFields && invalidEmail) {
+        alert("Please fill in all required fields (*) and enter a valid email address.");
+      } else if (missingFields) {
+        alert("Please fill in all required fields (*) marked in red before continuing.");
+      } else if (invalidEmail) {
+        alert("Please enter a valid email address.");
+      }
+    }
 
     return valid;
   }
