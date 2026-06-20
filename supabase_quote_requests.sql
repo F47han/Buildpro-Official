@@ -57,7 +57,7 @@ CREATE POLICY "Anyone can insert quote requests"
 CREATE POLICY "Admins have full access to quote requests" 
   ON public.quote_requests FOR ALL 
   USING (
-    auth.jwt() ->> 'email' IN ('admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk')
+    auth.jwt() ->> 'email' IN ('admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk', 'kidflashfarhan@outlook.com')
   );
 
 -- Policies for app_settings:
@@ -65,14 +65,14 @@ CREATE POLICY "Admins have full access to quote requests"
 CREATE POLICY "Admins can view app_settings"
   ON public.app_settings FOR SELECT
   USING (
-    auth.jwt() ->> 'email' IN ('admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk')
+    auth.jwt() ->> 'email' IN ('admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk', 'kidflashfarhan@outlook.com')
   );
 
 -- B. Only admins can write/update app_settings
 CREATE POLICY "Admins can modify app_settings"
   ON public.app_settings FOR ALL
   USING (
-    auth.jwt() ->> 'email' IN ('admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk')
+    auth.jwt() ->> 'email' IN ('admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk', 'kidflashfarhan@outlook.com')
   );
 
 -- ----------------------------------------------------------

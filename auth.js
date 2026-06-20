@@ -269,7 +269,7 @@ function updateNavForAuth(user) {
       }
       
       // 2. Admin Panel link
-      const adminEmails = ['admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk'];
+      const adminEmails = ['admin@buildprouk.co.uk', 'kidfl@live.co.uk', 'info@buildprouk.co.uk', 'kidflashfarhan@outlook.com'];
       if (adminEmails.includes(user.email)) {
         if (!document.getElementById('nav-admin-link')) {
           const li = document.createElement('li');

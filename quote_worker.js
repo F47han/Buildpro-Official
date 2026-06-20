@@ -17,7 +17,7 @@ const POLL_INTERVAL_MS = 10000;
 let config = {
   resend_api_key: '',
   resend_from_email: 'quotes@buildprouk.co.uk',
-  admin_notification_email: 'admin@buildprouk.co.uk'
+  admin_notification_email: 'kidflashfarhan@outlook.com'
 };
 
 async function loadConfig() {
