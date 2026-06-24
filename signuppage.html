@@ -218,12 +218,6 @@ footer a { color: var(--white); text-decoration: none; }
       <div class="form-section">
         <h3 class="form-section-title">Account Setup</h3>
         <div class="form-group">
-          <label for="user_id">Username <span class="required">*</span></label>
-          <input type="text" id="user_id" name="user_id" placeholder="e.g. john_smith or BP12345" autocomplete="username">
-          <div class="hint-text">This is what you'll use to log in — choose something memorable</div>
-          <div class="error-message" id="userIdError">Username must be at least 4 characters, no spaces</div>
-        </div>
-        <div class="form-group">
           <label for="acc_type">Account Type <span class="required">*</span></label>
           <select id="acc_type" name="acc_type">
             <option value="">Select account type</option>
@@ -361,7 +355,6 @@ footer a { color: var(--white); text-decoration: none; }
     const lname    = document.getElementById('lname').value.trim();
     const email    = document.getElementById('email').value.trim();
     const pnumber  = document.getElementById('pnumber').value.trim().replace(/\s/g, '');
-    const user_id  = document.getElementById('user_id').value.trim();
     const acc_type = document.getElementById('acc_type').value;
     const password = document.getElementById('password').value;
     const confirm  = document.getElementById('confirmPassword').value;
@@ -372,7 +365,6 @@ footer a { color: var(--white); text-decoration: none; }
     showError('lname',           'lnameError',           !lname);
     showError('email',           'emailError',           !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
     showError('pnumber',         'pnumberError',         !/^(\+44|0)[0-9]{9,10}$/.test(pnumber));
-    showError('user_id',         'userIdError',          user_id.length < 4 || /\s/.test(user_id));
     showError('acc_type',        'accTypeError',         !acc_type);
     showError('password',        'passwordError',        password.length < 8);
     showError('confirmPassword', 'confirmPasswordError', password !== confirm);
@@ -381,7 +373,6 @@ footer a { color: var(--white); text-decoration: none; }
       fname && lname &&
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
       /^(\+44|0)[0-9]{9,10}$/.test(pnumber) &&
-      user_id.length >= 4 && !/\s/.test(user_id) &&
       acc_type &&
       password.length >= 8 &&
       password === confirm;
@@ -393,22 +384,8 @@ footer a { color: var(--white); text-decoration: none; }
     btn.classList.add('loading');
     btn.disabled = true;
 
-    // Check username uniqueness in profiles table
-    const { data: existingUser } = await sb
-      .from('profiles')
-      .select('user_id')
-      .eq('user_id', user_id)
-      .maybeSingle();
-
-    if (existingUser) {
-      showGlobalError('That username is already taken — please choose another.');
-      btn.classList.remove('loading');
-      btn.disabled = false;
-      return;
-    }
-
     try {
-      await signUp(email, password, { fname, lname, pnumber, user_id, acc_type });
+      await signUp(email, password, { fname, lname, pnumber, acc_type });
       document.getElementById('successModal').classList.add('active');
     } catch (err) {
       if (err.message.includes('already registered')) {
