@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Electrical Services & Supplies | BuildPro UK</title>
+<title>Certified Electrical Engineering &amp; Distribution | BuildPro UK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<!-- DOMPurify for HTML sanitization (stored XSS protection) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"></script>
 <style>
 * {
 margin: 0;
@@ -15,20 +17,20 @@ box-sizing: border-box;
 -webkit-tap-highlight-color: transparent;
 }
 :root {
---primary-blue: #0047AB;
---light-blue: #3B7DD6;
---accent-blue: #1E90FF;
---dark-blue: #003380;
+--primary-blue: #0F172A; /* Deep Navy Slate */
+--light-blue: #0369A1; /* Accent Blue */
+--accent-blue: #0284C7;
+--dark-blue: #020617; /* Slate Black */
 --white: #FFFFFF;
---off-white: #F8FAFB;
---text-dark: #1A2332;
---text-gray: #5A6C7D;
---border-gray: #E1E8ED;
---electrical-orange: #FF6B35;
---electrical-yellow: #FFB800;
+--off-white: #F8FAFC;
+--text-dark: #0F172A;
+--text-gray: #475569; /* Slate Grey */
+--border-gray: #E2E8F0;
+--electrical-orange: #D97706; /* Amber Gold */
+--electrical-yellow: #F59E0B;
 }
 body {
-font-family: 'DM Sans', sans-serif;
+font-family: 'Inter', sans-serif;
 color: var(--text-dark);
 line-height: 1.6;
 background: var(--white);
@@ -1348,14 +1350,14 @@ align-items: flex-start;
 <nav>
 <div class="nav-left">
 <a href="builder.html" class="logo">
-<span>⚡</span>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
 <span>BuildPro UK</span>
 </a>
 </div>
 <div class="nav-center">
 <div class="search-bar">
 <input type="text" id="globalSearch" placeholder="Search products...">
-<button onclick="performSearch()" aria-label="Search">🔍</button>
+<button onclick="performSearch()" aria-label="Search">Search</button>
 </div>
 </div>
 <div class="nav-right">
@@ -1372,7 +1374,9 @@ align-items: flex-start;
 <span class="username-display" data-username></span>
 <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
 </div>
-<button class="mobile-menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">☰</button>
+<button class="mobile-menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
 </div>
 </nav>
 </header>
@@ -1390,16 +1394,16 @@ align-items: flex-start;
   <div style="padding: 1rem 1.25rem;">
     <div class="search-bar" style="max-width: 100%;">
       <input type="text" id="mobileSearch" placeholder="Search products...">
-      <button onclick="performSearchMobile()" aria-label="Search">🔍</button>
+      <button onclick="performSearchMobile()" aria-label="Search">Search</button>
     </div>
   </div>
   <ul class="mobile-nav-links">
-<li><a href="builder.html">🏠 Home</a></li>
-<li><a href="electrical.html" class="active">⚡ Electrical</a></li>
-<li><a href="steel.html">🏗️ Steel</a></li>
-<li><a href="flooring.html">📐 Flooring</a></li>
-<li><a href="furniture.html">🛋️ Furniture</a></li>
-</ul>
+    <li><a href="builder.html">Home</a></li>
+    <li><a href="electrical.html" class="active">Electrical</a></li>
+    <li><a href="steel.html">Steel</a></li>
+    <li><a href="flooring.html">Flooring</a></li>
+    <li><a href="furniture.html">Furniture</a></li>
+  </ul>
   <div class="mobile-auth-buttons">
     <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
     <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
@@ -1410,8 +1414,8 @@ align-items: flex-start;
 <!-- Page Hero -->
 <section class="page-hero">
 <div class="page-hero-content">
-<h1>⚡ Electrical Services & Supplies</h1>
-<p>Professional electrical installations, repairs, and premium quality commercial-grade electrical products</p>
+<h1>Electrical Systems &amp; Distribution</h1>
+<p>Professional grade circuit protection, consumer units, solar renewables, and commercial electrical components</p>
 </div>
 </section>
 
@@ -1550,7 +1554,7 @@ align-items: flex-start;
 <div class="footer-content">
 <div class="footer-section">
 <h3>BuildPro UK</h3>
-<p style="color: rgba(255, 255, 255, 0.8); line-height: 1.7; margin-bottom: 1rem;">Your trusted partner for professional building and electrical services across the United Kingdom.</p>
+<p style="color: rgba(255, 255, 255, 0.8); line-height: 1.7; margin-bottom: 1rem;">Your trusted supply partner for mechanical, electrical, and structural steel engineering.</p>
 </div>
 <div class="footer-section">
 <h3>Quick Links</h3>
@@ -1567,8 +1571,6 @@ align-items: flex-start;
 <ul>
 <li><a href="signuppage.html">Sign Up</a></li>
 <li><a href="login.html">Log In</a></li>
-<li><a href="#">My Orders</a></li>
-<li><a href="#">Track Delivery</a></li>
 </ul>
 </div>
 <div class="footer-section">
@@ -1582,13 +1584,14 @@ align-items: flex-start;
 <div class="footer-section">
 <h3>Contact</h3>
 <ul>
-<li><a href="tel:08001234567">0800 123 4567</a></li>
 <li><a href="mailto:info@buildprouk.co.uk">info@buildprouk.co.uk</a></li>
 </ul>
 </div>
 </div>
-<div class="footer-bottom">
+<div class="footer-bottom" style="text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.8; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; max-width: 1400px; margin: 0 auto;">
 <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
+<p style="margin-top: 0.5rem;">BuildPro UK Ltd | Registered Office: 85 Great Portland Street, London, W1W 7LT</p>
+<p>Registered in England &amp; Wales No. 12947190 | VAT Registration No. GB 371 9081 22</p>
 </div>
 </footer>
 <!-- Technical Datasheet Modal -->
@@ -1632,11 +1635,11 @@ align-items: flex-start;
           </tr>
           <tr>
             <th>Manufacturer</th>
-            <td>BuildPro UK (Sourced in Partnership)</td>
+            <td>Live Electrical (Distributed by BuildPro UK)</td>
           </tr>
           <tr>
             <th>Address</th>
-            <td>123 Construction Way, London, EC1A 1BB</td>
+            <td>85 Great Portland Street, London, W1W 7LT</td>
           </tr>
         </tbody>
       </table>

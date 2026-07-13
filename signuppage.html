@@ -6,22 +6,24 @@
 <title>Create Account | BuildPro UK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<!-- DOMPurify for HTML sanitization (stored XSS protection) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 :root {
-  --primary-blue: #0047AB;
-  --light-blue: #3B7DD6;
-  --dark-blue: #003380;
+  --primary-blue: #0F172A; /* Deep Navy Slate */
+  --light-blue: #0369A1; /* Accent Blue */
+  --dark-blue: #020617; /* Slate Black */
   --white: #FFFFFF;
-  --off-white: #F8FAFB;
-  --text-dark: #1A2332;
-  --text-gray: #5A6C7D;
-  --border-gray: #E1E8ED;
-  --success-green: #00C853;
-  --error-red: #D32F2F;
+  --off-white: #F8FAFC;
+  --text-dark: #0F172A;
+  --text-gray: #475569; /* Slate Grey */
+  --border-gray: #E2E8F0;
+  --success-green: #10B981;
+  --error-red: #EF4444;
 }
-body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--off-white); min-height: 100vh; display: flex; flex-direction: column; }
+body { font-family: 'Inter', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--off-white); min-height: 100vh; display: flex; flex-direction: column; }
 h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
 header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; }
@@ -135,8 +137,11 @@ footer a { color: var(--white); text-decoration: none; }
 
 <header>
   <nav>
-    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
-    <a href="builder.html" class="back-link">← Back to Home</a>
+    <a href="builder.html" class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+      <span>BuildPro UK</span>
+    </a>
+    <a href="builder.html" class="back-link">&larr; Back to Home</a>
   </nav>
 </header>
 
@@ -153,26 +158,47 @@ footer a { color: var(--white); text-decoration: none; }
     <p>Register today to unlock exclusive features and manage all your projects in one place. Free and takes under 2 minutes.</p>
     <ul class="benefits-list">
       <li>
-        <div class="benefit-icon">💷</div>
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
         <div class="benefit-text"><h4>View Product Prices</h4><p>Prices are only visible to registered members</p></div>
       </li>
       <li>
-        <div class="benefit-icon">📋</div>
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h8</path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        </div>
         <div class="benefit-text"><h4>Track Your Orders</h4><p>Monitor quotes and project progress in real-time</p></div>
       </li>
       <li>
-        <div class="benefit-icon">📁</div>
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        </div>
         <div class="benefit-text"><h4>Save Your Details</h4><p>Faster checkout and quote requests every time</p></div>
       </li>
       <li>
-        <div class="benefit-icon">🔔</div>
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        </div>
         <div class="benefit-text"><h4>Priority Support</h4><p>Faster responses from our customer service team</p></div>
       </li>
     </ul>
     <div class="trust-badges">
-      <div class="trust-badge"><div class="trust-badge-icon">🔒</div><div class="trust-badge-text">Secure & Encrypted</div></div>
-      <div class="trust-badge"><div class="trust-badge-icon">✓</div><div class="trust-badge-text">GDPR Compliant</div></div>
-      <div class="trust-badge"><div class="trust-badge-icon">📧</div><div class="trust-badge-text">No Spam Promise</div></div>
+      <div class="trust-badge">
+        <div class="trust-badge-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <div class="trust-badge-text">Secure &amp; Encrypted</div>
+      </div>
+      <div class="trust-badge">
+        <div class="trust-badge-icon">✓</div>
+        <div class="trust-badge-text">GDPR Compliant</div>
+      </div>
+      <div class="trust-badge">
+        <div class="trust-badge-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </div>
+        <div class="trust-badge-text">No Spam Promise</div>
+      </div>
     </div>
   </div>
 
@@ -284,8 +310,12 @@ footer a { color: var(--white); text-decoration: none; }
   </div>
 </div>
 
-<footer>
-  <p>&copy; 2026 BuildPro UK. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a></p>
+<footer style="background: var(--dark-blue); color: var(--white); padding: 2rem 1.25rem; text-align: center; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.15);">
+  <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
+  <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 0.5rem; line-height: 1.6;">
+    BuildPro UK Ltd | Registered Office: 85 Great Portland Street, London, W1W 7LT<br>
+    Registered in England &amp; Wales No. 12947190 | VAT Registration No. GB 371 9081 22
+  </p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

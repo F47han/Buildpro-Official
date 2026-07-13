@@ -65,11 +65,11 @@ async function generateQuotePdfFile(quote, filePath) {
     doc.pipe(stream);
 
     // Styling Colors
-    const primaryBlue = '#0047AB';
-    const textDark = '#1A2332';
-    const textGray = '#5A6C7D';
-    const lineLight = '#E1E8ED';
-    const accentGold = '#B2945E';
+    const primaryBlue = '#0F172A'; // Deep Navy Slate
+    const textDark = '#0F172A';
+    const textGray = '#475569';
+    const lineLight = '#E2E8F0';
+    const accentGold = '#B45309';
 
     // Header Branding
     doc.fillColor(primaryBlue)
@@ -79,14 +79,14 @@ async function generateQuotePdfFile(quote, filePath) {
 
     doc.fontSize(9)
        .fillColor(textGray)
-       .text('Commercial Building & Finishing Solutions', { align: 'center' });
+       .text('Premium Mechanical, Electrical & Structural Steel Engineering', { align: 'center' });
 
     doc.moveDown(0.4);
 
     // Header Address & Contact
     doc.fontSize(8)
-       .text('123 Construction Way, London, EC1A 1BB  |  Tel: 0800 123 4567', { align: 'center' })
-       .text('Email: info@buildprouk.co.uk  |  Web: www.buildprouk.co.uk', { align: 'center' });
+       .text('Registered Office: 85 Great Portland Street, London, W1W 7LT', { align: 'center' })
+       .text('Email: quotes@buildprouk.co.uk  |  Web: www.buildprouk.co.uk', { align: 'center' });
 
     doc.moveDown(0.6);
 
@@ -305,43 +305,43 @@ async function sendResendEmail(quote, signedUrl) {
         to: clientEmail,
         subject: `Your BuildPro UK Commercial Quote is Ready - Ref: #${shortId}`,
         html: `
-          <div style="font-family:'DM Sans', Arial, sans-serif; color:#1A2332; max-width:600px; margin:0 auto; padding:20px; border:1px solid #E1E8ED; border-radius:12px;">
-            <div style="text-align:center; padding-bottom:20px; border-bottom:2px solid #0047AB;">
-              <h1 style="color:#0047AB; font-family:'Space Grotesk', sans-serif; margin:0; font-size:28px; letter-spacing:1px;">BUILDPRO UK</h1>
-              <p style="color:#5A6C7D; margin:5px 0 0 0; font-size:12px; text-transform:uppercase; font-weight:bold;">Commercial Quote Calculations</p>
+          <div style="font-family:'Inter', Arial, sans-serif; color:#0F172A; max-width:600px; margin:0 auto; padding:20px; border:1px solid #E2E8F0; border-radius:12px;">
+            <div style="text-align:center; padding-bottom:20px; border-bottom:2px solid #0F172A;">
+              <h1 style="color:#0F172A; font-family:'Space Grotesk', sans-serif; margin:0; font-size:28px; letter-spacing:1px;">BUILDPRO UK</h1>
+              <p style="color:#475569; margin:5px 0 0 0; font-size:12px; text-transform:uppercase; font-weight:bold;">Commercial Quote Calculations</p>
             </div>
             
             <div style="padding:20px 0;">
-              <h2 style="font-size:20px; margin-top:0; color:#1A2332;">Hello ${clientName},</h2>
-              <p style="font-size:15px; line-height:1.6; color:#5A6C7D;">
+              <h2 style="font-size:20px; margin-top:0; color:#0F172A;">Hello ${clientName},</h2>
+              <p style="font-size:15px; line-height:1.6; color:#475569;">
                 We are pleased to inform you that our estimating team has completed calculating your commercial specifications for <strong>${categoryLabel}</strong> materials.
               </p>
               
-              <div style="background-color:#F8FAFB; padding:15px; border-radius:8px; margin:20px 0; border-left:4px solid #0047AB;">
+              <div style="background-color:#F8FAFC; padding:15px; border-radius:8px; margin:20px 0; border-left:4px solid #0369A1;">
                 <p style="margin:5px 0; font-size:14px;"><strong>Quote Reference:</strong> #${shortId}</p>
                 <p style="margin:5px 0; font-size:14px;"><strong>Status:</strong> Completed</p>
                 <p style="margin:5px 0; font-size:14px;"><strong>Material Category:</strong> ${categoryLabel}</p>
               </div>
 
-              <p style="font-size:15px; line-height:1.6; color:#5A6C7D;">
+              <p style="font-size:15px; line-height:1.6; color:#475569;">
                 Your formal branded PDF quote and technical compliance sheet has been compiled and is ready for download. This secure link is valid for 7 days:
               </p>
 
               <div style="text-align:center; margin:30px 0;">
-                <a href="${signedUrl}" target="_blank" style="background-color:#0047AB; color:#ffffff; padding:12px 30px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:15px; display:inline-block; box-shadow:0 4px 15px rgba(0,71,171,0.25);">
-                  📥 Download Branded Quote PDF
+                <a href="${signedUrl}" target="_blank" style="background-color:#0F172A; color:#ffffff; padding:12px 30px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:15px; display:inline-block; box-shadow:0 4px 15px rgba(15,23,42,0.25);">
+                  Download Branded Quote PDF
                 </a>
               </div>
 
-              <p style="font-size:13px; color:#5A6C7D; font-style:italic; text-align:center;">
-                Note: You can also access this document and track your request history anytime in your <a href="http://localhost:5500/dashboard.html" style="color:#0047AB; text-decoration:none; font-weight:600;">Client Dashboard</a>.
+              <p style="font-size:13px; color:#475569; font-style:italic; text-align:center;">
+                Note: You can also access this document and track your request history anytime in your <a href="https://buildprouk.co.uk/dashboard.html" style="color:#0369A1; text-decoration:none; font-weight:600;">Client Dashboard</a>.
               </p>
             </div>
 
-            <div style="border-top:1px solid #E1E8ED; padding-top:20px; text-align:center; font-size:12px; color:#5A6C7D;">
-              <p style="margin:0 0 5px 0;"><strong>BuildPro UK Commercial Solutions</strong></p>
-              <p style="margin:0 0 15px 0;">123 Construction Way, London, EC1A 1BB</p>
-              <p style="margin:0;">Need assistance? Contact us at <a href="mailto:info@buildprouk.co.uk" style="color:#0047AB; text-decoration:none;">info@buildprouk.co.uk</a></p>
+            <div style="border-top:1px solid #E2E8F0; padding-top:20px; text-align:center; font-size:12px; color:#475569;">
+              <p style="margin:0 0 5px 0;"><strong>BuildPro UK Ltd</strong></p>
+              <p style="margin:0 0 15px 0;">Registered Office: 85 Great Portland Street, London, W1W 7LT</p>
+              <p style="margin:0;">Need assistance? Contact us at <a href="mailto:quotes@buildprouk.co.uk" style="color:#0369A1; text-decoration:none;">quotes@buildprouk.co.uk</a></p>
             </div>
           </div>
         `

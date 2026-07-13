@@ -3,18 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Steel Supplies & Fabrication | BuildPro UK</title>
+<title>Structural Steel Fabrication &amp; Supplies | BuildPro UK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<!-- DOMPurify for HTML sanitization (stored XSS protection) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 :root {
-  --primary-blue: #0047AB; --light-blue: #3B7DD6; --accent-blue: #1E90FF; --dark-blue: #003380;
-  --white: #FFFFFF; --off-white: #F8FAFB; --text-dark: #1A2332; --text-gray: #5A6C7D;
-  --border-gray: #E1E8ED; --steel-grey: #4A5568; --steel-dark: #2D3748;
+  --primary-blue: #0F172A; /* Deep Navy Slate */
+  --light-blue: #0369A1; /* Accent Blue */
+  --accent-blue: #0284C7;
+  --dark-blue: #020617; /* Slate Black */
+  --white: #FFFFFF;
+  --off-white: #F8FAFC;
+  --text-dark: #0F172A;
+  --text-gray: #475569; /* Slate Grey */
+  --border-gray: #E2E8F0;
+  --steel-grey: #475569;
+  --steel-dark: #0F172A;
 }
-body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
+body { font-family: 'Inter', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
 h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
 header { background: var(--white); box-shadow: 0 2px 10px rgba(0,71,171,0.08); position: sticky; top: 0; z-index: 1000; }
@@ -268,7 +278,10 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 <header>
   <nav>
     <div class="nav-left">
-      <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+      <a href="builder.html" class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+        <span>BuildPro UK</span>
+      </a>
     </div>
     <div class="nav-right" style="display: flex; align-items: center; gap: 1rem;">
       <ul class="nav-links">
@@ -284,14 +297,16 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
         <span class="username-display" data-username></span>
         <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
       </div>
-      <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+      <button class="mobile-menu-btn" onclick="toggleMobileNav()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
     </div>
   </nav>
 </header>
 
 <div class="delivery-banner">
-  <strong>🚚 Next Day Delivery Available</strong>
-  <small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered the following working day (day after).</small>
+  <strong>Next-Day Delivery Available Across the UK</strong>
+  <small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered the following working day.</small>
 </div>
 
 <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
@@ -304,11 +319,11 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <button class="close-mobile-nav" onclick="toggleMobileNav()">×</button>
   </div>
   <ul class="mobile-nav-links">
-    <li><a href="builder.html">🏠 Home</a></li>
-    <li><a href="electrical.html">⚡ Electrical</a></li>
-    <li><a href="steel.html" class="active">🏗️ Steel</a></li>
-    <li><a href="flooring.html">📐 Flooring</a></li>
-    <li><a href="furniture.html">🛋️ Furniture</a></li>
+    <li><a href="builder.html">Home</a></li>
+    <li><a href="electrical.html">Electrical</a></li>
+    <li><a href="steel.html" class="active">Steel</a></li>
+    <li><a href="flooring.html">Flooring</a></li>
+    <li><a href="furniture.html">Furniture</a></li>
   </ul>
   <div class="mobile-auth-buttons">
     <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
@@ -496,9 +511,9 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   </div>
 
   <div class="partner-section">
-    <h3>🤝 UK Steel Suppliers</h3>
+    <h3>UK Steel Suppliers</h3>
     <p>Proudly working with British steel mills and fabricators.</p>
-    <a href="builder.html#contact" class="partner-link"><span>🏗️</span><span>Start Your Project</span><span>→</span></a>
+    <a href="builder.html#contact" class="partner-link"><span>Start Your Project</span><span>&rarr;</span></a>
   </div>
 </section>
 
@@ -506,7 +521,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   <div class="footer-content">
     <div class="footer-section">
       <h3>BuildPro UK</h3>
-      <p style="color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:1rem;">Your trusted partner for professional building and steel services.</p>
+      <p style="color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:1rem;">Your trusted supply partner for mechanical, electrical, and structural steel engineering.</p>
     </div>
     <div class="footer-section">
       <h3>Quick Links</h3>
@@ -536,12 +551,15 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <div class="footer-section">
       <h3>Contact</h3>
       <ul>
-        <li><a href="tel:08001234567">0800 123 4567</a></li>
         <li><a href="mailto:info@buildprouk.co.uk">info@buildprouk.co.uk</a></li>
       </ul>
     </div>
   </div>
-  <div class="footer-bottom"><p>&copy; 2026 BuildPro UK. All rights reserved.</p></div>
+  <div class="footer-bottom" style="text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.8; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; max-width: 1400px; margin: 0 auto;">
+    <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
+    <p style="margin-top: 0.5rem;">BuildPro UK Ltd | Registered Office: 85 Great Portland Street, London, W1W 7LT</p>
+    <p>Registered in England &amp; Wales No. 12947190 | VAT Registration No. GB 371 9081 22</p>
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

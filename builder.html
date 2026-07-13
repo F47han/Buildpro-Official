@@ -3,24 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BuildPro UK | Professional Building & Electrical Services</title>
+<title>BuildPro UK | Premium Structural Steel & Electrical Distribution</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<!-- DOMPurify for HTML sanitization (stored XSS protection) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 :root {
-  --primary-blue: #0047AB;
-  --light-blue: #3B7DD6;
-  --dark-blue: #003380;
+  --primary-blue: #0F172A; /* Deep Navy Slate */
+  --light-blue: #0369A1; /* Accent Blue */
+  --dark-blue: #020617; /* Slate Black */
   --white: #FFFFFF;
-  --off-white: #F8FAFB;
-  --text-dark: #1A2332;
-  --text-gray: #5A6C7D;
-  --border-gray: #E1E8ED;
-  --electrical-orange: #FF6B35;
+  --off-white: #F8FAFC;
+  --text-dark: #0F172A;
+  --text-gray: #475569; /* Slate Grey */
+  --border-gray: #E2E8F0;
+  --electrical-orange: #D97706; /* Amber Gold */
 }
-body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
+body { font-family: 'Inter', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
 h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
 /* ── Header ── */
@@ -42,8 +44,16 @@ nav { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex
 .username-display { color: var(--primary-blue); font-size: 1rem; font-weight: 700; display: none; margin-right: 0.5rem; }
 
 /* ── Hero ── */
-.hero { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 60%, #001a4d 100%); color: var(--white); padding: 6rem 1.25rem 5rem; position: relative; overflow: hidden; text-align: center; }
-.hero::before { content: '🏗️'; position: absolute; font-size: 20rem; opacity: 0.04; right: -4rem; top: -4rem; animation: float 20s ease-in-out infinite; }
+.hero { background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 60%, #020617 100%); color: var(--white); padding: 6rem 1.25rem 5rem; position: relative; overflow: hidden; text-align: center; }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+  pointer-events: none;
+}
 @keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-25px) rotate(4deg); } }
 .hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
 .hero h1 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.2; }
@@ -403,7 +413,10 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
 <header>
   <nav>
-    <a href="builder.html" class="logo"><span>🏗️</span><span>BuildPro UK</span></a>
+    <a href="builder.html" class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+      <span>BuildPro UK</span>
+    </a>
     <ul class="nav-links">
       <li><a href="builder.html" class="active">Home</a></li>
       <li><a href="electrical.html">Electrical</a></li>
@@ -420,13 +433,15 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       <span class="username-display" data-username></span>
       <button class="btn-logout" data-logout onclick="signOut()">Log Out</button>
     </div>
-    <button class="mobile-menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">☰</button>
+    <button class="mobile-menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
   </nav>
 </header>
 
 <div class="delivery-banner">
-  <strong>🚚 Next Day Delivery Available</strong>
-  <small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered the following working day (day after).</small>
+  <strong>Next-Day Delivery Available Across the UK</strong>
+  <small>Orders placed before 2:30 PM will be delivered the next working day. Orders placed after 2:30 PM will be delivered the following working day.</small>
 </div>
 
 <!-- Mobile Navigation -->
@@ -440,11 +455,11 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     <button class="close-mobile-nav" aria-label="Close menu" onclick="toggleMobileNav()">×</button>
   </div>
   <ul class="mobile-nav-links">
-    <li><a href="builder.html" class="active">🏠 Home</a></li>
-    <li><a href="electrical.html">⚡ Electrical</a></li>
-    <li><a href="steel.html">🏗️ Steel</a></li>
-    <li><a href="flooring.html">📐 Flooring</a></li>
-    <li><a href="furniture.html">🛋️ Furniture</a></li>
+    <li><a href="builder.html" class="active">Home</a></li>
+    <li><a href="electrical.html">Electrical</a></li>
+    <li><a href="steel.html">Steel</a></li>
+    <li><a href="flooring.html">Flooring</a></li>
+    <li><a href="furniture.html">Furniture</a></li>
   </ul>
   <div class="mobile-auth-buttons">
     <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
@@ -455,23 +470,25 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
 <section class="hero">
   <div class="hero-content">
-    <h1>Professional Building &amp; Electrical Services</h1>
-    <p>Quality materials, expert services, and reliable delivery across the United Kingdom.</p>
+    <h1>Commercial Building Materials &amp; Electrical Distribution</h1>
+    <p>Supplying premium structural steel, certified electrical distribution, commercial flooring, and project fittings for developments across the UK.</p>
     
     <!-- Hero Search -->
     <div class="hero-search-container">
       <div class="hero-search-wrapper">
-        <span class="hero-search-icon">🔍</span>
-        <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search 130+ electrical products, items, or codes..." autocomplete="off">
+        <span class="hero-search-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </span>
+        <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search product catalog, item codes, or descriptions..." autocomplete="off">
         <button class="hero-search-btn" onclick="triggerHeroSearch()">Search</button>
       </div>
       <div id="heroSearchDropdown" class="search-dropdown"></div>
     </div>
 
     <div class="hero-buttons">
-      <a href="electrical.html" class="hero-btn-primary">⚡ Electrical Products</a>
+      <a href="electrical.html" class="hero-btn-primary">Electrical Catalog</a>
       <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;" data-auth-hide>
-        <a href="signuppage.html" class="hero-btn-secondary">Create Free Account</a>
+        <a href="signuppage.html" class="hero-btn-secondary">Create Trade Account</a>
         <a href="login.html" class="hero-btn-secondary">Log In</a>
       </div>
     </div>
@@ -480,40 +497,48 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
 <section class="services-section">
   <div class="section-header">
-    <h2>Our Services &amp; Products</h2>
-    <p>Everything you need for your building project, from foundations to finishing touches.</p>
+    <h2>Our Supply Divisions</h2>
+    <p>Engineered materials and certified supplies for modern construction and commercial fit-outs.</p>
   </div>
   <div class="services-grid">
     <a href="electrical.html" class="service-card">
-      <div class="service-icon">⚡</div>
-      <h3>Electrical Services</h3>
-      <p>Professional electrical installations, consumer units, EV charging, and supplies.</p>
-      <span class="service-link">Browse Electrical →</span>
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
+      </div>
+      <h3>Electrical Systems</h3>
+      <p>NICEIC-compliant distribution boards, consumer units, EV chargers, and circuit protection sourced in partnership with Live Electrical.</p>
+      <span class="service-link">Browse Electrical &rarr;</span>
     </a>
     <a href="steel.html" class="service-card">
-      <div class="service-icon">🏗️</div>
-      <h3>Steel &amp; Structural</h3>
-      <p>Structural steel, RSJs, and hollow sections for construction projects.</p>
-      <span class="service-link">Browse Steel →</span>
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+      </div>
+      <h3>Structural Steel</h3>
+      <p>High-grade structural steel columns, beams, portal frames, and RSJs fabricated to custom dimensions and load requirements.</p>
+      <span class="service-link">Browse Steel &rarr;</span>
     </a>
     <a href="flooring.html" class="service-card">
-      <div class="service-icon">📐</div>
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><path d="M21 21H3V3l18 18z"></path></svg>
+      </div>
       <h3>Flooring Solutions</h3>
-      <p>Hardwood, laminate, vinyl, and specialist flooring options.</p>
-      <span class="service-link">Browse Flooring →</span>
+      <p>Commercial-grade vinyl, SPC rigid-core tiles, laminates, and solid hardwood flooring engineered for high-traffic installations.</p>
+      <span class="service-link">Browse Flooring &rarr;</span>
     </a>
     <a href="furniture.html" class="service-card">
-      <div class="service-icon">🛋️</div>
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--light-blue);"><path d="M4 18v3h16v-3M2 11h20v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4z"></path><path d="M6 11V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"></path></svg>
+      </div>
       <h3>Furniture &amp; Fittings</h3>
-      <p>Commercial and residential furniture to complete your project.</p>
-      <span class="service-link">Browse Furniture →</span>
+      <p>Contract seating, workspace storage systems, residential furnishings, and bespoke fittings for complete project fit-outs.</p>
+      <span class="service-link">Browse Furniture &rarr;</span>
     </a>
   </div>
 </section>
 
 <section class="cta-banner" id="contact" style="background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));">
-  <h2>Commercial Intake Engine</h2>
-  <p style="margin-bottom:2rem;">Submit your project details to receive a custom trade quote within 24-48 hours.</p>
+  <h2>Commercial Estimation &amp; Project Intake</h2>
+  <p style="margin-bottom:2rem;">Submit your project details to receive a custom trade quotation within 24 to 48 hours.</p>
 
   <div class="quote-form-card">
     <!-- Progress Bar -->
@@ -618,7 +643,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
   <div class="footer-content">
     <div class="footer-section">
       <h3>BuildPro UK</h3>
-      <p style="color:rgba(255,255,255,0.75);font-size:0.9rem;">Your trusted partner for professional building and electrical services.</p>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.9rem;">Your trusted supply partner for mechanical, electrical, and structural steel engineering.</p>
     </div>
     <div class="footer-section">
       <h3>Products</h3>
@@ -645,8 +670,10 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       </ul>
     </div>
   </div>
-  <div class="footer-bottom">
+  <div class="footer-bottom" style="text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.8; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; max-width: 1400px; margin: 0 auto;">
     <p>&copy; 2026 BuildPro UK. All rights reserved.</p>
+    <p style="margin-top: 0.5rem;">BuildPro UK Ltd | Registered Office: 85 Great Portland Street, London, W1W 7LT</p>
+    <p>Registered in England &amp; Wales No. 12947190 | VAT Registration No. GB 371 9081 22</p>
   </div>
 </footer>
 
@@ -1049,7 +1076,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
 
     const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1);
 
-    document.getElementById('quoteSummaryContent').innerHTML = `
+    const dirtyHtml = `
       <h4 style="margin-top:0;margin-bottom:0.75rem;color:var(--primary-blue);border-bottom:1px solid var(--border-gray);padding-bottom:0.5rem;">Client Details</h4>
       <p style="margin: 0.25rem 0;"><strong>Name:</strong> ${fname} ${lname}</p>
       <p style="margin: 0.25rem 0;"><strong>Email:</strong> ${email}</p>
@@ -1059,6 +1086,7 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       <h4 style="margin-top:1.25rem;margin-bottom:0.75rem;color:var(--primary-blue);border-bottom:1px solid var(--border-gray);padding-bottom:0.5rem;">Requested Specifications (${categoryLabel})</h4>
       ${specsHtml}
     `;
+    document.getElementById('quoteSummaryContent').innerHTML = DOMPurify.sanitize(dirtyHtml);
   }
 
   async function prefillUserProfile() {
