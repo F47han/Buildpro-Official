@@ -161,22 +161,54 @@ async function generateQuotePdfFile(quote, filePath) {
     let currentY = tableY + 22;
     const details = quote.details || {};
     
-    // Write details rows
-    for (const key in details) {
-      if (key === 'client_notes') continue;
-      const label = key.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
-      const val = details[key];
-      
-      doc.font('Helvetica-Bold').text(label, 60, currentY);
-      doc.font('Helvetica').text(String(val), 280, currentY);
+    // Write details rows or item list if present
+    if (details.items && Array.isArray(details.items)) {
+      doc.font('Helvetica-Bold').text('Item Description (SKU)', 60, currentY);
+      doc.font('Helvetica-Bold').text('Qty', 480, currentY);
       
       doc.moveTo(50, currentY + 14)
          .lineTo(545, currentY + 14)
-         .strokeColor(lineLight)
-         .lineWidth(0.5)
+         .strokeColor(primaryBlue)
+         .lineWidth(1)
          .stroke();
          
-      currentY += 20;
+      currentY += 22;
+      
+      details.items.forEach(item => {
+        const itemText = `${item.name} (${item.item_code})`;
+        doc.font('Helvetica').fontSize(8.5).text(itemText, 60, currentY, { width: 390 });
+        doc.font('Helvetica').fontSize(9).text(String(item.quantity), 480, currentY);
+        
+        // Calculate approximate text wrapping height
+        const textWidth = doc.widthOfString(itemText);
+        const linesNeeded = Math.ceil(textWidth / 390);
+        const rowHeight = Math.max(20, linesNeeded * 12);
+        
+        doc.moveTo(50, currentY + rowHeight - 6)
+           .lineTo(545, currentY + rowHeight - 6)
+           .strokeColor(lineLight)
+           .lineWidth(0.5)
+           .stroke();
+           
+        currentY += rowHeight;
+      });
+    } else {
+      for (const key in details) {
+        if (key === 'client_notes') continue;
+        const label = key.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+        const val = details[key];
+        
+        doc.font('Helvetica-Bold').text(label, 60, currentY);
+        doc.font('Helvetica').text(String(val), 280, currentY);
+        
+        doc.moveTo(50, currentY + 14)
+           .lineTo(545, currentY + 14)
+           .strokeColor(lineLight)
+           .lineWidth(0.5)
+           .stroke();
+           
+        currentY += 20;
+      }
     }
 
     doc.y = currentY + 10;

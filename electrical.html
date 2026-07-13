@@ -1342,6 +1342,268 @@ align-items: flex-start;
     display: none !important;
   }
 }
+
+/* ── Inquiry Cart Styles ── */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: var(--white);
+  box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+  z-index: 2500;
+  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+.cart-drawer.active {
+  right: 0;
+}
+@media (max-width: 480px) {
+  .cart-drawer {
+    width: 100%;
+    right: -100%;
+  }
+}
+.cart-drawer-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--off-white);
+}
+.cart-drawer-header h3 {
+  font-size: 1.1rem;
+  color: var(--primary-blue);
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+}
+.cart-drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  color: var(--text-gray);
+  line-height: 1;
+}
+.cart-drawer-body {
+  padding: 1.25rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cart-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-gray);
+}
+.cart-item-info {
+  flex-grow: 1;
+}
+.cart-item-title {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+.cart-item-code {
+  font-size: 0.75rem;
+  color: var(--text-gray);
+  margin-top: 0.15rem;
+}
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.cart-item-qty-btn {
+  background: var(--off-white);
+  border: 1px solid var(--border-gray);
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+}
+.cart-item-qty-num {
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+  color: var(--text-dark);
+}
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #EF4444;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart-drawer-footer {
+  padding: 1.25rem;
+  border-top: 1px solid var(--border-gray);
+  background: var(--off-white);
+}
+.cart-notes-section {
+  margin-bottom: 1rem;
+}
+.cart-checkout-btn {
+  width: 100%;
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  padding: 0.9rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.cart-checkout-btn:hover {
+  background: var(--accent-blue);
+}
+.cart-empty-message {
+  text-align: center;
+  color: var(--text-gray);
+  margin-top: 3rem;
+  font-size: 0.95rem;
+}
+
+/* Floating Cart Button */
+.floating-cart-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  cursor: pointer;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.floating-cart-btn:hover {
+  transform: scale(1.05);
+}
+.floating-cart-btn .cart-badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: var(--electrical-orange);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+@media (max-width: 968px) {
+  .floating-cart-btn {
+    display: flex;
+  }
+}
+
+/* Product Card Button styling override */
+.add-to-cart-btn {
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  flex-grow: 1;
+  min-height: 38px;
+  transition: all 0.2s ease;
+}
+.add-to-cart-btn:hover {
+  background: var(--accent-blue);
+}
+.add-to-cart-btn.in-cart {
+  background: var(--border-gray) !important;
+  color: var(--text-gray) !important;
+  cursor: not-allowed;
+  border: none !important;
+}
+
+/* Checkout Form styling */
+.checkout-form-group {
+  margin-bottom: 0.75rem;
+}
+.checkout-form-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--text-dark);
+}
+.checkout-form-group input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  background: var(--white);
+}
+.checkout-form-group input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+.cart-checkout-btn-back {
+  background: var(--white);
+  color: var(--text-dark);
+  border: 1px solid var(--border-gray);
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  min-height: 40px;
+}
+.cart-checkout-btn-submit {
+  flex-grow: 1;
+  background: var(--success-green);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 40px;
+  transition: background 0.2s;
+}
+.cart-checkout-btn-submit:hover {
+  background: #059669;
+}
 </style>
 </head>
 <body>
@@ -1368,7 +1630,12 @@ align-items: flex-start;
 <li><a href="flooring.html">Flooring</a></li>
 <li><a href="furniture.html">Furniture</a></li>
 </ul>
-<div class="auth-buttons">
+<div class="auth-buttons" style="display:flex; align-items:center; gap:0.5rem;">
+<!-- Cart Button -->
+<button class="btn-cart" id="headerCartBtn" onclick="toggleCartDrawer()" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); position: relative; padding: 0.5rem; min-height: 44px; min-width: 44px;">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary-blue);"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+  <span class="cart-badge" id="cartCountBadge" style="position: absolute; top: -2px; right: -2px; background: var(--electrical-orange); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700;">0</span>
+</button>
 <a href="login.html" class="btn-login" data-auth-hide>Log In</a>
 <a href="signuppage.html" class="btn-signup" data-auth-hide>Sign Up</a>
 <span class="username-display" data-username></span>
@@ -1594,6 +1861,59 @@ align-items: flex-start;
 <p>Registered in England &amp; Wales No. 12947190 | VAT Registration No. GB 371 9081 22</p>
 </div>
 </footer>
+<!-- Inquiry Cart Drawer -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h3>Quote Request Cart (<span id="cartCountHeader">0</span> items)</h3>
+    <button class="cart-drawer-close" onclick="toggleCartDrawer(false)">&times;</button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerBody">
+    <!-- Cart items loaded dynamically -->
+  </div>
+  <div class="cart-drawer-footer" id="cartDrawerFooter" style="display: none;">
+    <div class="cart-notes-section">
+      <label for="cartClientNotes" style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:0.4rem; color:var(--text-dark);">Delivery/Site Notes (Optional)</label>
+      <textarea id="cartClientNotes" placeholder="Provide any special instructions, site access notes, or custom quantities..." style="width:100%; height:60px; padding:0.5rem; border:1px solid var(--border-gray); border-radius:6px; resize:none; font-family:inherit; font-size:0.85rem;"></textarea>
+    </div>
+    <button class="cart-checkout-btn" onclick="openCartCheckoutForm()">Proceed to Quote Request</button>
+  </div>
+</div>
+
+<!-- Floating Cart Button -->
+<button class="floating-cart-btn" id="floatingCartBtn" onclick="toggleCartDrawer()">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+  <span class="cart-badge" id="floatingCartCountBadge">0</span>
+</button>
+
+<!-- Hidden Checkout Form Container (Loaded inside Cart Drawer) -->
+<div class="cart-checkout-form" id="cartCheckoutForm" style="display: none; width: 100%;">
+  <h4 style="font-family:'Space Grotesk', sans-serif; color:var(--primary-blue); font-size:1.05rem; margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1px solid var(--border-gray);">Trade Contact Details</h4>
+  <div class="checkout-form-group">
+    <label for="cartFname">First Name <span style="color:red;">*</span></label>
+    <input type="text" id="cartFname" required placeholder="e.g. John">
+  </div>
+  <div class="checkout-form-group">
+    <label for="cartLname">Last Name <span style="color:red;">*</span></label>
+    <input type="text" id="cartLname" required placeholder="e.g. Smith">
+  </div>
+  <div class="checkout-form-group">
+    <label for="cartEmail">Email Address <span style="color:red;">*</span></label>
+    <input type="email" id="cartEmail" required placeholder="e.g. john.smith@company.co.uk">
+  </div>
+  <div class="checkout-form-group">
+    <label for="cartPnumber">Phone Number</label>
+    <input type="tel" id="cartPnumber" placeholder="e.g. 07123 456789">
+  </div>
+  <div class="checkout-form-group">
+    <label for="cartCompany">Company Name</label>
+    <input type="text" id="cartCompany" placeholder="e.g. Smith Contracting Ltd">
+  </div>
+  <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+    <button type="button" class="cart-checkout-btn-back" onclick="showCartItemsPanel()">Back</button>
+    <button type="button" class="cart-checkout-btn-submit" onclick="submitCartQuote()">Submit Request</button>
+  </div>
+</div>
+
 <!-- Technical Datasheet Modal -->
 <div class="datasheet-modal" id="datasheetModal">
   <div class="datasheet-modal-content">
@@ -1681,7 +2001,7 @@ const CATEGORIES = {
 
 let allProducts = [];
 let currentFilteredProducts = [];
-let displayedLimit = 10;
+let displayedLimit = 24;
 
 // ─── Initialise ─────────────────────────────────
 async function initPage() {
@@ -1697,7 +2017,7 @@ async function initPage() {
 
     allProducts = data || [];
     currentFilteredProducts = allProducts;
-    displayedLimit = 10;
+    displayedLimit = 24;
     renderProductsSlice();
     updateFilterCounts(allProducts);
     console.log('[BuildPro] Loaded ' + allProducts.length + ' products from database');
@@ -1706,7 +2026,7 @@ async function initPage() {
     if (typeof FALLBACK_PRODUCTS !== 'undefined') {
       allProducts = FALLBACK_PRODUCTS;
       currentFilteredProducts = allProducts;
-      displayedLimit = 10;
+      displayedLimit = 24;
       renderProductsSlice();
       updateFilterCounts(allProducts);
     } else {
@@ -1714,6 +2034,7 @@ async function initPage() {
     }
   }
 
+  updateCartUI();
   await requireAuth();
 
   // Read URL search / category parameters with XSS sanitization
@@ -1768,7 +2089,7 @@ function renderProductsSlice() {
 }
 
 function loadMoreProducts() {
-  displayedLimit += 10;
+  displayedLimit += 24;
   renderProductsSlice();
 }
 
@@ -1803,6 +2124,11 @@ function renderProducts(products, totalCount) {
     var mailtoUrl = 'mailto:info@buildprouk.co.uk?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
     var price = getProductPrice(p.item_code);
+    var inCart = isItemInCart(p.item_code);
+    var cartBtnClass = inCart ? 'add-to-cart-btn in-cart' : 'add-to-cart-btn';
+    var cartBtnText = inCart ? 'Added to Cart' : 'Add to Cart';
+    var cartBtnDisabled = inCart ? 'disabled' : '';
+
     return '<div class="product-card" data-category="' + p.category + '">' +
       '<div class="product-image">' + cat.icon + '</div>' +
       '<div class="product-info">' +
@@ -1812,7 +2138,7 @@ function renderProducts(products, totalCount) {
         '<p class="product-description">' + escapeHtml(p.description || '') + '</p>' +
         '<p class="price">' + price + '</p>' +
         '<div class="product-footer">' +
-          '<a href="' + mailtoUrl + '" class="datasheet-btn">Request Quote</a>' +
+          '<button class="' + cartBtnClass + '" ' + cartBtnDisabled + ' onclick="addItemToCart(\'' + escapeHtml(p.item_code) + '\', \'' + escapeHtml(p.name).replace(/'/g, "\\'") + '\', \'' + escapeHtml(p.category) + '\')">' + cartBtnText + '</button>' +
           '<button onclick="showDatasheet(\'' + escapeHtml(p.item_code) + '\')" class="datasheet-sec-btn">View Datasheet</button>' +
         '</div>' +
       '</div>' +
@@ -1864,7 +2190,7 @@ function filterProducts() {
   }
 
   currentFilteredProducts = filtered;
-  displayedLimit = 10;
+  displayedLimit = 24;
   renderProductsSlice();
 
   // Update active states on desktop sidebar
@@ -2170,6 +2496,286 @@ window.addEventListener('click', function(event) {
 document.addEventListener('dblclick', function(event) {
   event.preventDefault();
 }, { passive: false });
+
+// ─── Inquiry Cart Functionality ─────────────────
+let cart = JSON.parse(localStorage.getItem('buildpro_cart') || '[]');
+
+function saveCart() {
+  localStorage.setItem('buildpro_cart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  
+  const badge = document.getElementById('cartCountBadge');
+  const floatBadge = document.getElementById('floatingCartCountBadge');
+  if (badge) badge.innerText = count;
+  if (floatBadge) floatBadge.innerText = count;
+
+  const headerBtn = document.getElementById('cartCountHeader');
+  if (headerBtn) headerBtn.innerText = count;
+
+  renderCartItems();
+  
+  // Scan all add-to-cart buttons and update their disabled/text states
+  document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    const onclickAttr = btn.getAttribute('onclick');
+    if (onclickAttr) {
+      const match = onclickAttr.match(/addItemToCart\('([^']+)'/);
+      if (match) {
+        const code = match[1];
+        const inCart = isItemInCart(code);
+        if (inCart) {
+          btn.classList.add('in-cart');
+          btn.innerText = 'Added to Cart';
+          btn.disabled = true;
+        } else {
+          btn.classList.remove('in-cart');
+          btn.innerText = 'Add to Cart';
+          btn.disabled = false;
+        }
+      }
+    }
+  });
+}
+
+function isItemInCart(itemCode) {
+  return cart.some(item => item.item_code === itemCode);
+}
+
+function addItemToCart(itemCode, name, category) {
+  if (isItemInCart(itemCode)) return;
+  cart.push({
+    item_code: itemCode,
+    name: name,
+    category: category,
+    quantity: 1
+  });
+  saveCart();
+  toggleCartDrawer(true);
+}
+
+function removeItemFromCart(itemCode) {
+  cart = cart.filter(item => item.item_code !== itemCode);
+  saveCart();
+}
+
+function adjustQuantity(itemCode, delta) {
+  const item = cart.find(item => item.item_code === itemCode);
+  if (!item) return;
+  item.quantity += delta;
+  if (item.quantity <= 0) {
+    removeItemFromCart(itemCode);
+  } else {
+    saveCart();
+  }
+}
+
+function toggleCartDrawer(forceOpen) {
+  const drawer = document.getElementById('cartDrawer');
+  if (forceOpen === true) {
+    drawer.classList.add('active');
+  } else if (forceOpen === false) {
+    drawer.classList.remove('active');
+  } else {
+    drawer.classList.toggle('active');
+  }
+}
+
+function renderCartItems() {
+  const body = document.getElementById('cartDrawerBody');
+  const footer = document.getElementById('cartDrawerFooter');
+  const chkForm = document.getElementById('cartCheckoutForm');
+  
+  if (cart.length === 0) {
+    body.innerHTML = '<div class="cart-empty-message">Your quote request cart is empty.</div>';
+    if (footer) footer.style.display = 'none';
+    if (chkForm) chkForm.style.display = 'none';
+    return;
+  }
+
+  if (chkForm && chkForm.style.display === 'block') {
+    if (footer) footer.style.display = 'none';
+    return;
+  }
+
+  if (footer) footer.style.display = 'block';
+  
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-title">${escapeHtml(item.name)}</div>
+        <div class="cart-item-code">SKU: ${escapeHtml(item.item_code)}</div>
+        <div class="cart-item-qty">
+          <button class="cart-item-qty-btn" onclick="adjustQuantity('${escapeHtml(item.item_code)}', -1)">-</button>
+          <span class="cart-item-qty-num">${item.quantity}</span>
+          <button class="cart-item-qty-btn" onclick="adjustQuantity('${escapeHtml(item.item_code)}', 1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeItemFromCart('${escapeHtml(item.item_code)}')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function openCartCheckoutForm() {
+  const body = document.getElementById('cartDrawerBody');
+  const footer = document.getElementById('cartDrawerFooter');
+  const chkForm = document.getElementById('cartCheckoutForm');
+  
+  footer.style.display = 'none';
+  body.innerHTML = '';
+  body.appendChild(chkForm);
+  chkForm.style.display = 'block';
+  
+  getCurrentUser().then(user => {
+    if (user) {
+      document.getElementById('cartEmail').value = user.email || '';
+      if (user.user_metadata) {
+        document.getElementById('cartFname').value = user.user_metadata.fname || '';
+        document.getElementById('cartLname').value = user.user_metadata.lname || '';
+        document.getElementById('cartPnumber').value = user.user_metadata.pnumber || '';
+        document.getElementById('cartCompany').value = user.user_metadata.company || '';
+      }
+    }
+  });
+}
+
+function showCartItemsPanel() {
+  const chkForm = document.getElementById('cartCheckoutForm');
+  chkForm.style.display = 'none';
+  document.body.appendChild(chkForm);
+  updateCartUI();
+}
+
+async function submitCartQuote() {
+  const fname = document.getElementById('cartFname').value.trim();
+  const lname = document.getElementById('cartLname').value.trim();
+  const email = document.getElementById('cartEmail').value.trim();
+  const pnumber = document.getElementById('cartPnumber').value.trim();
+  const company = document.getElementById('cartCompany').value.trim();
+  const notes = document.getElementById('cartClientNotes').value.trim();
+
+  if (!fname || !lname || !email) {
+    alert('Please fill in all required fields (First Name, Last Name, Email).');
+    return;
+  }
+
+  const submitBtn = document.querySelector('.cart-checkout-btn-submit');
+  submitBtn.disabled = true;
+  submitBtn.innerText = 'Submitting...';
+
+  try {
+    const user = await getCurrentUser();
+    const userId = user ? user.id : null;
+
+    const details = {
+      items: cart,
+      client_notes: notes
+    };
+
+    const { data, error } = await sb
+      .from('quote_requests')
+      .insert({
+        user_id: userId,
+        email: email,
+        fname: fname,
+        lname: lname,
+        pnumber: pnumber,
+        company: company,
+        category: 'electrical',
+        status: 'Pending',
+        details: details
+      })
+      .select();
+
+    if (error) throw error;
+
+    const shortId = data[0].id.substring(0, 8).toUpperCase();
+    
+    const body = document.getElementById('cartDrawerBody');
+    body.innerHTML = `
+      <div style="text-align:center; padding:2rem 1rem;">
+        <div style="width:64px; height:64px; background:var(--success-green); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 1.5rem;">✓</div>
+        <h3 style="color:var(--primary-blue); margin-bottom:0.75rem;">Request Submitted</h3>
+        <p style="font-size:0.9rem; color:var(--text-gray); line-height:1.5; margin-bottom:1.5rem;">
+          Your electrical quote request has been received (Ref: <strong>${shortId}</strong>). Our commercial team will compile your quote shortly.
+        </p>
+        <button class="cart-checkout-btn" onclick="clearCartAndClose()">Return to Catalog</button>
+      </div>
+    `;
+    
+  } catch (err) {
+    console.error("Cart submission error:", err.message);
+    alert("Error submitting request: " + err.message);
+    submitBtn.disabled = false;
+    submitBtn.innerText = 'Submit Request';
+  }
+}
+
+function clearCartAndClose() {
+  cart = [];
+  saveCart();
+  toggleCartDrawer(false);
+  
+  const chkForm = document.getElementById('cartCheckoutForm');
+  chkForm.style.display = 'none';
+  document.body.appendChild(chkForm);
+}
+
+// ─── Checkbox Filtering Rules (Exclusive/Inclusive sync) ───
+document.addEventListener('change', function(e) {
+  if (e.target && e.target.type === 'checkbox' && (e.target.id.startsWith('cat-') || e.target.id.startsWith('m-cat-'))) {
+    var isMobile = e.target.id.startsWith('m-cat-');
+    var prefix = isMobile ? 'm-cat-' : 'cat-';
+    var isAll = e.target.value === 'all';
+    
+    if (isAll) {
+      if (e.target.checked) {
+        document.querySelectorAll('input[id^="' + prefix + '"]').forEach(function(cb) {
+          if (cb.value !== 'all') {
+            cb.checked = false;
+            cb.closest('.filter-option').classList.remove('active');
+          }
+        });
+      } else {
+        var checkedCount = document.querySelectorAll('input[id^="' + prefix + '"]:checked').length;
+        if (checkedCount === 0) {
+          e.target.checked = true;
+          e.target.closest('.filter-option').classList.add('active');
+        }
+      }
+    } else {
+      if (e.target.checked) {
+        var allCb = document.getElementById(prefix + 'all');
+        if (allCb) {
+          allCb.checked = false;
+          allCb.closest('.filter-option').classList.remove('active');
+        }
+      } else {
+        var checkedCount = 0;
+        document.querySelectorAll('input[id^="' + prefix + '"]').forEach(function(cb) {
+          if (cb.value !== 'all' && cb.checked) {
+            checkedCount++;
+          }
+        });
+        if (checkedCount === 0) {
+          var allCb = document.getElementById(prefix + 'all');
+          if (allCb) {
+            allCb.checked = true;
+            allCb.closest('.filter-option').classList.add('active');
+          }
+        }
+      }
+    }
+    
+    if (isMobile) {
+      filterProductsMobile();
+    }
+  }
+});
 </script>
 </body>
 </html>

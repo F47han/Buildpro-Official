@@ -334,6 +334,9 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
     const ref = q.id.substring(0, 8).toUpperCase();
     document.getElementById('modalTitle').innerText = `Quote Request Details - ${ref}`;
 
+    // Helper to escape HTML characters
+    const escapeHtml = str => String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+
     // Dynamic Specifications formatting
     let specsHtml = `
       <tr><th>Category</th><td>${q.category.toUpperCase()}</td></tr>
@@ -341,12 +344,39 @@ footer { background: var(--dark-blue); color: var(--white); padding: 3rem 1.25re
       <tr><th>Date Submitted</th><td>${new Date(q.created_at).toLocaleString('en-GB')}</td></tr>
     `;
 
-    // Extract dynamic details
     const details = q.details || {};
-    for (const key in details) {
-      if (key === 'client_notes') continue; // Show in details section below instead
-      const label = key.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
-      specsHtml += `<tr><th>${label}</th><td>${details[key]}</td></tr>`;
+    if (details.items && Array.isArray(details.items)) {
+      specsHtml += `
+        <tr>
+          <th colspan="2" style="background:var(--off-white); font-weight:700; text-align:center; padding:10px 0;">Requested Items</th>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding:0;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+              <thead>
+                <tr style="background:#F1F5F9;">
+                  <th style="padding:6px 12px; border-bottom:1px solid var(--border-gray); text-align:left;">Item</th>
+                  <th style="padding:6px 12px; border-bottom:1px solid var(--border-gray); text-align:right; width:60px;">Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${details.items.map(item => `
+                  <tr>
+                    <td style="padding:6px 12px; border-bottom:1px solid #F1F5F9;">${escapeHtml(item.name)} <br><span style="font-size:0.75rem; color:var(--text-gray);">${escapeHtml(item.item_code)}</span></td>
+                    <td style="padding:6px 12px; border-bottom:1px solid #F1F5F9; text-align:right; font-weight:600;">${item.quantity}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      `;
+    } else {
+      for (const key in details) {
+        if (key === 'client_notes') continue;
+        const label = key.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+        specsHtml += `<tr><th>${label}</th><td>${details[key]}</td></tr>`;
+      }
     }
 
     specsBody.innerHTML = DOMPurify.sanitize(specsHtml);
